@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SiteNews</title>
+<meta name="theme-color" content="#fbf7f6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Zilla+Slab:wght@700&display=swap">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<header class="hdr">
+  <div class="col">
+    <button class="logo press" id="logoBtn" type="button" aria-expanded="false" aria-controls="brandsLayer" aria-label="SiteNews — switch publication">
+      <svg width="124" height="23" viewBox="0 0 491 91" role="img" aria-label="SiteNews"><defs><clipPath id="lgH"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#lgH)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#FF6A29"/></g><path d="M155.155 77.8479C139.185 77.8479 129.651 70.0257 129.57 57.2331H143.014C143.177 65.2183 149.044 67.0109 155.725 67.0109C161.674 67.0109 165.748 64.5664 165.748 60.3294C165.748 57.0701 163.955 54.9516 152.466 52.996C137.229 50.5516 130.792 44.9294 130.792 34.4183C130.792 24.4775 139.429 17.2257 153.851 17.2257C169.251 17.2257 177.725 24.4775 178.296 37.1072H165.096C164.77 30.9146 161.185 28.0627 153.851 28.0627C148.392 28.0627 144.888 30.3442 144.888 33.8479C144.888 37.2701 146.844 39.5516 157.274 41.2627C174.711 44.1146 180.007 49.7368 180.007 59.5146C180.007 71.7368 169.333 77.8479 155.155 77.8479ZM183.927 76.8701V34.4997H196.72V76.8701H183.927ZM183.927 28.7146V18.2034H196.72V28.7146H183.927ZM207.227 21.4627H220.019V34.4997H230.286V43.8701H220.019V63.8331C220.019 66.359 220.916 67.4997 223.849 67.4997H230.286V76.8701H220.345C213.338 76.8701 207.227 75.159 207.227 65.1368V43.8701H200.138V34.4997H207.227V21.4627ZM253.769 77.8479C239.836 77.8479 232.014 68.3146 232.014 55.6849C232.014 43.0553 239.836 33.522 253.769 33.522C267.784 33.522 275.606 42.4849 275.606 57.0701V59.5146H244.399C245.377 65.0553 248.636 68.3146 253.769 68.3146C258.332 68.3146 261.021 66.7664 262.651 63.8331H274.873C272.103 72.2257 264.688 77.8479 253.769 77.8479ZM244.48 51.2849H263.14C261.999 46.0701 258.74 43.0553 253.769 43.0553C248.88 43.0553 245.621 46.0701 244.48 51.2849ZM317.314 76.8701L294.01 37.5146V76.8701H280.81V18.2034H295.722L319.025 57.722V18.2034H332.225V76.8701H317.314ZM357.576 77.8479C343.642 77.8479 335.82 68.3146 335.82 55.6849C335.82 43.0553 343.642 33.522 357.576 33.522C371.59 33.522 379.413 42.4849 379.413 57.0701V59.5146H348.205C349.183 65.0553 352.442 68.3146 357.576 68.3146C362.138 68.3146 364.827 66.7664 366.457 63.8331H378.679C375.909 72.2257 368.494 77.8479 357.576 77.8479ZM348.287 51.2849H366.946C365.805 46.0701 362.546 43.0553 357.576 43.0553C352.687 43.0553 349.427 46.0701 348.287 51.2849ZM420.713 76.8701L413.217 50.0627L405.72 76.8701H392.276L377.854 34.4997H391.624L399.854 62.2034L407.268 34.4997H419.165L426.58 62.2034L434.809 34.4997H448.58L434.076 76.8701H420.713ZM468.948 77.8479C456.889 77.8479 449.229 73.8553 448.578 62.9368H460.8C461.37 67.9072 464.466 69.3738 469.518 69.3738C473.348 69.3738 476.281 67.9886 476.281 65.3812C476.281 62.8553 475.222 61.796 466.911 60.3294C453.466 57.9664 449.311 53.8109 449.311 46.8034C449.311 38.3294 456.563 33.522 468.215 33.522C481.578 33.522 487.444 39.6331 487.77 48.1886H476.118C475.955 43.1368 472.126 41.996 468.215 41.996C464.385 41.996 461.696 43.4627 461.696 45.9886C461.696 48.5146 463.57 49.6553 471.718 50.8775C485 52.9146 488.911 57.396 488.911 64.4849C488.911 73.2035 480.763 77.8479 468.948 77.8479Z" fill="#282828"/></svg>
+      <svg class="caret" width="9" height="7" viewBox="0 0 9 7" aria-hidden="true"><path d="M0 0h9L4.5 7z" fill="#c4c0be"/></svg>
+    </button>
+    <button class="burger press" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuLayer" aria-label="Menu">
+      <svg class="bars" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="#1d1d1f" stroke-width="1.7"/></svg>
+      <svg class="x" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1l12 12M13 1 1 13" stroke="#1d1d1f" stroke-width="1.8"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="layer" id="brandsLayer" hidden>
+  <button class="scrim" type="button" data-close aria-label="Close publications"></button>
+  <div class="col">
+    <nav class="brands" aria-label="SiteMedia publications">
+      <div>
+        <a href="#home"><svg width="16" height="16" viewBox="0 0 91 91" aria-hidden="true"><defs><clipPath id="bm1"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#bm1)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#ff6a29"/></g></svg>SiteNews<svg class="tick" width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="m1 5 3.5 3.5L11 1" fill="none" stroke="#ff6a29" stroke-width="1.8"/></svg></a>
+        <a href="https://www.renewcanada.net/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 91 91" aria-hidden="true"><defs><clipPath id="bm2"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#bm2)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#b3121c"/></g></svg>InfrastructureNews</a>
+        <a href="https://storeys.com/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 91 91" aria-hidden="true"><defs><clipPath id="bm3"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#bm3)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#1c6fe0"/></g></svg>Storeys</a>
+        <a href="#home"><svg width="16" height="16" viewBox="0 0 91 91" aria-hidden="true"><defs><clipPath id="bm4"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#bm4)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#1a2a7c"/></g></svg>WaterNews</a>
+        <a href="https://environmentjournal.ca/" target="_blank" rel="noopener"><span class="ej">EnvironmentJournal</span></a>
+      </div>
+      <span class="sm">SiteMedia.</span>
+    </nav>
+  </div>
+</div>
+
+<div class="layer" id="menuLayer" hidden>
+  <nav class="menu" aria-label="Main menu">
+    <div class="col">
+      <label class="sr" for="q">Search SiteNews</label>
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="5.6" fill="none" stroke="#848484" stroke-width="1.6"/><path d="m11 11 4 4" stroke="#848484" stroke-width="1.6"/></svg>
+        <input id="q" type="search" placeholder="Search stories, people, projects" autocomplete="off">
+      </div>
+      <div id="results" hidden></div>
+      <div id="menuMain">
+        <div style="padding-top:24px"><span class="eyebrow">Topics</span><div id="menuTopics"></div></div>
+        <div class="two" style="padding-top:28px">
+          <div class="links"><span class="eyebrow">Awards</span><a href="#home">40 Under 40</a><a href="#home">Site Service Awards</a><a href="#home">Most Influential</a><a href="#home">25 Innovators</a></div>
+          <div class="links"><span class="eyebrow">More</span><a href="#podcast">Podcast</a><a href="#summit">SiteSummit</a><a href="#newsletter">Newsletter archive</a><a href="#home">About us</a></div>
+        </div>
+        <div class="cta-wash" style="margin-top:32px">
+          <span class="t20">Get smarter in just 5 minutes.</span>
+          <span class="d14">The free weekly newsletter on Canadian construction.</span>
+          <a class="btn-or" style="border-radius:10px" href="#signup">Subscribe free <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg></a>
+        </div>
+        <div style="padding-top:28px;display:flex;justify-content:space-between;align-items:center"><span class="sm">SiteMedia.</span><span class="d14" style="font-size:14px">Advertise · Contact · Jobs</span></div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<main id="app" class="col"></main>
+
+<footer class="foot">
+  <div class="col">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <a href="#home" class="logo" style="align-self:flex-start" aria-label="SiteNews home">
+        <svg width="124" height="23" viewBox="0 0 491 91" role="img" aria-label="SiteNews"><defs><clipPath id="lgF"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#lgF)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#FF6A29"/></g><path d="M155.155 77.8479C139.185 77.8479 129.651 70.0257 129.57 57.2331H143.014C143.177 65.2183 149.044 67.0109 155.725 67.0109C161.674 67.0109 165.748 64.5664 165.748 60.3294C165.748 57.0701 163.955 54.9516 152.466 52.996C137.229 50.5516 130.792 44.9294 130.792 34.4183C130.792 24.4775 139.429 17.2257 153.851 17.2257C169.251 17.2257 177.725 24.4775 178.296 37.1072H165.096C164.77 30.9146 161.185 28.0627 153.851 28.0627C148.392 28.0627 144.888 30.3442 144.888 33.8479C144.888 37.2701 146.844 39.5516 157.274 41.2627C174.711 44.1146 180.007 49.7368 180.007 59.5146C180.007 71.7368 169.333 77.8479 155.155 77.8479ZM183.927 76.8701V34.4997H196.72V76.8701H183.927ZM183.927 28.7146V18.2034H196.72V28.7146H183.927ZM207.227 21.4627H220.019V34.4997H230.286V43.8701H220.019V63.8331C220.019 66.359 220.916 67.4997 223.849 67.4997H230.286V76.8701H220.345C213.338 76.8701 207.227 75.159 207.227 65.1368V43.8701H200.138V34.4997H207.227V21.4627ZM253.769 77.8479C239.836 77.8479 232.014 68.3146 232.014 55.6849C232.014 43.0553 239.836 33.522 253.769 33.522C267.784 33.522 275.606 42.4849 275.606 57.0701V59.5146H244.399C245.377 65.0553 248.636 68.3146 253.769 68.3146C258.332 68.3146 261.021 66.7664 262.651 63.8331H274.873C272.103 72.2257 264.688 77.8479 253.769 77.8479ZM244.48 51.2849H263.14C261.999 46.0701 258.74 43.0553 253.769 43.0553C248.88 43.0553 245.621 46.0701 244.48 51.2849ZM317.314 76.8701L294.01 37.5146V76.8701H280.81V18.2034H295.722L319.025 57.722V18.2034H332.225V76.8701H317.314ZM357.576 77.8479C343.642 77.8479 335.82 68.3146 335.82 55.6849C335.82 43.0553 343.642 33.522 357.576 33.522C371.59 33.522 379.413 42.4849 379.413 57.0701V59.5146H348.205C349.183 65.0553 352.442 68.3146 357.576 68.3146C362.138 68.3146 364.827 66.7664 366.457 63.8331H378.679C375.909 72.2257 368.494 77.8479 357.576 77.8479ZM348.287 51.2849H366.946C365.805 46.0701 362.546 43.0553 357.576 43.0553C352.687 43.0553 349.427 46.0701 348.287 51.2849ZM420.713 76.8701L413.217 50.0627L405.72 76.8701H392.276L377.854 34.4997H391.624L399.854 62.2034L407.268 34.4997H419.165L426.58 62.2034L434.809 34.4997H448.58L434.076 76.8701H420.713ZM468.948 77.8479C456.889 77.8479 449.229 73.8553 448.578 62.9368H460.8C461.37 67.9072 464.466 69.3738 469.518 69.3738C473.348 69.3738 476.281 67.9886 476.281 65.3812C476.281 62.8553 475.222 61.796 466.911 60.3294C453.466 57.9664 449.311 53.8109 449.311 46.8034C449.311 38.3294 456.563 33.522 468.215 33.522C481.578 33.522 487.444 39.6331 487.77 48.1886H476.118C475.955 43.1368 472.126 41.996 468.215 41.996C464.385 41.996 461.696 43.4627 461.696 45.9886C461.696 48.5146 463.57 49.6553 471.718 50.8775C485 52.9146 488.911 57.396 488.911 64.4849C488.911 73.2035 480.763 77.8479 468.948 77.8479Z" fill="#FFFFFF"/></svg>
+      </a>
+      <p style="margin:0;font-size:16px;line-height:1.45;color:rgba(255,255,255,.72);max-width:320px">The 5-minute weekly newsletter about the Canadian construction industry.</p>
+      <a class="btn-sub" href="#signup">Subscribe free <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg></a>
+    </div>
+    <div class="grid">
+      <div id="footTopics"><span class="lab">TOPICS</span></div>
+      <div><span class="lab">EXPLORE</span><a href="#home">Advertise with us</a><a href="#home">Construction job board</a><a href="#home">About SiteNews</a><a href="#home">Contact us</a><a href="#home">Privacy</a></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="lab">DIGGING IN PODCAST</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="chipl" href="https://open.spotify.com/search/SiteNews%20Digging%20In" target="_blank" rel="noopener">Listen on Spotify</a><a class="chipl" href="https://podcasts.apple.com/search?term=SiteNews%20Digging%20In" target="_blank" rel="noopener">Apple Podcasts</a></div>
+    </div>
+    <div class="soc">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="SiteNews on LinkedIn"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.4 5.2h2.8V15H1.4zM2.8.8a1.6 1.6 0 1 1 0 3.2 1.6 1.6 0 0 1 0-3.2zM6 5.2h2.7v1.3c.4-.7 1.3-1.5 2.7-1.5 2.9 0 3.4 1.9 3.4 4.4V15H12v-4.9c0-1.2 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5v5H6z" fill="#fff"/></svg></a>
+      <a href="https://x.com/" target="_blank" rel="noopener" aria-label="SiteNews on X"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 0h4.6l3.6 5L12.6 0H15L9.3 6.6 16 16h-4.6L7.4 10.5 2.6 16H.2l6-7z" fill="#fff"/></svg></a>
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="SiteNews on Facebook"><svg width="9" height="16" viewBox="0 0 9 16" aria-hidden="true"><path d="M6 16V9h2.3l.4-2.8H6V4.5c0-.8.2-1.4 1.4-1.4H9V.6C8.7.5 7.8.4 6.8.4 4.6.4 3.2 1.7 3.2 4.1v2.1H.8V9h2.4v7z" fill="#fff"/></svg></a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="SiteNews on Instagram"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="4" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="8" r="3.2" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="12" cy="4" r=".9" fill="#fff"/></svg></a>
+      <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="SiteNews on YouTube"><svg width="18" height="13" viewBox="0 0 18 13" aria-hidden="true"><rect width="18" height="13" rx="3.5" fill="#fff"/><path d="m7.2 3.6 4.8 2.9-4.8 2.9z" fill="#1b1816"/></svg></a>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.12)"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><span class="sm" style="color:rgba(255,255,255,.55)">SiteMedia<span style="color:#ff6a29">.</span></span><span style="font-size:12px;color:rgba(255,255,255,.5)">© 2026 SiteMedia</span></div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>
