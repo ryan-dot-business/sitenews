@@ -338,7 +338,7 @@ function route(){
   else {app.innerHTML=home(); if(h==='podcast'||h==='summit'||h==='signup'||h==='forty') scrollTo=h;}
   document.title=t;
   setLogoMode(!(h.indexOf('a-')===0&&A[h.slice(2)])&&h.indexOf('t-')!==0&&h!=='newsletter');
-  if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-60; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
+  if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-12; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
   else window.scrollTo(0,0);
   wirePlayer();
 }
@@ -347,8 +347,8 @@ window.addEventListener('hashchange',route);
 /* ---------- overlays ---------- */
 var logoBtn=document.getElementById('logoBtn'), menuBtn=document.getElementById('menuBtn');
 var brandsL=document.getElementById('brandsLayer'), menuL=document.getElementById('menuLayer');
-function setBrands(on){brandsL.hidden=!on;if(onHome)logoBtn.setAttribute('aria-expanded',on);if(on)setMenu(false);}
-function setMenu(on){menuL.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.setAttribute('aria-label',on?'Close menu':'Menu');document.body.style.overflow=on?'hidden':'';if(on){setBrands(false);}else{q.value='';search('');}}
+function setBrands(on){if(on&&window.scrollY)window.scrollTo(0,0);brandsL.hidden=!on;if(onHome)logoBtn.setAttribute('aria-expanded',on);if(on)setMenu(false);}
+function setMenu(on){if(on&&window.scrollY)window.scrollTo(0,0);menuL.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.setAttribute('aria-label',on?'Close menu':'Menu');document.body.style.overflow=on?'hidden':'';if(on){setBrands(false);}else{q.value='';search('');}}
 function closeAll(){setBrands(false);setMenu(false);}
 var onHome=true;
 function setLogoMode(home){onHome=home;document.body.classList.toggle('inner',!home);
