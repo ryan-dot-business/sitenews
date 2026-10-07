@@ -120,7 +120,7 @@ body.inner .caret{display:none}
 .player .bar i{display:block;height:100%;background:var(--white);transition:width .4s}
 .player .time{font-size:13px;color:rgba(255,255,255,.75);font-variant-numeric:tabular-nums}
 .play{width:32px;height:32px;border-radius:16px;background:var(--white);border:0;display:grid;place-items:center;cursor:pointer;padding:0}
-.river a{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:2px solid rgba(0,0,0,.2)}
+.river a{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.2)}
 .river a:last-child{border-bottom:0}
 .river a.allbtn{align-items:center;gap:5px;padding:8px 0;border:0}
 .river .k{font-size:13px;line-height:1.4;font-weight:700;letter-spacing:-.24px;color:var(--orange-text);text-transform:uppercase}
