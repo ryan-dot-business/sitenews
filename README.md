@@ -31,6 +31,7 @@ css/site.css        all styles; Aspekta @font-face at the top
 js/site.js          article data, templates and routing
 assets/fonts/       Aspekta webfonts (500, 600, 650, 700, 750, 850)
 assets/img/         photos and graphics
+assets/og.jpg       1200×630 social preview image (Open Graph / X card)
 ```
 
 All article content lives in the `A` object at the top of `js/site.js`. Each article is a list of blocks (`KT` key takeaways, `P` paragraph, `Q`/`A2` Q&A, `J` list item, `PM` people move, `TL` timeline, `NL` newsletter signup, …), rendered by `block()`.
