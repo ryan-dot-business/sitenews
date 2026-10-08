@@ -100,7 +100,7 @@ body.inner .caret{display:none}
 .card{display:block;padding-bottom:34px}
 .card .txt{display:flex;flex-direction:column;gap:16px}
 .card .pic{padding:14px 16px 0}
-.card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:5px}
 .card.r10 img{border-radius:10px}
 .sec{padding:22px 16px 32px;display:flex;flex-direction:column}
 .sechead{display:flex;align-items:center;gap:12px}
@@ -277,7 +277,7 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .chip{flex:none;border-radius:22px;padding:10px 16px;font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.2px;border:1px solid rgba(0,0,0,.15);color:var(--ink)}
 .chip[aria-current=page]{background:var(--ink-strong);border-color:var(--ink-strong);color:var(--white)}
 .lead{display:block;padding:16px 0 34px;border-bottom:1px solid var(--hair)}
-.lead img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px}
+.lead img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:5px}
 .lead .stack{padding-top:14px}
 
 /* Footer */
