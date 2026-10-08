@@ -15,7 +15,7 @@ It's designed for phones. On desktop it renders as a centred phone-width column.
 
 ## What's in it
 
-- **Home** — signup hero, latest newsletter card, top stories, Trending Stories, podcast, 40 Under 40, Latest Stories, SiteSummit promo
+- **Home** — signup hero, latest newsletter card, top stories, Trending Stories, a muted autoplay Digging In video, podcast, 40 Under 40, Latest Stories, SiteSummit promo
 - **Articles** — four templates matching the live site: news (Key Takeaways + Whole Story), Q&A, numbered list, and People Moves (with a subscriber gate)
 - **Recirculation** at the end of each article — a "More [bigger story]" package when the story belongs to one, Trending Stories, then "More [category]" (stories not already in a package come first)
 - **Newsletter** — the Oct 6 issue laid out like the email (`#newsletter`)
@@ -32,6 +32,7 @@ css/site.css        all styles; Aspekta @font-face at the top
 js/site.js          article data, templates and routing
 assets/fonts/       Aspekta webfonts (500, 600, 650, 700, 750, 850)
 assets/img/         photos and graphics
+assets/video/       Digging In clip (H.264, no audio track)
 assets/og.jpg       1200×630 social preview image (Open Graph / X card)
 ```
 

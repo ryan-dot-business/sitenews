@@ -300,6 +300,27 @@ function nlIssue(){
    '<section class="em-card"><div class="em-px"><h2 class="em-lab">INSIGHTS &amp; LEADERSHIP</h2></div><div class="em-px em-body em-ins">'+[['Engineers are ','burying plastic honeycombs'],['Why most construction projects ','finish late'],['Inside Canada’s ','oldest sawmill'],['How two homes ','survived extreme wildfires'],['The benefits of creating a ','psychologically safe workplace']].map(function(x){return '<p>'+x[0]+L(x[1])+' <svg class="ext" width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 10l4.5-4.5M6.5 5.5h4v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></p>'}).join('')+bar+'</div></section>'+'<figure class="em-quote"><span class="q" aria-hidden="true">“</span><blockquote>My network is what has compounded the most in my lifetime. Using that generously, to help others with their goals feels great and then when the time comes to pitch my mission, they listen, consider and hopefully amplify it by sharing it with others. That’s the power of kindness and generosity.</blockquote><figcaption><a href="#a-steiman">Carly Steiman</a><span>Entrepreneur, electrician and activist</span></figcaption></figure>'+'<footer class="em-foot"><div class="em-flogo"><svg width="22" height="22" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#FF6A29"/></svg><span>SiteNews</span></div><p><a href="#home">SiteNews</a> is the leading provider of news and events for construction leaders in Canada. SiteNews is part of the <a href="https://site.omeclk.com/portal/wts/ue%5EcnQDcwqecyqyQ6hADEc" target="_blank" rel="noopener">SiteMedia</a> platform that provides news and premium events for the Canadian construction and industrial sectors. Affiliate publications include <a href="https://site.omeclk.com/portal/wts/ug%5EcnQDcwqecyqyQ-hADE6w8tprBv%5BGnC8a" target="_blank" rel="noopener">ReNew Canada</a>, <a href="https://site.omeclk.com/portal/wts/ug%5EcnQDcwqecyqyQDhADE6w8tprBv%5BGnC8a" target="_blank" rel="noopener">STOREYS</a>, <a href="https://site.omeclk.com/portal/wts/ue%5EcnQDcwqecyqyRehADEc" target="_blank" rel="noopener">Environment Journal</a>, <a href="https://site.omeclk.com/portal/wts/ue%5EcnQDcwqecyqyR%7ChADEc" target="_blank" rel="noopener">Water Canada</a>, <a href="https://site.omeclk.com/portal/wts/ue%5EcnQDcwqecyqyRmhADEc" target="_blank" rel="noopener">Waste &amp; Recycling</a>, and <a href="https://site.omeclk.com/portal/wts/ue%5EcnQDcwqecyqyRqhADEc" target="_blank" rel="noopener">HAZMAT Magazine</a>.</p><p>Address: 150 Eglinton Ave. E., #806, Toronto, ON M4P 1E8</p></footer>'+
   '</div>';
 }
+// Muted autoplay video card (Digging In). Plays when on screen; dark overlay + Replay when it ends.
+var REPLAY_ICON='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/></svg>';
+function videoCard(){
+  return '<div class="card vcard"><div class="txt px"><div class="rule"></div><div class="stack"><span class="t20">Great pipes</span><span class="d14">A pipeline stretching from Alberta to B.C.’s coast will be the first test of Ottawa’s ambitious framework to get projects started faster.</span><span class="tag">Digging In</span></div></div>'+
+   '<div class="pic"><div class="vwrap"><video id="dgVid" src="assets/video/digging-in.mp4" poster="assets/img/digging-in-poster.jpg" muted playsinline preload="metadata" aria-label="Digging In: Great pipes"></video>'+
+   '<div class="vend" hidden><button class="replay press" type="button">'+REPLAY_ICON+'Replay?</button></div></div></div></div>';
+}
+var vidObs=null;
+function wireVideo(){
+  if(vidObs){vidObs.disconnect();vidObs=null}
+  var v=document.getElementById('dgVid'); if(!v) return;
+  var end=v.parentNode.querySelector('.vend'), done=false;
+  v.muted=true; v.defaultMuted=true;
+  v.addEventListener('ended',function(){done=true; end.hidden=false});
+  end.querySelector('button').addEventListener('click',function(){done=false; end.hidden=true; v.currentTime=0; v.play().catch(function(){})});
+  if(!('IntersectionObserver' in window)){v.play().catch(function(){});return}
+  vidObs=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&!done) v.play().catch(function(){}); else if(!e.isIntersecting) v.pause();
+  })},{threshold:.5});
+  vidObs.observe(v);
+}
 function home(){
   return ''+
   '<div style="display:flex;flex-direction:column;gap:14px">'+
@@ -309,6 +330,7 @@ function home(){
    '<div>'+card('nickel',true)+card('ant')+'</div>'+
   '</div>'+
   trending()+
+  videoCard()+
   card('fortis',false,true)+
   '<section class="sec" id="podcast" style="gap:8px;padding-bottom:44px"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
    '<img src="assets/img/player.png" width="370" height="132" alt="Digging In podcast: In the pipeline, Oct 5, on Spotify" style="width:100%;height:auto;display:block"></div></section>'+
@@ -394,6 +416,7 @@ function route(){
   if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-12; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
   else window.scrollTo(0,0);
   wirePlayer();
+  wireVideo();
 }
 window.addEventListener('hashchange',route);
 
