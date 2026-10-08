@@ -1,5 +1,6 @@
 (function(){
 var IMG = {
+  antlogo:'assets/img/ant-logo.png',
   ant:'assets/img/ant.jpg', carney:'assets/img/carney.jpg', nickel:'assets/img/nickel.jpg',
   fortis:'assets/img/fortis.jpg', port:'assets/img/port.jpg', forty:'assets/img/forty.jpg', avatar:'assets/img/avatar.png', truck:'assets/img/ant-truck.jpg', pmsept:'assets/img/pm-sept.jpg', emav:'assets/img/em-avatar.png', wsp:'assets/img/wsp.png', em40:'assets/img/em-40.jpg', emcity:'assets/img/em-city.jpg', merger:'assets/img/merger.jpg', careers:'assets/img/careers.jpg', pomerleau:'assets/img/pomerleau.jpg', bell:'assets/img/bell.jpg', ellisdon:'assets/img/ellisdon.jpg', pacific:'assets/img/pacific.jpg', lng:'assets/img/lng.jpg', lang:'assets/img/ant-langston.jpg', pod:'assets/img/podcast-art.png'
 };
@@ -26,7 +27,7 @@ var A = {
   L('For contractors, a machine that won’t start is a schedule that won’t hold. ANT Equipment Group has built its business around that problem, growing from a single Burnaby yard into Western Canada’s largest independent equipment source.'),
   P('We spoke with COO Mike Langston about how the company keeps fleets running, why staying independent of any one manufacturer matters, and where ANT goes next.'),
   Q('What makes ANT different from a traditional dealer?',1),
-  A2('Mike Langston','We aren’t tied to a single manufacturer, so we start with what the job actually needs and source the right machine from there. Rentals, sales, service and parts all live under one roof, which lets us support a contractor’s whole fleet instead of one piece of it.'),
+  A2('Mike Langston, Chief Operating Officer','We aren’t tied to a single manufacturer, so we start with what the job actually needs and source the right machine from there. Rentals, sales, service and parts all live under one roof, which lets us support a contractor’s whole fleet instead of one piece of it.'),
   Q('ANT started in Burnaby. What does the footprint look like today?'),
   A2('Langston','We now serve the West from Vancouver, Kelowna, Calgary and Edmonton. The goal through all that growth has been to keep the habits we had as a small shop: pick up the phone and move fast.'),
   NL,
@@ -213,10 +214,10 @@ var EXT={
  nb1:{tag:'Projects',title:'Carney announces second round of ‘nation building’ projects',date:'Nov 13, 2025',url:RS+'carney-announces-second-round-of-nation-building-projects/'},
  nb2:{tag:'Projects',title:'Roberts Bank Terminal 2 referred to Major Projects Office',date:'Jul 16, 2026',url:RS+'roberts-bank-terminal-2-referred-to-major-projects-office/'},
  nb3:{tag:'Projects',title:'Canada Nickel signs $1.5B deal with Komatsu for Crawford fleet',date:'Sep 14, 2026',url:RS+'canada-nickel-signs-1-5b-deal-with-komatsu-for-crawford-fleet/'},
- lg1:{tag:'Economy',title:'Coastal GasLink expansion moves forward',date:'Sep 29, 2026',url:RS+'coastal-gaslink-expansion-moves-forward/'},
+ lg1:{tag:'Economy',min:3,title:'Coastal GasLink expansion moves forward',date:'Sep 29, 2026',url:RS+'coastal-gaslink-expansion-moves-forward/'},
  lg2:{tag:'Projects',title:'LNG Canada launches historic partnership with First Nations',date:'Jul 15, 2026',url:RS+'lng-canada-launches-historic-partnership-with-first-nations/'},
  dc1:{tag:'Economy',title:'Saskatchewan mandates Canadian builders for data centres',date:'Sep 1, 2026',url:RS+'saskatchewan-mandates-canadian-builders-for-data-centre-projects/'},
- dc2:{tag:'Technology',title:'Meta planning $13B AI data centre campus in Alberta',date:'Jul 8, 2026',url:RS+'meta-planning-13b-ai-data-centre-campus-in-alberta/'},
+ dc2:{tag:'Technology',min:3,title:'Meta planning $13B AI data centre campus in Alberta',date:'Jul 8, 2026',url:RS+'meta-planning-13b-ai-data-centre-campus-in-alberta/'},
  dc3:{tag:'Sustainability',title:'TELUS developing three-site AI cluster in B.C.',date:'May 11, 2026',url:RS+'telus-developing-three-site-ai-cluster-in-b-c/'},
  md1:{tag:'Economy',title:'Suncor sells off major East Coast oil projects for $1.5B',date:'Oct 5, 2026',url:RS+'suncor-sells-off-major-east-coast-oil-projects/'},
  md2:{tag:'Economy',title:'Englobe to acquire engineering firm Crozier',date:'Oct 2, 2026',url:RS+'englobe-to-acquire-ontario-based-engineering-firm-crozier/'},
@@ -236,10 +237,12 @@ function rcGet(ref){return ref.indexOf('x:')===0?EXT[ref.slice(2)]:A[ref]}
 function rcTime(it){var t=Date.parse(it&&it.date||'');return isNaN(t)?0:t}
 function rcDate(d){return (d||'').replace(/,\s*2026$/,'')}
 function storyOf(id){for(var i=0;i<STORIES.length;i++){if(STORIES[i].ids.indexOf(id)>=0)return STORIES[i]}return null}
-function rcItem(ref){var it=rcGet(ref),id=ref.replace(/^x:/,'');
-  return '<a class="press" href="'+(it.ext?it.url+'" target="_blank" rel="noopener':'#a-'+id)+'"><div class="body"><span class="k">'+it.tag+'</span><span class="h">'+it.title+'</span><span class="by">'+rcDate(it.date)+'</span></div>'+(it.img?'<img class="thumb" src="'+IMG[it.img]+'" alt="" style="object-position:'+(FOCUS[id]||'50% 50%')+'">':'')+'</a>'}
-function rcSection(label,refs){if(!refs.length)return '';
-  return '<section class="sec" style="gap:23px"><div class="rule"></div><div class="rc-wrap"><div class="sechead"><h2>MORE<b>'+label.toUpperCase()+'</b></h2></div><div class="rc">'+refs.map(rcItem).join('')+'</div></div></section>'}
+// Reading time: live-site stories carry the site's own estimate; ours are counted at ~225 words a minute
+function readMin(it){if(it.min)return it.min;var w=0;JSON.stringify(it.b||[]).replace(/<[^>]+>/g,' ').replace(/[^\s"]+/g,function(){w++});return Math.max(1,Math.ceil(w/225))}
+function rcItem(ref,cat){var it=rcGet(ref),id=ref.replace(/^x:/,'');
+  return '<a class="press" href="'+(it.ext?it.url+'" target="_blank" rel="noopener':'#a-'+id)+'"><div class="body">'+(cat?'':'<span class="k">'+it.tag+'</span>')+'<span class="h">'+it.title+'</span><span class="by">'+(cat?readMin(it)+' Min Read':rcDate(it.date))+'</span></div>'+(it.img?'<img class="thumb" src="'+IMG[it.img]+'" alt="" style="object-position:'+(FOCUS[id]||'50% 50%')+'">':'')+'</a>'}
+function rcSection(label,refs,cat){if(!refs.length)return '';
+  return '<section class="sec" style="gap:23px"><div class="rule"></div><div class="rc-wrap"><div class="sechead"><h2>MORE<b>'+label.toUpperCase()+'</b></h2></div><div class="rc'+(cat?' rc-cat':'')+'">'+refs.map(function(r){return rcItem(r,cat)}).join('')+'</div></div></section>'}
 function biggerStory(id){var s=storyOf(id);if(!s)return {html:'',shown:[]};
   var refs=s.ids.filter(function(r){return r!==id}).sort(function(a,b){return rcTime(rcGet(b))-rcTime(rcGet(a))}).slice(0,3);
   return {html:rcSection(s.label,refs),shown:refs}}
@@ -250,13 +253,13 @@ function moreCategory(id,shown){var a=A[id],tag=a.tag;
     .filter(function(r){return shown.indexOf(r)<0});
   // Stories that aren't part of any bigger-story package come first, newest first
   pool.sort(function(x,y){return (inStory(x)-inStory(y))||(rcTime(rcGet(y))-rcTime(rcGet(x)))});
-  return rcSection(tag,pool.slice(0,3))}
+  return rcSection(tag,pool.slice(0,3),true)}
 function signup(id,dark){
   if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">Join free '+PLANE+'</button></form>';
 }
 function riverItem(id){var a=A[id];return '<a class="press" href="#a-'+id+'"><div class="body"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span><span class="by">'+(a.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(a.img?'<img class="thumb" src="'+IMG[a.img]+'" alt="">':'')+'</a>'}
-function card(id,first,r10,tagStyle){var a=A[id];return '<a class="card'+(r10?' r10':'')+'" href="#a-'+id+'" style="'+(first?'padding-top:20px':'')+'"><div class="txt px">'+(first?'':'<div class="rule"></div>')+'<div class="stack"><span class="t20">'+a.title+'</span><span class="d14">'+(a.homeDek||a.dek)+'</span><span class="tag"'+(tagStyle?' style="'+tagStyle+'"':'')+'>'+a.tag+'</span></div></div><div class="pic"><img src="'+IMG[a.img]+'" alt="'+a.alt+'" loading="lazy" style="object-position:'+(FOCUS[id]||'50% 50%')+'"></div></a>'}
+function card(id,first,r10,tagStyle){var a=A[id];return '<a class="card'+(r10?' r10':'')+'" href="#a-'+id+'" style="'+(first?'padding-top:20px':'')+'"><div class="txt px">'+(first?'':'<div class="rule"></div>')+'<div class="stack">'+(a.sp?'<span class="ptag">PARTNER CONTENT</span>':'')+'<span class="t20">'+a.title+'</span><span class="d14">'+(a.homeDek||a.dek)+'</span>'+(a.sp?'':'<span class="tag"'+(tagStyle?' style="'+tagStyle+'"':'')+'>'+a.tag+'</span>')+'</div></div><div class="pic"><img src="'+IMG[a.img]+'" alt="'+a.alt+'" loading="lazy" style="object-position:'+(FOCUS[id]||'50% 50%')+'"></div></a>'}
 
 function trending(){return '<section class="sec" style="gap:23px"><div class="rule"></div><div><div class="sechead">'+TREND_ICON+'<h2>TRENDING STORIES</h2></div><ol class="trend">'+TREND.map(function(id,i){return '<li><a class="press" href="#a-'+id+'"><span class="n">'+(i+1)+'.</span><span>'+A[id].title+'</span></a></li>'}).join('')+'</ol></div></section>';}
 var LOGO_DARK='<svg width="172" height="32" viewBox="0 0 491 91" role="img" aria-label="SiteNews"><defs><clipPath id="lgE"><rect width="91" height="91"/></clipPath></defs><g clip-path="url(#lgE)"><rect x="19.9297" y="58.3145" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 19.9297 58.3145)" fill="white"/><rect x="-20" y="76.9561" width="73.8927" height="34.6337" rx="11" transform="rotate(-51.6581 -20 76.9561)" fill="white"/><path d="M91 0L0.00606799 0.111743L0 69.1901L23.8013 36.834L39.9864 53.866L56.3126 30.6L47.5437 24.4541L78.0849 10.3156L74.7032 43.5033L65.9402 37.3575L41.3567 72.3918L25.1716 55.3598L0.00615554 88.9862L0 91H91V0Z" fill="#FF6A29"/></g><path d="M155.155 77.8479C139.185 77.8479 129.651 70.0257 129.57 57.2331H143.014C143.177 65.2183 149.044 67.0109 155.725 67.0109C161.674 67.0109 165.748 64.5664 165.748 60.3294C165.748 57.0701 163.955 54.9516 152.466 52.996C137.229 50.5516 130.792 44.9294 130.792 34.4183C130.792 24.4775 139.429 17.2257 153.851 17.2257C169.251 17.2257 177.725 24.4775 178.296 37.1072H165.096C164.77 30.9146 161.185 28.0627 153.851 28.0627C148.392 28.0627 144.888 30.3442 144.888 33.8479C144.888 37.2701 146.844 39.5516 157.274 41.2627C174.711 44.1146 180.007 49.7368 180.007 59.5146C180.007 71.7368 169.333 77.8479 155.155 77.8479ZM183.927 76.8701V34.4997H196.72V76.8701H183.927ZM183.927 28.7146V18.2034H196.72V28.7146H183.927ZM207.227 21.4627H220.019V34.4997H230.286V43.8701H220.019V63.8331C220.019 66.359 220.916 67.4997 223.849 67.4997H230.286V76.8701H220.345C213.338 76.8701 207.227 75.159 207.227 65.1368V43.8701H200.138V34.4997H207.227V21.4627ZM253.769 77.8479C239.836 77.8479 232.014 68.3146 232.014 55.6849C232.014 43.0553 239.836 33.522 253.769 33.522C267.784 33.522 275.606 42.4849 275.606 57.0701V59.5146H244.399C245.377 65.0553 248.636 68.3146 253.769 68.3146C258.332 68.3146 261.021 66.7664 262.651 63.8331H274.873C272.103 72.2257 264.688 77.8479 253.769 77.8479ZM244.48 51.2849H263.14C261.999 46.0701 258.74 43.0553 253.769 43.0553C248.88 43.0553 245.621 46.0701 244.48 51.2849ZM317.314 76.8701L294.01 37.5146V76.8701H280.81V18.2034H295.722L319.025 57.722V18.2034H332.225V76.8701H317.314ZM357.576 77.8479C343.642 77.8479 335.82 68.3146 335.82 55.6849C335.82 43.0553 343.642 33.522 357.576 33.522C371.59 33.522 379.413 42.4849 379.413 57.0701V59.5146H348.205C349.183 65.0553 352.442 68.3146 357.576 68.3146C362.138 68.3146 364.827 66.7664 366.457 63.8331H378.679C375.909 72.2257 368.494 77.8479 357.576 77.8479ZM348.287 51.2849H366.946C365.805 46.0701 362.546 43.0553 357.576 43.0553C352.687 43.0553 349.427 46.0701 348.287 51.2849ZM420.713 76.8701L413.217 50.0627L405.72 76.8701H392.276L377.854 34.4997H391.624L399.854 62.2034L407.268 34.4997H419.165L426.58 62.2034L434.809 34.4997H448.58L434.076 76.8701H420.713ZM468.948 77.8479C456.889 77.8479 449.229 73.8553 448.578 62.9368H460.8C461.37 67.9072 464.466 69.3738 469.518 69.3738C473.348 69.3738 476.281 67.9886 476.281 65.3812C476.281 62.8553 475.222 61.796 466.911 60.3294C453.466 57.9664 449.311 53.8109 449.311 46.8034C449.311 38.3294 456.563 33.522 468.215 33.522C481.578 33.522 487.444 39.6331 487.77 48.1886H476.118C475.955 43.1368 472.126 41.996 468.215 41.996C464.385 41.996 461.696 43.4627 461.696 45.9886C461.696 48.5146 463.57 49.6553 471.718 50.8775C485 52.9146 488.911 57.396 488.911 64.4849C488.911 73.2035 480.763 77.8479 468.948 77.8479Z" fill="#282828"/></svg>';
@@ -350,7 +353,7 @@ function block(b){
     case 'ws': return '<h2 class="ws">Whole Story</h2>';
     case 'h3': return '<h3 class="h3">'+b.t+'</h3>';
     case 'tl': return '<ul class="tl">'+b.items.map(function(x){return '<li><b>'+x[0]+':</b> '+x[1]+'</li>'}).join('')+'</ul>';
-    case 'q': return '<p class="q"><b>'+(b.first?'SiteNews:':'SN:')+'</b> '+b.t+'</p>';
+    case 'q': return '<p class="q"><b>'+(b.first?'SiteNews:':'SN:')+'</b> <i>'+b.t+'</i></p>';
     case 'ans': return '<p class="ans"><b>'+b.n+':</b> '+b.t+'</p>';
     case 'fig': return '<figure class="inl">'+(IMG[b.src]?'<img src="'+IMG[b.src]+'" alt="'+b.alt+'" loading="lazy">':'<div class="ph">Inline photo</div>')+(b.cap?'<figcaption class="ic">'+b.cap+'</figcaption>':'')+'</figure>';
     case 'job': return '<div class="job"><h3><span class="jn">'+b.n+'.</span> '+b.title+' <span class="sal">– '+b.sal+'</span></h3><p class="quip">'+b.quip+'</p><p>'+b.t+'</p></div>';
@@ -373,17 +376,21 @@ function endmods(){ return shareRow(false); }
 function promo40(){
   return '<div class="px" style="padding-bottom:36px"><a class="promo press" href="#forty"><img src="'+IMG.forty+'" alt="2026 Top 40 Under 40 finalists"><div class="stack" style="gap:6px"><span class="tag or">40 Under 40</span><h4>The 2026 finalists are here!</h4><p class="d14" style="margin:0">Meet the rising stars shaping the future of Canadian construction.</p><span class="see">See the finalists →</span></div></a></div>';
 }
+var CS_SVG='<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#292929"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#8C8C8C"/></svg>';
+var STAFF_SVG='<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#FF6A29"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#fff"/></svg>';
 var current='';
 function article(id){ current=id;
   var a=A[id]; if(!a) return home();
   var nid=id==='fortis'?'nickel':'fortis', n=A[nid];
   var topicLink=a.topic==='All'||a.topic==='Newsletter'?'All':a.topic;
   var big=biggerStory(id);
-  return '<article class="art"><div style="display:flex;flex-direction:column;gap:20px"><div class="stack"><div class="kicker">'+(a.sp?'<span class="partner">PARTNER CONTENT</span>':'<a href="#t-'+topicLink+'">'+a.tag+'</a>')+'</div><div style="display:flex;flex-direction:column;gap:8px"><h1>'+a.title+'</h1><p class="dek">'+a.dek+'</p></div></div>'+
-   '<div class="byline">'+(a.av?'<img src="'+IMG.avatar+'" alt="">':a.cs?'<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#292929"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#8C8C8C"/></svg>':'<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#FF6A29"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#fff"/></svg>')+'<span>'+a.author+(a.date?'<span class="dt">&nbsp; · &nbsp;'+a.date+'</span>':'')+'</span></div></div>'+
+  var who=a.sp?'<span class="avs">'+CS_SVG+'<img src="'+IMG.antlogo+'" alt=""></span><span>Content Studio &amp; Ant Equipment</span>'
+   :(a.av?'<img src="'+IMG.avatar+'" alt="">':a.cs?CS_SVG:STAFF_SVG)+'<span>'+a.author+'</span>';
+  return '<article class="art"><div class="lead-hd"><div class="hd">'+(a.sp?'<span class="ptag">PARTNER CONTENT</span>':'')+'<h1>'+a.title+'</h1><p class="dek">'+a.dek+'</p>'+(a.sp?'':'<a class="atag" href="#t-'+topicLink+'">'+a.tag+'</a>')+'</div>'+
+   '<div class="byline">'+who+'</div></div>'+
    shareRow(true)+
    '<div class="hair lead-rule"></div>'+
-   (a.img?'<figure'+(a.tall?' class="tall"':'')+'><img src="'+IMG[a.img]+'" alt="'+a.alt+'"><figcaption><b>PHOTO:</b> '+a.credit+'</figcaption></figure>':'<div style="height:8px"></div>')+
+   (a.img?'<figure'+(a.tall?' class="tall"':'')+'><img src="'+IMG[a.img]+'" alt="'+a.alt+'"><figcaption>'+a.credit+'</figcaption></figure>':'<div style="height:8px"></div>')+
    '<div class="prose">'+body(a)+'</div>'+endmods()+'</article>'+
    big.html+trending()+moreCategory(id,big.shown)+promo40();
 }
