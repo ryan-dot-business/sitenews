@@ -202,6 +202,55 @@ try{subscribed=localStorage.getItem('sn-sub')==='1'}catch(e){}
 var PLANE='<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg>';
 var TREND_ICON='<svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#FF6A29"/></svg>';
 function by(a){return a.author+(a.date?' · '+a.date:'')}
+
+// ---- Recirculation: "Bigger story" packages + more from the same category ----
+// Related ReadSiteNews coverage that isn't in this prototype; links out to the live site.
+var RS='https://readsitenews.com/';
+var EXT={
+ pl1:{tag:'Projects',title:'Ottawa considers fast-tracking West Coast Oil Pipeline',date:'Aug 4, 2026',url:RS+'ottawa-considers-fast-tracking-west-coast-oil-pipeline/'},
+ pl2:{tag:'Economy',title:'Alberta reveals oil pipeline plans for B.C.’s southwest coast',date:'Jul 3, 2026',url:RS+'alberta-reveals-oil-pipeline-plans-for-b-c-s-southwest-coast/'},
+ pl3:{tag:'Projects',title:'Carbon pricing deal reached to advance new oil pipeline in Alberta',date:'May 15, 2026',url:RS+'carbon-pricing-deal-reached-to-advance-new-oil-pipeline-in-alberta/'},
+ nb1:{tag:'Projects',title:'Carney announces second round of ‘nation building’ projects',date:'Nov 13, 2025',url:RS+'carney-announces-second-round-of-nation-building-projects/'},
+ nb2:{tag:'Projects',title:'Roberts Bank Terminal 2 referred to Major Projects Office',date:'Jul 16, 2026',url:RS+'roberts-bank-terminal-2-referred-to-major-projects-office/'},
+ nb3:{tag:'Projects',title:'Canada Nickel signs $1.5B deal with Komatsu for Crawford fleet',date:'Sep 14, 2026',url:RS+'canada-nickel-signs-1-5b-deal-with-komatsu-for-crawford-fleet/'},
+ lg1:{tag:'Economy',title:'Coastal GasLink expansion moves forward',date:'Sep 29, 2026',url:RS+'coastal-gaslink-expansion-moves-forward/'},
+ lg2:{tag:'Projects',title:'LNG Canada launches historic partnership with First Nations',date:'Jul 15, 2026',url:RS+'lng-canada-launches-historic-partnership-with-first-nations/'},
+ dc1:{tag:'Economy',title:'Saskatchewan mandates Canadian builders for data centres',date:'Sep 1, 2026',url:RS+'saskatchewan-mandates-canadian-builders-for-data-centre-projects/'},
+ dc2:{tag:'Technology',title:'Meta planning $13B AI data centre campus in Alberta',date:'Jul 8, 2026',url:RS+'meta-planning-13b-ai-data-centre-campus-in-alberta/'},
+ dc3:{tag:'Sustainability',title:'TELUS developing three-site AI cluster in B.C.',date:'May 11, 2026',url:RS+'telus-developing-three-site-ai-cluster-in-b-c/'},
+ md1:{tag:'Economy',title:'Suncor sells off major East Coast oil projects for $1.5B',date:'Oct 5, 2026',url:RS+'suncor-sells-off-major-east-coast-oil-projects/'},
+ md2:{tag:'Economy',title:'Englobe to acquire engineering firm Crozier',date:'Oct 2, 2026',url:RS+'englobe-to-acquire-ontario-based-engineering-firm-crozier/'},
+ md3:{tag:'Economy',title:'GFL inks $6.4B deal to acquire Calgary-based Secure Waste Infrastructure',date:'Apr 13, 2026',url:RS+'gfl-inks-6-4b-deal-to-acquire-calgary-based-secure-waste-infrastructure/'}
+};
+var XIMG={pl1:'assets/img/rs/pl1.webp',pl2:'assets/img/rs/pl2.webp',pl3:'assets/img/rs/pl3.webp',nb1:'assets/img/rs/nb1.webp',nb2:'assets/img/rs/nb2.webp',nb3:'assets/img/rs/nb3.webp',lg1:'assets/img/rs/lg1.webp',lg2:'assets/img/rs/lg2.webp',dc1:'assets/img/rs/dc1.webp',dc2:'assets/img/rs/dc2.webp',dc3:'assets/img/rs/dc3.webp',md1:'assets/img/rs/md1.webp',md2:'assets/img/rs/md2.webp',md3:'assets/img/rs/md3.webp'};
+for(var ek in EXT){EXT[ek].ext=1;IMG['x'+ek]=XIMG[ek];EXT[ek].img='x'+ek;}
+// Each package: a label and its members (our article ids, or 'x:' + EXT id for live-site stories)
+var STORIES=[
+ {label:'Pacific Link Pipeline',ids:['pacific','x:pl1','x:pl2','x:pl3']},
+ {label:'Nation-Building Projects',ids:['bcs','nickel','x:nb3','x:nb2','x:nb1']},
+ {label:'B.C. LNG',ids:['lng','fortis','x:lg1','x:lg2']},
+ {label:'AI Data Centres',ids:['bell','x:dc1','x:dc2','x:dc3']},
+ {label:'Mergers & Acquisitions',ids:['merger','pomerleau','procore','x:md1','x:md2','x:md3']}
+];
+function rcGet(ref){return ref.indexOf('x:')===0?EXT[ref.slice(2)]:A[ref]}
+function rcTime(it){var t=Date.parse(it&&it.date||'');return isNaN(t)?0:t}
+function rcDate(d){return (d||'').replace(/,\s*2026$/,'')}
+function storyOf(id){for(var i=0;i<STORIES.length;i++){if(STORIES[i].ids.indexOf(id)>=0)return STORIES[i]}return null}
+function rcItem(ref){var it=rcGet(ref),id=ref.replace(/^x:/,'');
+  return '<a class="press" href="'+(it.ext?it.url+'" target="_blank" rel="noopener':'#a-'+id)+'"><div class="body"><span class="k">'+it.tag+'</span><span class="h">'+it.title+'</span><span class="by">'+rcDate(it.date)+'</span></div>'+(it.img?'<img class="thumb" src="'+IMG[it.img]+'" alt="" style="object-position:'+(FOCUS[id]||'50% 50%')+'">':'')+'</a>'}
+function rcSection(label,refs){if(!refs.length)return '';
+  return '<section class="sec" style="gap:23px"><div class="rule"></div><div class="rc-wrap"><div class="sechead"><h2>MORE<b>'+label.toUpperCase()+'</b></h2></div><div class="rc">'+refs.map(rcItem).join('')+'</div></div></section>'}
+function biggerStory(id){var s=storyOf(id);if(!s)return {html:'',shown:[]};
+  var refs=s.ids.filter(function(r){return r!==id}).sort(function(a,b){return rcTime(rcGet(b))-rcTime(rcGet(a))}).slice(0,3);
+  return {html:rcSection(s.label,refs),shown:refs}}
+function moreCategory(id,shown){var a=A[id],tag=a.tag;
+  var inStory=function(r){return !!storyOf(r.replace(/^x:/,''))||STORIES.some(function(s){return s.ids.indexOf(r)>=0})};
+  var pool=Object.keys(A).filter(function(k){return k!==id&&A[k].tag===tag&&k!=='newsletter'})
+    .concat(Object.keys(EXT).filter(function(k){return EXT[k].tag===tag}).map(function(k){return 'x:'+k}))
+    .filter(function(r){return shown.indexOf(r)<0});
+  // Stories that aren't part of any bigger-story package come first, newest first
+  pool.sort(function(x,y){return (inStory(x)-inStory(y))||(rcTime(rcGet(y))-rcTime(rcGet(x)))});
+  return rcSection(tag,pool.slice(0,3))}
 function signup(id,dark){
   if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">Join free '+PLANE+'</button></form>';
@@ -307,13 +356,14 @@ function article(id){ current=id;
   var a=A[id]; if(!a) return home();
   var nid=id==='fortis'?'nickel':'fortis', n=A[nid];
   var topicLink=a.topic==='All'||a.topic==='Newsletter'?'All':a.topic;
+  var big=biggerStory(id);
   return '<article class="art"><div style="display:flex;flex-direction:column;gap:20px"><div class="stack"><div class="kicker">'+(a.sp?'<span class="partner">PARTNER CONTENT</span>':'<a href="#t-'+topicLink+'">'+a.tag+'</a>')+'</div><div style="display:flex;flex-direction:column;gap:8px"><h1>'+a.title+'</h1><p class="dek">'+a.dek+'</p></div></div>'+
    '<div class="byline">'+(a.av?'<img src="'+IMG.avatar+'" alt="">':a.cs?'<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#292929"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#8C8C8C"/></svg>':'<svg class="cs" width="36" height="36" viewBox="0 0 277 268" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="277" height="268" fill="#FF6A29"/><path d="M204.822 143.231L180.733 126.337L113.154 222.646L68.6621 175.825L0 267.57V213.117L64.8945 124.898L109.387 171.719L154.268 107.761L130.162 90.8662L214.118 52L204.822 143.231Z" fill="#fff"/></svg>')+'<span>'+a.author+(a.date?'<span class="dt">&nbsp; · &nbsp;'+a.date+'</span>':'')+'</span></div></div>'+
    shareRow(true)+
    '<div class="hair lead-rule"></div>'+
    (a.img?'<figure'+(a.tall?' class="tall"':'')+'><img src="'+IMG[a.img]+'" alt="'+a.alt+'"><figcaption><b>PHOTO:</b> '+a.credit+'</figcaption></figure>':'<div style="height:8px"></div>')+
    '<div class="prose">'+body(a)+'</div>'+endmods()+'</article>'+
-   trending()+promo40();
+   big.html+trending()+moreCategory(id,big.shown)+promo40();
 }
 function topic(t){
   if(t!=='All'&&TOPICS.indexOf(t)<0) t='All';

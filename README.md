@@ -17,6 +17,7 @@ It's designed for phones. On desktop it renders as a centred phone-width column.
 
 - **Home** — signup hero, latest newsletter card, top stories, Trending Stories, podcast, 40 Under 40, Latest Stories, SiteSummit promo
 - **Articles** — four templates matching the live site: news (Key Takeaways + Whole Story), Q&A, numbered list, and People Moves (with a subscriber gate)
+- **Recirculation** at the end of each article — a "More [bigger story]" package when the story belongs to one, Trending Stories, then "More [category]" (stories not already in a package come first)
 - **Newsletter** — the Oct 6 issue laid out like the email (`#newsletter`)
 - **Topic pages** — one per topic, plus All stories (`#t-Projects`, `#t-All`, …)
 - **Logo dropdown** (homepage only) and **menu** with live search
@@ -33,6 +34,8 @@ assets/fonts/       Aspekta webfonts (500, 600, 650, 700, 750, 850)
 assets/img/         photos and graphics
 assets/og.jpg       1200×630 social preview image (Open Graph / X card)
 ```
+
+Bigger-story packages live in `STORIES`; related ReadSiteNews coverage that isn't built into the prototype lives in `EXT` (thumbnails in `assets/img/rs/`) and links out to the live site.
 
 All article content lives in the `A` object at the top of `js/site.js`. Each article is a list of blocks (`KT` key takeaways, `P` paragraph, `Q`/`A2` Q&A, `J` list item, `PM` people move, `TL` timeline, `NL` newsletter signup, …), rendered by `block()`.
 
