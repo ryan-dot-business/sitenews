@@ -252,9 +252,10 @@ function nlIssue(){
 function home(){
   return ''+
   '<div style="display:flex;flex-direction:column;gap:14px">'+
+   '<div>'+card('bcs',true)+'</div>'+
    '<div class="nl-wrap"><section class="hero" id="signup"><h1>NEWS<br>TRENDS<br><span class="hi">INSIGHTS</span></h1><p class="for">FOR CONSTRUCTION</p><p class="pitch">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup">'+signup('heroEmail')+'</div></section>'+
    '<a class="nl-card press" href="#newsletter"><div class="top"><span class="nl-pill">Latest Newsletter</span></div><div class="nl-title"><b>🛢️ Great pipes</b><span class="date"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><rect x=".6" y="1.6" width="10.8" height="9.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.6 4.4h10.8M3.4 0v2.8M8.6 0v2.8" stroke="currentColor" stroke-width="1.2"/></svg>Oct 6</span></div><p class="nl-dek">'+A.newsletter.dek+'</p></a></div>'+
-   '<div>'+card('bcs',true)+card('nickel')+card('ant')+'</div>'+
+   '<div>'+card('nickel',true)+card('ant')+'</div>'+
   '</div>'+
   trending()+
   card('fortis',false,true)+
