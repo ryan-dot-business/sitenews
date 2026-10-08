@@ -189,7 +189,7 @@ var A = {
   S('Pay day','Construction general managers top the list of Canada’s highest-paying construction careers at $244,420. Powerline technicians come in third at $163,300.'),
   N('Forwarded this email? Sign up for free. It takes five minutes a week.')]}
 };
-// Focal point for portrait (2:3) crops on large cards: keeps the subject in frame
+// Focal point for portrait (4:5) crops on large cards: keeps the subject in frame
 var FOCUS={bcs:'68% 50%',nickel:'76% 50%',ant:'45% 50%',fortis:'58% 50%',port:'50% 50%',merger:'50% 50%',careers:'55% 50%',pomerleau:'60% 50%',bell:'40% 50%',ellisdon:'50% 50%',pacific:'38% 50%',lng:'50% 50%',people:'50% 50%'};
 var ORDER=['merger','careers','pomerleau','bell','ant','people','ellisdon','pacific','lng','port','bcs','mactaquac','nickel','fortis','procore','steiman'];
 var TOPICS=['People','Projects','Technology','Sustainability','Recruitment','Economy'];
