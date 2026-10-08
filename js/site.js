@@ -190,7 +190,7 @@ var A = {
   N('Forwarded this email? Sign up for free. It takes five minutes a week.')]}
 };
 // Focal point for square (1:1) crops on large cards: keeps the subject in frame
-var FOCUS={bcs:'68% 50%',nickel:'76% 50%',ant:'45% 50%',fortis:'58% 50%',port:'50% 50%',merger:'50% 50%',careers:'55% 50%',pomerleau:'60% 50%',bell:'40% 50%',ellisdon:'50% 50%',pacific:'38% 50%',lng:'50% 50%',people:'50% 50%'};
+var FOCUS={bcs:'68% 50%',nickel:'76% 50%',ant:'45% 50%',fortis:'27% 50%',port:'50% 50%',merger:'50% 50%',careers:'55% 50%',pomerleau:'60% 50%',bell:'40% 50%',ellisdon:'50% 50%',pacific:'38% 50%',lng:'50% 50%',people:'50% 50%'};
 var ORDER=['merger','careers','pomerleau','bell','ant','people','ellisdon','pacific','lng','port','bcs','mactaquac','nickel','fortis','procore','steiman'];
 var TOPICS=['People','Projects','Technology','Sustainability','Recruitment','Economy'];
 var DESC={People:'Hires, promotions, profiles and the faces shaping the industry.',Projects:'The builds, bids and approvals moving Canadian infrastructure.',Technology:'Tools, software and machines changing how the job gets done.',Sustainability:'Lower-carbon building, energy transition and green infrastructure.',Recruitment:'Careers, pay, training and the skilled-trades talent race.',Economy:'Deals, policy and the money behind construction.',All:'Every story, newest first.'};
