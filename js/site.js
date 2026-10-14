@@ -457,6 +457,9 @@ mt.innerHTML=['News'].concat(TOPICS).map(function(t){return '<a class="chip-nav 
 ft.innerHTML=['News'].concat(TOPICS).map(function(t){return '<a href="#t-'+(t==='News'?'All':t)+'">'+t+'</a>'}).join('');
 menuL.addEventListener('click',function(e){var a=e.target.closest('a'); if(a&&a.getAttribute('href')===location.hash) setMenu(false);});
 
+var mtb=document.querySelector('.mtopics'), mtp=document.getElementById('topicsPanel');
+mtb.addEventListener('click',function(){var on=mtp.hidden;mtp.hidden=!on;mtb.setAttribute('aria-expanded',on)});
+var ms=document.getElementById('menuSignup'); if(ms) ms.innerHTML=signup('menuEmail');
 var q=document.getElementById('q'), results=document.getElementById('results'), menuMain=document.getElementById('menuMain');
 function search(v){
   var s=v.trim().toLowerCase();

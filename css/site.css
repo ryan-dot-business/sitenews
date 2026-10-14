@@ -50,14 +50,12 @@ body.inner .caret{display:none}
 .sm{font-family:var(--display);font-size:16px;font-weight:700;color:rgba(0,0,0,.3)}
 .menu{position:absolute;inset:0;background:var(--white);overflow-y:auto;animation:fade .18s ease-out;overscroll-behavior:contain}
 .menu .col{min-height:100%;padding:24px 16px 56px;display:flex;flex-direction:column}
-.menu-top{flex:1;display:flex;flex-direction:column;gap:20px}
-#menuMain{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
-.mm-a{display:flex;flex-direction:column;gap:12px}
-.mm-b{display:flex;flex-direction:column;gap:20px}
+.menu-top{flex:1;display:flex;flex-direction:column}
+#menuMain{display:flex;flex-direction:column;gap:20px;padding-bottom:16px}
 #menuMain[hidden]{display:none}
 .menu .search{height:auto;padding:12px;border-radius:10px;border:2px solid #e2dedd;background:var(--white)}
 .menu .search input{font-size:16px;letter-spacing:-.28px}
-.chips-nav{display:flex;flex-wrap:wrap;gap:7px;padding:12px 0}
+.chips-nav{display:flex;flex-wrap:wrap;gap:7px}
 .chip-nav{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:30px;background:var(--paper);font-family:var(--display);font-size:16px;line-height:1;font-weight:750;letter-spacing:-.32px;color:rgba(0,0,0,.8)}
 .chip-nav svg{flex:none;display:block}
 .pod-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:15px;background:var(--paper)}
@@ -66,10 +64,10 @@ body.inner .caret{display:none}
 .pod-card b{font-weight:700;color:rgba(0,0,0,.3)}
 .pod-card em{font-style:normal;font-weight:650}
 .pod-card>span>span{font-weight:500}
-.mlinks{display:flex;flex-direction:column;padding-bottom:12px}
-.mlinks a{display:flex;align-items:center;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}
-.mlinks a:last-child{border-bottom:0}
-.mlinks .ext{flex:none;display:block}
+.mlinks{display:flex;flex-direction:column;padding:12px 0}
+.mlinks>a{display:flex;align-items:center;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}
+.mlinks>a:last-child{border-bottom:0}
+.mlinks>a .ext{flex:none;display:block}
 .msub{display:flex;align-items:center;gap:7px;padding:16px 13px 16px 16px;border-radius:15px;background:var(--orange);font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:var(--white)}
 .mfoot{display:flex;justify-content:space-between;gap:8px;padding:32px 12px 0;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:rgba(0,0,0,.3)}
 .mfoot b{font-family:var(--display);font-weight:700;text-decoration:underline;text-underline-offset:2px}
@@ -360,3 +358,20 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .flegal b{font-family:var(--display);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .fl2{display:flex;flex-direction:column;gap:8px;font-size:14px;letter-spacing:-.28px}
 .fl2 a{color:rgba(255,255,255,.7)}
+
+/* menu: topics accordion + signup card */
+.mtopics{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 13px 14px 9px;border:0;border-bottom:2px solid #f2ecea;background:none;cursor:pointer;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8);text-align:left}
+.mtopics .chev{transition:transform .2s ease}
+.mtopics[aria-expanded=true]{border-bottom:0}
+.mtopics[aria-expanded=true] .chev{transform:scaleY(-1)}
+.topics-panel{padding-bottom:12px;border-bottom:2px solid #f2ecea}
+.topics-panel[hidden]{display:none}
+.msign-card{background:var(--paper);border-radius:20px;padding:20px 24px 32px}
+.msign-card .mst{margin:0;font-family:var(--display);font-size:14px;line-height:1.2;font-weight:700;letter-spacing:-.28px;color:#000}
+.msign-card .msd{margin:0 0 13px;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:rgba(0,0,0,.45)}
+.msign form{gap:8px}
+.msign input{height:auto;padding:12px;border:2px solid rgba(0,0,0,.06);border-radius:4px;font-size:16px}
+.msign .btn-or{height:auto;padding:16px 12px;border-radius:10px;gap:10px;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px}
+.msign .btn-or svg path{fill-opacity:.32}
+.msign .done{background:var(--white);color:var(--ink);border:1px solid rgba(0,0,0,.08);border-radius:10px}
+.msign .btn-or svg{width:20px;height:20px}
