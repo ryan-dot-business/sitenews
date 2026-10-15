@@ -497,3 +497,25 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .dpop-more a:last-child{border-bottom:0;padding-bottom:17px}
   .dpop-more a:hover,.dpop-chips a:hover{opacity:.75}
 }
+
+/* ---------- desktop article ---------- */
+@media (min-width:800px){
+  .art-pg main.col{max-width:1032px;padding-bottom:40px}
+  .art-pg main.col>*:not(.art){width:100%;max-width:690px;margin-inline:auto}
+  .art{padding:80px 16px 28px}
+  .art h1{font-size:clamp(36px,3.1vw,44px);letter-spacing:-.02em;text-wrap:pretty}
+  .art .dek{font-size:23px;line-height:1.2;letter-spacing:-.46px}
+  .hd .atag{margin-top:4px;padding-top:12px;font-size:16px;letter-spacing:.96px}
+  .byline{font-size:16px;letter-spacing:-.32px}
+  .byline img,.byline .ini,.byline .cs{width:32px;height:32px;border-radius:16px}
+  .art>.share:not(.share-end){align-self:flex-end;margin-top:-51px}
+  .lead-rule{height:2px;background:rgba(0,0,0,.1)}
+  .art>figure{padding-top:6px}
+  .art>figure img{aspect-ratio:1000/564}
+  .art>figure.tall img{aspect-ratio:4/3;object-position:50% 25%}
+  .art>figcaption,.art>figure figcaption{font-size:10px;letter-spacing:-.2px}
+  .art>.prose,.art>.share-end{width:100%;max-width:620px;margin-inline:auto}
+  .prose{font-size:18px;line-height:1.4;letter-spacing:-.36px;gap:24px}
+  .prose h2,.prose .h3,.prose .ws{font-size:18px;letter-spacing:-.36px}
+  .rc .thumb{width:90px;height:90px}
+}
