@@ -375,3 +375,15 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .msign .btn-or svg path{fill-opacity:.32}
 .msign .done{background:var(--white);color:var(--ink);border:1px solid rgba(0,0,0,.08);border-radius:10px}
 .msign .btn-or svg{width:20px;height:20px}
+
+/* in-article newsletter CTA (quiet) */
+.nlbox2{background:var(--paper);border:2px solid rgba(0,0,0,.5);border-radius:10px;padding:24px 24px 12px;font-family:var(--ui)}
+.nlbox2 h2{margin:0 0 8px;font-family:var(--display);font-size:25px;line-height:1.2;font-weight:700;letter-spacing:-.46px;color:#3e3e3e}
+.nlbox2 .nl2-d{margin:0 0 24px;font-size:16px;line-height:1.4;letter-spacing:-.28px;color:rgba(121,121,121,.8)}
+.nl2 form{gap:8px}
+.nl2 input{height:auto;padding:12px;border:2px solid rgba(0,0,0,.5);border-radius:4px;font-size:16px}
+.nl2 .btn-or{height:auto;padding:16px 12px;border-radius:10px;gap:10px;background:#3d3d3d;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px}
+.nl2 .btn-or svg{width:20px;height:20px}
+.nl2 .btn-or svg path{fill-opacity:.32}
+.nl2 .done{background:var(--white);color:var(--ink);border:1px solid rgba(0,0,0,.12);border-radius:10px}
+.nlbox2 .nl2-f{margin:8px 0 0;text-align:center;font-style:italic;font-size:15px;line-height:1.4;letter-spacing:-.28px;color:#848484}

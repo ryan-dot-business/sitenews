@@ -254,9 +254,9 @@ function moreCategory(id,shown){var a=A[id],tag=a.tag;
   // Stories that aren't part of any bigger-story package come first, newest first
   pool.sort(function(x,y){return (inStory(x)-inStory(y))||(rcTime(rcGet(y))-rcTime(rcGet(x)))});
   return rcSection(tag,pool.slice(0,3),true)}
-function signup(id,dark){
+function signup(id,dark,label){
   if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
-  return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">Join free '+PLANE+'</button></form>';
+  return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">'+(label||'Join free')+' '+PLANE+'</button></form>';
 }
 function riverItem(id){var a=A[id];return '<a class="press" href="#a-'+id+'"><div class="body"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span><span class="by">'+(a.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(a.img?'<img class="thumb" src="'+IMG[a.img]+'" alt="">':'')+'</a>'}
 function card(id,first,r10,tagStyle){var a=A[id];return '<a class="card'+(r10?' r10':'')+'" href="#a-'+id+'" style="'+(first?'padding-top:20px':'')+'"><div class="txt px">'+(first?'':'<div class="rule"></div>')+'<div class="stack">'+(a.sp?'<span class="ptag">PARTNER CONTENT</span>':'')+'<span class="t20">'+a.title+'</span><span class="d14">'+(a.homeDek||a.dek)+'</span>'+(a.sp?'':'<span class="tag"'+(tagStyle?' style="'+tagStyle+'"':'')+'>'+a.tag+'</span>')+'</div></div><div class="pic"><img src="'+IMG[a.img]+'" alt="'+a.alt+'" loading="lazy" style="object-position:'+(FOCUS[id]||'50% 50%')+'"></div></a>'}
@@ -359,7 +359,7 @@ function block(b){
     case 'job': return '<div class="job"><h3><span class="jn">'+b.n+'.</span> '+b.title+' <span class="sal">– '+b.sal+'</span></h3><p class="quip">'+b.quip+'</p><p>'+b.t+'</p></div>';
     case 'pm': return '<p class="pm"><a class="pmn" href="'+li(b.name)+'" target="_blank" rel="noopener">'+b.name+'</a> '+b.verb+' <a href="'+gs(b.org)+'" target="_blank" rel="noopener">'+b.org+'</a>'+b.tail+'</p>';
     case 'pmg': return '<p class="pm"><a href="'+gs(b.org)+'" target="_blank" rel="noopener">'+b.org+'</a>'+b.t+'</p>';
-    case 'nl': return '<section class="nlbox" aria-label="Newsletter signup"><img src="'+IMG.nickel+'" alt=""><div><h2>News, trends, &amp; insights in Canadian construction</h2><p>Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p></div><div class="signup">'+signup('inlineEmail')+'</div></section><div class="hair"></div>';
+    case 'nl': return '<section class="nlbox2" aria-label="Newsletter signup"><h2>News, trends, &amp; insights in Canadian construction</h2><p class="nl2-d">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup nl2">'+signup('nlIn','',"Subscribe")+'</div><p class="nl2-f">Be more valuable, weekly</p></section>';
   }
   return '';
 }
