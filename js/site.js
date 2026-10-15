@@ -258,7 +258,7 @@ function signup(id,dark,label){
   if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">'+(label||'Join free')+' '+PLANE+'</button></form>';
 }
-function riverItem(id){var a=A[id];return '<a class="press" href="#a-'+id+'"><div class="body"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span><span class="by">'+(a.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(a.img?'<img class="thumb" src="'+IMG[a.img]+'" alt="">':'')+'</a>'}
+function riverItem(id){var a=A[id];return '<a class="press" href="#a-'+id+'"><div class="body"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span><span class="rd">'+(a.homeDek||a.dek)+'</span><span class="by">'+(a.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(a.img?'<img class="thumb" src="'+IMG[a.img]+'" alt="">':'')+'</a>'}
 function card(id,first,r10,tagStyle){var a=A[id];return '<a class="card'+(r10?' r10':'')+'" href="#a-'+id+'" style="'+(first?'padding-top:20px':'')+'"><div class="txt px">'+(first?'':'<div class="rule"></div>')+'<div class="stack">'+(a.sp?'<span class="ptag">PARTNER CONTENT</span>':'')+'<span class="t20">'+a.title+'</span><span class="d14">'+(a.homeDek||a.dek)+'</span>'+(a.sp?'':'<span class="tag"'+(tagStyle?' style="'+tagStyle+'"':'')+'>'+a.tag+'</span>')+'</div></div><div class="pic"><img src="'+IMG[a.img]+'" alt="'+a.alt+'" loading="lazy" style="object-position:'+(FOCUS[id]||'50% 50%')+'"></div></a>'}
 
 function trending(){return '<section class="sec" style="gap:23px"><div class="rule"></div><div><div class="sechead">'+TREND_ICON+'<h2>TRENDING STORIES</h2></div><ol class="trend">'+TREND.map(function(id,i){return '<li><a class="press" href="#a-'+id+'"><span class="n">'+(i+1)+'.</span><span>'+A[id].title+'</span></a></li>'}).join('')+'</ol></div></section>';}
@@ -325,21 +325,33 @@ function wireVideo(){
   vidObs.observe(v);
 }
 function home(){
+  // One DOM for every width. Below 1024px the wrappers flatten (display:contents) and each block's
+  // CSS `order` restores the mobile sequence; at desktop they become the lead row, main column and sidebar.
   return ''+
-  '<div style="display:flex;flex-direction:column;gap:14px">'+
-   '<div>'+card('bcs',true)+'</div>'+
-   '<div class="nl-wrap"><section class="hero" id="signup"><h1>NEWS<br>TRENDS<br><span class="hi">INSIGHTS</span></h1><p class="for">FOR CONSTRUCTION</p><p class="pitch">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup">'+signup('heroEmail')+'</div></section>'+
-   '<a class="nl-card press" href="#newsletter"><div class="top"><span class="nl-pill">Latest Newsletter</span></div><div class="nl-title"><b>🛢️ Great pipes</b><span class="date"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><rect x=".6" y="1.6" width="10.8" height="9.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.6 4.4h10.8M3.4 0v2.8M8.6 0v2.8" stroke="currentColor" stroke-width="1.2"/></svg>Oct 6</span></div><p class="nl-dek">'+A.newsletter.dek+'</p></a></div>'+
-   '<div>'+card('nickel',true)+card('ant')+'</div>'+
-  '</div>'+
-  trending()+
-  videoCard()+
-  card('fortis',false,true)+
-  '<section class="sec" id="podcast" style="gap:8px;padding-bottom:44px"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
+  '<div class="home">'+
+   '<div class="h-top">'+
+    '<div class="h-lead o1">'+card('bcs',true)+'</div>'+
+    '<div class="h-trend o5">'+trending()+'</div>'+
+   '</div>'+
+   '<div class="h-body">'+
+    '<div class="h-main">'+
+     '<div class="h-c o3">'+card('nickel',true)+'</div>'+
+     '<div class="h-c o7">'+card('fortis',false,true)+'</div>'+
+     '<div class="h-c o4">'+card('ant')+'</div>'+
+     '<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
+     '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+['merger','careers','pomerleau','bell'].map(riverItem).join('')+'</section>'+
+     '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
    '<img src="assets/img/player.png" width="370" height="132" alt="Digging In podcast: In the pipeline, Oct 5, on Spotify" style="width:100%;height:auto;display:block"></div></section>'+
-  '<section id="forty" style="padding-bottom:34px;display:flex;flex-direction:column;gap:14px"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
-  '<section class="px river" style="padding-top:22px;padding-bottom:32px"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+['merger','careers','pomerleau','bell','ellisdon','pacific','lng','port'].map(riverItem).join('')+'</section>'+
-  '<section class="event" id="summit"><svg width="230" height="197" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#fff"/></svg><span style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.88)">Upcoming event · Toronto</span><h2>SITESUMMIT<br>YEAR 2</h2><p>Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</p><a class="go press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Get tickets</a></section>';
+     '<section class="px river lat2 o11">'+['ellisdon','pacific','lng','port'].map(riverItem).join('')+'</section>'+
+     '<section class="event o12" id="summit"><svg width="230" height="197" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#fff"/></svg><span style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.88)">Upcoming event · Toronto</span><h2>SITESUMMIT<br>YEAR 2</h2><p>Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</p><a class="go press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Get tickets</a></section>'+
+    '</div>'+
+    '<aside class="h-side">'+
+     '<div class="nl-wrap o2"><section class="hero" id="signup"><h1>NEWS<br>TRENDS<br><span class="hi">INSIGHTS</span></h1><p class="for">FOR CONSTRUCTION</p><p class="pitch">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup">'+signup('heroEmail')+'</div></section>'+
+     '<a class="nl-card press" href="#newsletter"><div class="top"><span class="nl-pill">Latest Newsletter</span></div><div class="nl-title"><b>🛢️ Great pipes</b><span class="date"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><rect x=".6" y="1.6" width="10.8" height="9.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.6 4.4h10.8M3.4 0v2.8M8.6 0v2.8" stroke="currentColor" stroke-width="1.2"/></svg>Oct 6</span></div><p class="nl-dek">'+A.newsletter.dek+'</p></a></div>'+
+     '<div class="o6">'+videoCard()+'</div>'+
+    '</aside>'+
+   '</div>'+
+  '</div>';
 }
 
 function block(b){

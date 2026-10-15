@@ -335,6 +335,7 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* footer */
+.fg{display:contents}
 .foot{background:#151515;color:var(--white)}
 .foot .col{padding:0 16px 60px;display:flex;flex-direction:column;align-items:flex-start}
 .flogo{display:block;padding:34px 0 14px}
@@ -387,3 +388,85 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .nl2 .btn-or svg path{fill-opacity:.32}
 .nl2 .done{background:var(--white);color:var(--ink);border:1px solid rgba(0,0,0,.12);border-radius:10px}
 .nlbox2 .nl2-f{margin:8px 0 0;text-align:center;font-style:italic;font-size:15px;line-height:1.4;letter-spacing:-.28px;color:#848484}
+
+/* ---------- homepage regions (mobile: flattened, ordered) ---------- */
+.home{display:flex;flex-direction:column}
+.h-top,.h-body,.h-main,.h-side{display:contents}
+.o1{order:1}.o2{order:2}.o3{order:3}.o4{order:4}.o5{order:5}.o6{order:6}.o7{order:7}.o8{order:8}.o9{order:9}.o10{order:10}.o11{order:11}.o12{order:12}
+.h-lead>.card,.nl-wrap{margin-bottom:14px}
+.h-c.o3>.card{padding-bottom:18px}
+#podcast{gap:8px;padding-bottom:44px}
+#forty{padding-bottom:34px;display:flex;flex-direction:column;gap:14px}
+.lat1{padding-top:22px}
+.lat1>a:last-child{border-bottom:1px solid rgba(0,0,0,.2)}
+.lat2{padding-bottom:32px}
+.river .rd{display:none}
+
+/* ---------- desktop ---------- */
+@media (min-width:1024px){
+  :root{--dcol:1132px}
+  .hdr .col{max-width:var(--dcol)}
+  body:not(.inner) main.col{max-width:var(--dcol);padding:0 0 40px}
+  .h-lead{display:block}
+  .home{display:block}
+  .home [class*=" o"],.home [class^="o"]{order:0}
+  .h-top{display:grid;grid-template-columns:minmax(0,656fr) minmax(0,466fr);column-gap:10px;align-items:start}
+  .h-lead{display:contents}
+  .h-lead>.card{display:contents}
+  .h-lead .txt{grid-column:1;grid-row:1;padding:20px 16px 0}
+  .h-lead .pic{grid-column:1;grid-row:2;padding:14px 16px 0}
+  .h-lead .t20{font-size:42px;letter-spacing:-.84px;line-height:1.15}
+  .h-lead .d14{font-size:23px;letter-spacing:-.46px}
+  .h-lead .card img{aspect-ratio:624/445}
+  .h-trend{display:block;grid-column:2;grid-row:2}
+  .h-trend .sec{padding-top:14px}
+  .h-body{display:grid;grid-template-columns:minmax(0,751fr) minmax(0,371fr);column-gap:10px;align-items:start;margin-top:24px}
+  .h-main{display:flex;flex-direction:column;padding:0 10px}
+  .h-side{display:flex;flex-direction:column;position:sticky;top:16px}
+  .h-c,.h-side>.o6{display:block}
+  .nl-wrap{margin-bottom:0}
+
+  /* horizontal story cards */
+  .h-main .card{display:grid;grid-template-columns:minmax(0,1fr) 181px;column-gap:14px;padding:16px 0 18px}
+  .h-main .card .txt{display:contents}
+  .h-main .card .rule{grid-column:1/-1;margin:0 16px 16px;height:1px;background:rgba(0,0,0,.12)}
+  .h-main .card .stack{grid-column:1;padding:0 16px;gap:6px}
+  .h-main .card .pic{grid-column:2;padding:0 16px}
+  .h-main .card img{aspect-ratio:149/112;border-radius:5px}
+  .h-main .card .t20{font-size:21px}
+  .h-main .card .d14{font-size:15px}
+
+  /* 40 Under 40: text left, image right */
+  #forty{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:10px 0 34px}
+  #forty>.px:first-child{justify-content:flex-start;gap:72px}
+  #forty>.px:last-child{padding-left:0}
+
+  /* latest stories with deks */
+  .lat1{padding-top:16px}
+  .lat1>.rule{display:none}
+  .h-main .river>a{border-bottom:0;border-top:3px solid #c9c6c5;padding:16px 0;gap:14px}
+  .h-main .river>.sechead+a{margin-top:12px}
+  .h-main .river .thumb{width:149px;height:112px}
+  .h-main .river .h{font-size:21px}
+  .h-main .river .rd{display:block;font-size:15px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted)}
+  .h-main .river .by{font-size:13px;text-transform:uppercase}
+  .h-main .river .body{gap:6px}
+  .lat2{padding-bottom:24px}
+  #podcast{padding:14px 16px 28px}
+  #podcast img{max-width:460px}
+  .h-main .event{margin:16px}
+
+  /* sidebar */
+  .h-side .vcard{padding-top:4px}
+
+  /* menu becomes a right-hand panel */
+  .menu{left:auto;width:420px;border-left:1px solid rgba(0,0,0,.07);box-shadow:-24px 0 48px rgba(0,0,0,.08)}
+
+  /* footer: three columns */
+  .foot .col{max-width:1380px;flex-direction:row;align-items:flex-start;gap:32px;padding:0 32px 60px}
+  .fg{display:flex;flex-direction:column;align-items:flex-start;flex:1 1 0;min-width:0}
+  .fg3{flex:0 0 200px;align-self:flex-end}
+  .fg .fpubs{border-bottom:0}
+  .fsm{padding-top:54px}
+  .flogo{padding-top:54px}
+}
