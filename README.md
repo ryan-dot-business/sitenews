@@ -15,7 +15,7 @@ It's designed for phones. On desktop it renders as a centred phone-width column.
 
 ## What's in it
 
-- **Home** — responsive: mobile single column; at 1024px+ a lead + trending row, a main column and a sticky sidebar (Figma 'Home' desktop frame). signup hero, latest newsletter card, top stories, Trending Stories, a muted autoplay Digging In video, podcast, 40 Under 40, Latest Stories, SiteSummit promo
+- **Home** — responsive: mobile single column; at 800px+ a lead + trending row, a main column and a sidebar (Figma 'Home' desktop frame). signup hero, latest newsletter card, top stories, Trending Stories, a muted autoplay Digging In video, podcast, 40 Under 40, Latest Stories, SiteSummit promo
 - **Articles** — four templates matching the live site: news (Key Takeaways + Whole Story), Q&A, numbered list, and People Moves (with a subscriber gate)
 - **Recirculation** at the end of each article — a "More [bigger story]" package when the story belongs to one, Trending Stories, then "More [category]" (stories not already in a package come first)
 - **Newsletter** — the Oct 6 issue laid out like the email (`#newsletter`)
