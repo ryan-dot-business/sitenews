@@ -335,14 +335,14 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* footer */
-.fg{display:contents}
+.fg,.ftop{display:contents}
 .foot{background:#151515;color:var(--white)}
 .foot .col{padding:0 16px 60px;display:flex;flex-direction:column;align-items:flex-start}
 .flogo{display:block;padding:34px 0 14px}
 .flogo svg path[fill="#282828"]{fill:#fff}
 .fchips{display:flex;flex-wrap:wrap;gap:3px;width:100%;padding:8px 0 16px}
 .fchips a{padding:12px;border-radius:40px;background:rgba(255,255,255,.05);font-family:var(--display);font-size:14px;line-height:1;font-weight:750;letter-spacing:-.28px;color:var(--white)}
-.flink{display:block;padding:8px 0;font-family:var(--display);font-size:16px;line-height:1;font-weight:500;letter-spacing:-.32px;color:rgba(255,255,255,.7)}
+.flink{display:block;padding:8px 0;font-family:var(--display);font-size:16px;line-height:1;font-weight:550;letter-spacing:-.32px;color:rgba(255,255,255,.7)}
 .flink.fab{padding-bottom:34px}
 .fsec{width:100%;border-bottom:2px solid #2b2b2b;padding-bottom:34px}
 .fsoc{display:flex;align-items:center;gap:16px;padding-top:8px}
@@ -463,10 +463,17 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .menu{left:auto;width:420px;border-left:1px solid rgba(0,0,0,.07);box-shadow:-24px 0 48px rgba(0,0,0,.08)}
 
   /* footer: three columns */
-  .foot .col{max-width:1380px;flex-direction:row;align-items:flex-start;gap:32px;padding:0 32px 60px}
-  .fg{display:flex;flex-direction:column;align-items:flex-start;flex:1 1 0;min-width:0}
-  .fg3{flex:0 0 200px;align-self:flex-end}
-  .fg .fpubs{border-bottom:0}
+  .foot{padding:0 16px}
+  .foot .col{max-width:1100px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:42px;row-gap:32px;align-items:start;padding:0 16px 135px}
+  .fg{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+  .fg1{grid-column:span 5;align-self:stretch;justify-content:space-between}
+  .ftop{display:flex;flex-direction:column;align-items:flex-start;width:100%}
+  .fg1 .flink.fab{padding-bottom:8px}
+  .fg1 .fchips{padding-right:13px}
+  .fg2{grid-column:span 5}
+  .fg3{grid-column:span 2;align-self:stretch;justify-content:flex-end;padding-top:88px}
+  .fg3 .flegal{padding-top:0}
+  .flab{font-size:10px}
   .fsm{padding-top:54px}
   .flogo{padding-top:54px}
 }
