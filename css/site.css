@@ -496,8 +496,8 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .burger.dopen .x{display:none}.burger.dopen .bars{display:block}
   .dpop{position:absolute;z-index:45;background:var(--white);border-radius:24px;border-bottom:2px solid #f2ecea;filter:drop-shadow(0 4px 7px rgba(0,0,0,.1));animation:fade .15s ease-out}
   .dpop:not([hidden]){display:block}
-  #topicsPop{width:370px;padding:10px}
-  .dpop-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
+  #topicsPop{width:313px;padding:10px}
+  .dpop-chips{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:7px}
   .dpop-more{width:162px;padding:0 10px 4px}
   .dpop-more:not([hidden]){display:flex;flex-direction:column;gap:4px}
   .dpop-more a{display:flex;align-items:center;justify-content:flex-end;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}

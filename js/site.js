@@ -474,12 +474,12 @@ menuL.addEventListener('click',function(e){var a=e.target.closest('a'); if(a&&a.
 /* ---------- desktop nav (800px+) ---------- */
 var isDesk=function(){return window.matchMedia('(min-width:800px)').matches};
 var dnT=document.getElementById('dnTopics'), tPop=document.getElementById('topicsPop'), mPop=document.getElementById('morePop');
-document.getElementById('topicsPopChips').innerHTML=['News','People','Projects','Recruitment','Economy','Technology','Sustainability','Forty'].map(function(t){
+document.getElementById('topicsPopChips').innerHTML=['News','Technology','Projects','Recruitment','Economy','Sustainability','Forty','People'].map(function(t){
   var href=t==='News'?'#t-All':t==='Forty'?'#forty':'#t-'+t, label=t==='Forty'?'40 Under 40':t, vb=t==='Forty'?'0 0 26 24':'0 0 25 25';
   return '<a class="chip-nav press" href="'+href+'"><svg width="25" height="'+(t==='Forty'?24:25)+'" viewBox="'+vb+'" aria-hidden="true">'+NAV_ICONS[t]+'</svg>'+label+'</a>'}).join('');
-function placePop(pop,btn,alignRight){var r=btn.getBoundingClientRect();pop.style.top=(r.bottom+window.scrollY+6)+'px';
+function placePop(pop,btn,alignRight){var r=btn.getBoundingClientRect();pop.style.top=(r.bottom+window.scrollY+(alignRight?6:3))+'px';
   if(alignRight){pop.style.left='auto';pop.style.right=Math.max(16,document.documentElement.clientWidth-r.right-24)+'px'}
-  else{var w=pop.offsetWidth||370;pop.style.right='auto';pop.style.left=Math.max(16,Math.min(r.left+r.width/2-w/2,document.documentElement.clientWidth-w-16))+'px'}}
+  else{var w=pop.offsetWidth||313;pop.style.right='auto';pop.style.left=Math.max(16,Math.min(r.left-10,document.documentElement.clientWidth-w-16))+'px'}}
 function setTopicsPop(on){tPop.hidden=!on;dnT.setAttribute('aria-expanded',on);if(on){setMorePop(false);placePop(tPop,dnT,false)}}
 function setMorePop(on){mPop.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.classList.toggle('dopen',on);if(on){setTopicsPop(false);placePop(mPop,menuBtn,true)}}
 dnT.addEventListener('click',function(e){e.stopPropagation();setTopicsPop(tPop.hidden)});
