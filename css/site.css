@@ -526,3 +526,134 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .prose h2,.prose .h3,.prose .ws{font-size:18px;letter-spacing:-.36px}
   .rc .thumb{width:90px;height:90px}
 }
+
+/* ---------- podcast: show page + episode pages ---------- */
+.pod{padding:20px 0 44px;display:flex;flex-direction:column}
+.pod-hd{padding:0 16px 16px;display:flex;flex-direction:column}
+.pod-hd h1,.epi-hd h1{margin:0;font-family:var(--display);font-size:32px;line-height:1.2;font-weight:700;letter-spacing:-.64px;color:var(--ink);text-wrap:balance}
+.pod-host{margin:6px 0 0;font-size:20px;line-height:1.4;font-weight:500;letter-spacing:-.4px;color:var(--muted)}
+.pod-tag{display:inline-block;margin-top:9px;font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px;text-transform:uppercase;color:var(--orange-text)}
+.pod-sh{margin:0;font-family:var(--display);font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
+.pod-grid{display:flex;flex-direction:column}
+.pod:not(.epi) .pod-main,.pod:not(.epi) .pod-side{display:contents}
+.pod-hero{order:1;margin:0 16px;aspect-ratio:624/445;border-radius:5px;background:#3a3a3a url(../assets/img/pod-texture.jpg) center/cover;display:grid;place-items:center}
+.pod-hero img{width:52.5%;aspect-ratio:1;object-fit:cover;border-radius:2px;box-shadow:0 12px 28px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.35)}
+.pod .lsn{order:2}
+.pod-latest{order:3;display:flex;flex-direction:column;gap:14px;padding:26px 16px 0}
+.pod-eph{order:4;padding:34px 16px 2px}
+.pod:not(.epi) .eplist{order:5}
+.pod:not(.epi) .pod-rule{order:6;margin:20px 16px 0}
+.pod-ov{order:7;padding:22px 16px 0;display:flex;flex-direction:column;gap:8px}
+.pod-ov p{margin:0;font-family:var(--serif);font-size:16px;line-height:1.4;font-weight:500;letter-spacing:-.32px;color:var(--muted)}
+.pod-rule{height:3px;background:rgba(0,0,0,.1)}
+.pod-all{font-family:var(--display);font-size:15px;font-weight:700;color:var(--orange-text);margin-top:4px}
+
+/* listen on */
+.lsn{display:flex;flex-direction:column;gap:14px;padding:22px 16px 0}
+.lsn-h{display:flex;align-items:center;gap:6px;font-family:var(--display);font-size:13px;line-height:1.2;font-weight:700;letter-spacing:-.26px;color:var(--faint)}
+.lsn-b{display:flex;flex-wrap:wrap;gap:6px}
+.lsn-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px 12px 14px;border-radius:20px;background:#e9e9e9;font-family:var(--display);font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
+.lsn-btn svg{flex:none;display:block}
+
+/* episode list */
+.eplist{display:flex;flex-direction:column}
+.eprow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start;padding:16px 16px 18px;border-bottom:2px solid rgba(0,0,0,.08)}
+.eprow:last-child{border-bottom:0}
+.ep-txt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ep-t{font-family:var(--display);font-size:19px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
+.ep-d{font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ep-dt{margin-top:3px;font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px;text-transform:uppercase;color:var(--orange-text)}
+.ep-len{color:var(--faint);text-transform:none;font-weight:600}
+.ep-art{width:88px;height:88px;object-fit:cover;border-radius:4px;box-shadow:0 4px 9px rgba(0,0,0,.25)}
+
+/* Spotify-style player */
+.spp{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;row-gap:12px;position:relative;padding:14px;border-radius:12px;background:#282828;color:#fff;font-family:var(--ui)}
+.spp-art{grid-row:1;grid-column:1;width:96px;height:96px;object-fit:cover;border-radius:4px;box-shadow:0 4px 9px rgba(0,0,0,.25)}
+.spp-logo{position:absolute;top:14px;right:14px}
+.spp-meta{grid-row:1;grid-column:2;align-self:center;display:flex;flex-direction:column;gap:4px;padding-right:28px;min-width:0}
+.spp-t{font-family:var(--display);font-size:16px;line-height:1.25;font-weight:700;letter-spacing:-.2px;color:#fff}
+.spp-t:hover{text-decoration:underline}
+.spp-s{font-size:13px;color:#a7a7a7}
+.spp-save{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:0;border:0;background:none;color:#fff;font-size:13px;cursor:pointer;width:max-content}
+.spp-save svg{display:block}
+.spp-ctl{grid-row:2;grid-column:1/-1;display:flex;align-items:center;gap:10px}
+.spp-sk{display:grid;place-items:center;width:24px;height:24px;padding:0;border:0;background:none;cursor:pointer}
+.spp-sk svg{display:block}
+.spp-bar{flex:1;height:16px;display:flex;align-items:center;cursor:pointer;position:relative}
+.spp-bar:before{content:'';position:absolute;left:0;right:0;height:4px;border-radius:2px;background:#535353}
+.spp-bar i{position:relative;height:4px;border-radius:2px;background:#fff;display:block}
+.spp-time{font-size:13px;color:#a7a7a7;font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+.spp-more{font-size:10px;letter-spacing:1px;color:#fff;padding:0 2px}
+.spp-play{flex:none;width:32px;height:32px;border-radius:50%;border:0;background:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.spp-play svg{display:block;margin-left:1px}
+.spp.on .spp-play svg{margin-left:0}
+.spp-big .spp-art{width:120px;height:120px}
+.spp-big .spp-t{font-size:20px}
+
+/* episode page */
+.epi{padding-top:28px}
+.epi-hd{padding:0 16px 18px;display:flex;flex-direction:column;gap:8px}
+.epi-hd .pod-tag{margin:0}
+.epi-by{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-top:8px}
+.epi-dt{font-size:14px;font-weight:600;letter-spacing:-.28px;color:var(--muted)}
+.epi .pod-main{padding:0 16px;display:flex;flex-direction:column}
+.epi .lsn{padding:22px 0 0}
+.epi-notes{padding-top:30px;display:flex;flex-direction:column;gap:14px;font-family:var(--serif);font-size:19px;line-height:1.45;letter-spacing:-.3px;color:rgba(0,0,0,.8)}
+.epi-notes p{margin:0}
+.epi-notes a{text-decoration:underline;text-decoration-color:#ff6929;text-underline-offset:4px;text-decoration-thickness:2px}
+.epi-heads{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;counter-reset:h}
+.epi-heads li{counter-increment:h;display:grid;grid-template-columns:28px 1fr;padding:12px 0;border-top:1px solid rgba(0,0,0,.1)}
+.epi-heads li:last-child{border-bottom:1px solid rgba(0,0,0,.1)}
+.epi-heads li:before{content:counter(h);font-family:var(--display);font-size:17px;font-weight:700;color:var(--orange-text);line-height:1.6}
+.epi .share-end{padding-top:28px}
+.ep-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:28px}
+.ep-nav-b{display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,.1);background:var(--white);font-family:var(--display);font-size:16px;line-height:1.25;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.ep-nav-b span{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--faint)}
+.ep-nav-b.nx{text-align:right}
+.epi .pod-side{display:flex;flex-direction:column}
+.epi-sub{padding:34px 16px 0}
+.epi .pod-ov{padding-top:30px}
+.epi-more{display:flex;flex-direction:column;padding-top:36px}
+.epi-more .pod-rule{margin:0 16px 22px}
+.epi-more .pod-sh{padding:0 16px 4px}
+
+@media (min-width:800px){
+  .pod-pg main.col{max-width:var(--dcol);padding:0 0 40px}
+  .pod-hd{padding:20px 16px 14px}
+  .pod{padding-top:0}
+  .pod:not(.epi) .pod-grid{display:grid;grid-template-columns:minmax(0,656fr) minmax(0,466fr);column-gap:10px;align-items:start}
+  .pod:not(.epi) .pod-main{display:flex;flex-direction:column}
+  .pod:not(.epi) .pod-side{display:flex;flex-direction:column;gap:23px;padding:0 16px 20px}
+  .pod:not(.epi) .pod-side>*{order:0}
+  .pod-hero{margin:0 16px}
+  .pod-eph{display:none}
+  .pod:not(.epi) .eplist{padding-top:14px}
+  .eprow{grid-template-columns:minmax(0,1fr) 181px;padding:16px 0 18px;margin-bottom:10px;border-bottom:2px solid rgba(0,0,0,.1)}
+  .eprow .ep-txt{padding:0 16px;gap:9px}
+  .ep-t{font-size:20px}
+  .ep-d{-webkit-line-clamp:3}
+  .ep-art{width:120px;height:120px;justify-self:center}
+  .pod-side .pod-latest,.pod-side .lsn,.pod-side .pod-ov{padding:0}
+  .pod:not(.epi) .pod-latest{gap:23px}
+  .pod:not(.epi) .lsn{gap:20px}
+  .pod:not(.epi) .pod-rule{margin:0}
+  .pod:not(.epi) .pod-ov{padding:0}
+  .spp{padding:14px 14px 12px}
+  .spp-art{width:113px;height:113px}
+  .lsn-btn{font-size:20px}
+
+  .epi{padding-top:56px}
+  .epi-hd{padding:0 16px 26px}
+  .epi-hd h1{font-size:clamp(36px,3.1vw,44px);letter-spacing:-.02em}
+  .epi .pod-grid{display:grid;grid-template-columns:minmax(0,656fr) minmax(0,466fr);column-gap:10px;align-items:start}
+  .epi .pod-side{padding:0 16px}
+  .epi-sub,.epi .pod-side .pod-ov{padding:0}
+  .epi .pod-side{gap:30px}
+  .epi-notes{font-size:18px;line-height:1.4;letter-spacing:-.36px}
+  .spp-big{padding:18px}
+  .spp-big .spp-art{width:160px;height:160px}
+  .spp-big .spp-t{font-size:24px}
+  .spp-big .spp-meta{gap:6px}
+  .epi-more{padding-top:44px}
+  .epi-more .eplist{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}
+}

@@ -2,7 +2,7 @@
 var IMG = {
   antlogo:'assets/img/ant-logo.png',
   ant:'assets/img/ant.jpg', carney:'assets/img/carney.jpg', nickel:'assets/img/nickel.jpg',
-  fortis:'assets/img/fortis.jpg', port:'assets/img/port.jpg', forty:'assets/img/forty.jpg', avatar:'assets/img/avatar.png', truck:'assets/img/ant-truck.jpg', pmsept:'assets/img/pm-sept.jpg', emav:'assets/img/em-avatar.png', wsp:'assets/img/wsp.png', em40:'assets/img/em-40.jpg', emcity:'assets/img/em-city.jpg', merger:'assets/img/merger.jpg', careers:'assets/img/careers.jpg', pomerleau:'assets/img/pomerleau.jpg', bell:'assets/img/bell.jpg', ellisdon:'assets/img/ellisdon.jpg', pacific:'assets/img/pacific.jpg', lng:'assets/img/lng.jpg', lang:'assets/img/ant-langston.jpg', pod:'assets/img/podcast-art.png'
+  fortis:'assets/img/fortis.jpg', port:'assets/img/port.jpg', forty:'assets/img/forty.jpg', avatar:'assets/img/avatar.png', truck:'assets/img/ant-truck.jpg', pmsept:'assets/img/pm-sept.jpg', emav:'assets/img/em-avatar.png', wsp:'assets/img/wsp.png', em40:'assets/img/em-40.jpg', emcity:'assets/img/em-city.jpg', merger:'assets/img/merger.jpg', careers:'assets/img/careers.jpg', pomerleau:'assets/img/pomerleau.jpg', bell:'assets/img/bell.jpg', ellisdon:'assets/img/ellisdon.jpg', pacific:'assets/img/pacific.jpg', lng:'assets/img/lng.jpg', lang:'assets/img/ant-langston.jpg', pod:'assets/img/podcast-art.png', podart:'assets/img/pod-art.jpg'
 };
 var RH='Russell Hixson', ST='Staff';
 function P(t){return{k:'p',t:t}} function N(t){return{k:'note',t:t}} function S(h,t){return{k:'s',h:h,t:t}}
@@ -341,7 +341,7 @@ function home(){
      '<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
      '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+['merger','careers','pomerleau','bell'].map(riverItem).join('')+'</section>'+
      '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
-   '<img src="assets/img/player.png" width="370" height="132" alt="Digging In podcast: In the pipeline, Oct 5, on Spotify" style="width:100%;height:auto;display:block"></div></section>'+
+   '<a href="#podcast" aria-label="Open the Digging In podcast"><img src="assets/img/player.png" width="370" height="132" alt="Digging In podcast: In the pipeline, Oct 5, on Spotify" style="width:100%;height:auto;display:block"></a></div></section>'+
      '<section class="px river lat2 o11">'+['ellisdon','pacific','lng','port'].map(riverItem).join('')+'</section>'+
      '<section class="event o12" id="summit"><svg width="230" height="197" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#fff"/></svg><span style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.88)">Upcoming event · Toronto</span><h2>SITESUMMIT<br>YEAR 2</h2><p>Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</p><a class="go press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Get tickets</a></section>'+
     '</div>'+
@@ -420,6 +420,80 @@ function topic(t){
    (ids.length?'':'<p class="d14" style="padding:24px 0">No stories in this section yet.</p>')+'</div>';
 }
 
+/* ---------- podcast: Digging In ---------- */
+var POD_OVERVIEW='Canada’s construction industry moves fast. Digging In helps you lead through it. Join veteran journalist Russell Hixson for sharp analysis and candid conversations with industry decision-makers. From policy and economic shifts to emerging technology and major projects, SiteNews’ podcast digs into what matters to your business—and what’s coming next.';
+var POD_LINKS={apple:'https://podcasts.apple.com/ca/search?term=Digging%20In%20SiteNews',spotify:'https://open.spotify.com/search/Digging%20In%20SiteNews'};
+/* durations are placeholders until the feed is wired up */
+var EPS=[
+ {id:'boom',title:'$200B boom',date:'Oct 13, 2026',short:'Oct 13',len:1709,d:'Is Canada on the cusp of a $200B construction boom? Bay du Nord offshore oil project has a new investor. Ottawa is rolling out a $2B heat pump program. Nuclear reactors are on the move. The Build Canada Strong act has its first major legal challenge.'},
+ {id:'pipeline',title:'In the Pipeline',date:'Oct 5, 2026',short:'Oct 5',len:1445,d:'What are the biggest Canadian construction stories of the week? Don’t get up. We have it all sorted for you. Here are the headlines you should be tracking: The Pacific Link pipeline has been designated a project of national interest. LNG Canada moves to Phase 2. EllisDon snags a massive EV factory build in Ontario.'},
+ {id:'law',title:'Laying down the law',date:'Sep 28, 2026',short:'Sep 28',len:1872,d:'It was a historic week for Canadian construction. Here are the headlines we dug into for this pod: Ottawa has tabled the Building Canada Strong Act and we broke down the top three things the industry needs to know. Diesel prices are spiking, adding costs to jobs and creating a new target for thieves. U.S. Lumber tariffs could have a silver lining for Canadian homebuilders.'},
+ {id:'pitch',title:'Pitch Perfect',date:'Sep 21, 2026',short:'Sep 21',len:1608,d:'Here’s what stories we are chasing down this week: Carney is inviting the world’s capital to invest in Canadian projects. The new ‘Mega Productivity’ tax deduction aims to sweeten the deal. Another piece of the puzzle is streamlining environmental approvals for certain projects. New data shows Canada’s construction productivity has stagnated (and how we can fix it). Finally, we detail a major nuclear project story that has just begun taking shape in Ontario.'},
+ {id:'forty40',title:'40 Under 40',date:'Sep 14, 2026',short:'Sep 14',len:1350,d:'Here are the biggest construction headlines we were chasing down last week: 40 Under 40 Industrial Leaders winners have been revealed! Massive capital is opening up for the industrial sector to increase Canada’s resilience. The nation’s biggest GCs are running a campaign on mental health. A massive carbon capture project just got underway.'},
+ {id:'pain',title:'Pain Relief w James Boseley',date:'Aug 7, 2026',short:'Aug 7',len:2296,guest:'James Boseley, Pain BC',d:'Sometimes construction hurts. This week we had a deep conversation with James Boseley of Pain BC about the hidden reality of chronic pain in the trades, how workers are often taught to ignore injuries and “tough it out,” and why that silence can lead to worsening physical and mental health. James shares his own experience with severe, long-ignored injuries, the stigma around pain in industrial work, and the importance of self-advocacy, documentation, and having the right support systems.'}
+];
+var EP={}; EPS.forEach(function(e){EP[e.id]=e});
+var EP_LINKS=[[/Pacific Link pipeline/,'#a-pacific'],[/LNG Canada moves to Phase 2/,'#a-lng'],[/EllisDon/,'#a-ellisdon'],[/Build(ing)? Canada Strong (A|a)ct/,'#a-bcs'],[/40 Under 40 Industrial Leaders/,'#forty']];
+function linkify(s){for(var i=0;i<EP_LINKS.length;i++){var m=s.match(EP_LINKS[i][0]);if(m)return s.replace(m[0],'<a href="'+EP_LINKS[i][1]+'">'+m[0]+'</a>')}return s}
+function epMin(e){return Math.round(e.len/60)+' min'}
+var SPEAKER='<svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg>';
+var APPLE_SVG='<svg width="26" height="30" viewBox="0 0 24 28" aria-hidden="true"><path transform="translate(0 2)" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" fill="#000"/></svg>';
+var SPOT_SVG='<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#1ed760"/><path d="M7.6 11.2c4.9-1.4 10.6-.9 14.9 1.6M8.4 15.2c4-1.1 8.7-.7 12.3 1.4M9.2 19c3.2-.8 6.6-.5 9.4 1.1" fill="none" stroke="#000" stroke-width="2.1" stroke-linecap="round"/></svg>';
+function listenOn(){return '<div class="lsn"><div class="lsn-h">'+SPEAKER+'<span>LISTEN ON</span></div><div class="lsn-b"><a class="lsn-btn press" href="'+POD_LINKS.apple+'" target="_blank" rel="noopener">'+APPLE_SVG+'Apple Podcasts</a><a class="lsn-btn press" href="'+POD_LINKS.spotify+'" target="_blank" rel="noopener">'+SPOT_SVG+'Spotify</a></div></div>'}
+function spPlayer(e,big){
+  return '<div class="spp'+(big?' spp-big':'')+'" data-ep="'+e.id+'"><img class="spp-art" src="'+IMG.podart+'" alt="Digging In cover art">'+
+   '<svg class="spp-logo" width="20" height="20" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#fff"/><path d="M7.6 11.2c4.9-1.4 10.6-.9 14.9 1.6M8.4 15.2c4-1.1 8.7-.7 12.3 1.4M9.2 19c3.2-.8 6.6-.5 9.4 1.1" fill="none" stroke="#282828" stroke-width="2.4" stroke-linecap="round"/></svg>'+
+   '<div class="spp-meta"><a class="spp-t" href="#ep-'+e.id+'">'+e.title+'</a><span class="spp-s">'+e.short+' · Digging In</span><button class="spp-save" type="button" data-save aria-pressed="false"></button></div>'+
+   '<div class="spp-ctl"><button class="spp-sk" type="button" data-skip="-15" aria-label="Back 15 seconds"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5A6.5 6.5 0 1 1 2.5 9" fill="none" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/><path d="M9 .5v4L6.3 2.5z" fill="#bbb"/><text x="9" y="12.2" font-size="6.5" font-family="system-ui" font-weight="700" fill="#bbb" text-anchor="middle">15</text></svg></button>'+
+   '<div class="spp-bar" data-seek role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="'+e.len+'"><i data-prog></i></div>'+
+   '<button class="spp-sk" type="button" data-skip="15" aria-label="Forward 15 seconds"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5A6.5 6.5 0 1 0 15.5 9" fill="none" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/><path d="M9 .5v4l2.7-2z" fill="#bbb"/><text x="9" y="12.2" font-size="6.5" font-family="system-ui" font-weight="700" fill="#bbb" text-anchor="middle">15</text></svg></button>'+
+   '<span class="spp-time" data-left></span><span class="spp-more" aria-hidden="true">•••</span>'+
+   '<button class="spp-play" type="button" data-play aria-label="Play episode"></button></div></div>';
+}
+function epRow(e){
+  return '<a class="eprow" href="#ep-'+e.id+'"><div class="ep-txt"><span class="ep-t">'+e.title+'</span><span class="ep-d">'+e.d+'</span><span class="ep-dt">'+e.date+'<span class="ep-len"> · '+epMin(e)+'</span></span></div><img class="ep-art" src="'+IMG.podart+'" alt=""></a>';
+}
+function podShowHead(){return '<div class="pod-hd"><h1>Digging In</h1><p class="pod-host">with Russell Hixson</p><span class="pod-tag">Podcast</span></div>'}
+function podcastPage(){
+  var latest=EPS[0];
+  return '<div class="pod">'+podShowHead()+
+   '<div class="pod-grid"><div class="pod-main">'+
+     '<div class="pod-hero"><img src="'+IMG.podart+'" alt="Digging In with Russell Hixson, a SiteNews podcast"></div>'+
+     '<h2 class="pod-sh pod-eph">Episodes</h2>'+
+     '<div class="eplist">'+EPS.map(epRow).join('')+'</div>'+
+   '</div><aside class="pod-side">'+
+     '<div class="pod-latest"><h2 class="pod-sh">Latest</h2>'+spPlayer(latest)+'</div>'+listenOn()+
+     '<div class="pod-rule"></div>'+
+     '<div class="pod-ov"><h2 class="pod-sh">Overview</h2><p>'+POD_OVERVIEW+'</p></div>'+
+   '</aside></div></div>';
+}
+function episodePage(id){
+  var e=EP[id], i=EPS.indexOf(e), more=EPS.filter(function(x){return x!==e}).slice(0,4);
+  var parts=e.d.split(/(?<=[.!?”])\s+(?=[A-Z“])/), intro=[], heads=[];
+  var ci=parts.findIndex(function(p){return /:\s*\S/.test(p)});
+  if(ci>=0){var c=parts[ci].split(/:\s*/);intro=parts.slice(0,ci).concat([c[0]+':']);heads=[c.slice(1).join(': ')].concat(parts.slice(ci+1))}
+  else {intro=parts}
+  var nav=(i>0?'<a class="ep-nav-b press" href="#ep-'+EPS[i-1].id+'"><span>Newer</span>'+EPS[i-1].title+'</a>':'<span></span>')+(i<EPS.length-1?'<a class="ep-nav-b nx press" href="#ep-'+EPS[i+1].id+'"><span>Older</span>'+EPS[i+1].title+'</a>':'<span></span>');
+  return '<div class="pod epi">'+
+   '<div class="epi-hd"><a class="pod-tag" href="#podcast">Digging In · Podcast</a><h1>'+e.title+'</h1>'+
+     '<div class="epi-by"><div class="byline"><img src="'+IMG.avatar+'" alt=""><span>Russell Hixson'+(e.guest?' with '+e.guest:'')+'</span></div><span class="epi-dt">'+e.date+' · '+epMin(e)+'</span></div></div>'+
+   '<div class="pod-grid"><div class="pod-main">'+
+     spPlayer(e,true)+
+     '<div class="epi-lsn">'+listenOn()+'</div>'+
+     '<div class="epi-notes"><h2 class="pod-sh">Show notes</h2>'+
+       '<p>'+intro.map(linkify).join(' ')+'</p>'+
+       (heads.length?'<ol class="epi-heads">'+heads.map(function(h){return '<li><span>'+linkify(h)+'</span></li>'}).join('')+'</ol>':'')+
+     '</div>'+
+     shareRow(false)+
+     '<nav class="ep-nav" aria-label="Episodes">'+nav+'</nav>'+
+   '</div><aside class="pod-side">'+
+     '<div class="epi-sub">'+block({k:'nl'})+'</div>'+
+     '<div class="pod-ov"><h2 class="pod-sh">About the show</h2><p>'+POD_OVERVIEW+'</p><a class="pod-all" href="#podcast">All episodes →</a></div>'+
+   '</aside></div>'+
+   '<section class="epi-more"><div class="pod-rule"></div><h2 class="pod-sh">More episodes</h2><div class="eplist">'+more.map(epRow).join('')+'</div></section>'+
+  '</div>';
+}
+
 /* ---------- routing ---------- */
 var app=document.getElementById('app');
 function route(){
@@ -428,11 +502,15 @@ function route(){
   var scrollTo=null, t='SiteNews';
   if(h.indexOf('a-')===0&&A[h.slice(2)]){app.innerHTML=article(h.slice(2)); t=A[h.slice(2)].title+' | SiteNews';}
   else if(h==='newsletter'){app.innerHTML=nlIssue(); t='Great pipes | SiteNews newsletter';}
+  else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In podcast | SiteNews';}
+  else if(h.indexOf('ep-')===0&&EP[h.slice(3)]){var ep=EP[h.slice(3)];app.innerHTML=episodePage(ep.id); t=ep.title+' | Digging In | SiteNews';}
   else if(h.indexOf('t-')===0){var tn=h.slice(2); app.innerHTML=topic(tn); t=(tn==='All'?'Latest':tn)+' | SiteNews';}
-  else {app.innerHTML=home(); if(h==='podcast'||h==='summit'||h==='signup'||h==='forty') scrollTo=h;}
+  else {app.innerHTML=home(); if(h==='summit'||h==='signup'||h==='forty') scrollTo=h;}
   document.title=t;
   document.body.classList.toggle('art-pg',h.indexOf('a-')===0&&!!A[h.slice(2)]);
-  setLogoMode(!(h.indexOf('a-')===0&&A[h.slice(2)])&&h.indexOf('t-')!==0&&h!=='newsletter');
+  var isPod=h==='podcast'||(h.indexOf('ep-')===0&&!!EP[h.slice(3)]);
+  setLogoMode(!(h.indexOf('a-')===0&&A[h.slice(2)])&&h.indexOf('t-')!==0&&h!=='newsletter'&&!isPod);
+  document.body.classList.toggle('pod-pg',isPod);
   if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-12; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
   else window.scrollTo(0,0);
   wirePlayer();
@@ -517,19 +595,29 @@ document.addEventListener('click',function(e){
   try{navigator.clipboard.writeText(url).then(show,show)}catch(err){show()}
 });
 
-/* ---------- podcast player ---------- */
-var total=1470, pos=880, playing=false, timer=null, saved=false;
-function mmss(n){n=Math.max(0,n);var m=Math.floor(n/60),s=n%60;return (m<10?'0':'')+m+':'+(s<10?'0':'')+s}
-function paint(){var p=document.getElementById('prog'),t=document.getElementById('tleft');if(p)p.style.width=(pos/total*100).toFixed(1)+'%';if(t)t.textContent=mmss(total-pos)}
+/* ---------- podcast player (Spotify-style, simulated playback) ---------- */
+var PST={}, ptimer=null, pnow=null;
+function mmss(n){n=Math.max(0,Math.round(n));var h=Math.floor(n/3600),m=Math.floor(n%3600/60),s=n%60;return (h?h+':':'')+(m<10&&h?'0':'')+(m<10&&!h?'0':'')+m+':'+(s<10?'0':'')+s}
+function pstate(id){if(!PST[id])PST[id]={pos:id==='boom'?EP.boom.len-509:0,playing:false,saved:false};return PST[id]}
 function wirePlayer(){
-  var pb=document.getElementById('playBtn'); if(!pb) return; paint();
-  var icon=function(){pb.innerHTML=playing?'<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1 0h3v12H1zM7 0h3v12H7z" fill="#000"/></svg>':'<svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><path d="M1 .5v12l10.5-6z" fill="#000"/></svg>';pb.setAttribute('aria-label',playing?'Pause episode':'Play episode')};
-  icon();
-  pb.onclick=function(){playing=!playing;clearInterval(timer);if(playing)timer=setInterval(function(){pos=Math.min(total,pos+1);paint();if(pos>=total){playing=false;clearInterval(timer);icon()}},1000);icon()};
-  document.querySelectorAll('[data-skip]').forEach(function(s){s.onclick=function(){pos=Math.min(total,Math.max(0,pos+ +s.dataset.skip));paint()}});
-  var sb=document.getElementById('saveBtn');
-  var sicon=function(){sb.setAttribute('aria-pressed',saved);sb.innerHTML=(saved?'<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#1ed760"/><path d="m5.8 10.2 2.8 2.8 5.6-5.8" fill="none" stroke="#000" stroke-width="1.8"/></svg>':'<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M10 6v8M6 10h8" stroke="#fff" stroke-width="1.5"/></svg>')+'<span>'+(saved?'Saved':'Save on Spotify')+'</span>'};
-  sicon(); sb.onclick=function(){saved=!saved;sicon()};
+  document.querySelectorAll('.spp').forEach(function(el){
+    var id=el.dataset.ep, e=EP[id], st=pstate(id);
+    var pb=el.querySelector('[data-play]'), sv=el.querySelector('[data-save]'), bar=el.querySelector('[data-seek]');
+    var paint=function(){el.querySelector('[data-prog]').style.width=(st.pos/e.len*100).toFixed(2)+'%';el.querySelector('[data-left]').textContent=mmss(e.len-st.pos);bar.setAttribute('aria-valuenow',Math.round(st.pos));bar.setAttribute('aria-valuetext',mmss(st.pos)+' of '+mmss(e.len))};
+    var icon=function(){pb.innerHTML=st.playing?'<svg width="12" height="13" viewBox="0 0 12 13" aria-hidden="true"><path d="M1.5 0h3v13h-3zM7.5 0h3v13h-3z" fill="#000"/></svg>':'<svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 .8v12.4L12.5 7z" fill="#000"/></svg>';pb.setAttribute('aria-label',st.playing?'Pause episode':'Play episode');el.classList.toggle('on',st.playing)};
+    var sicon=function(){sv.setAttribute('aria-pressed',st.saved);sv.innerHTML=(st.saved?'<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#1ed760"/><path d="m5.8 10.2 2.8 2.8 5.6-5.8" fill="none" stroke="#000" stroke-width="1.8"/></svg>':'<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M10 6v8M6 10h8" stroke="#fff" stroke-width="1.5"/></svg>')+'<span>'+(st.saved?'Saved on Spotify':'Save on Spotify')+'</span>'};
+    el._paint=paint; el._icon=icon; paint(); icon(); sicon();
+    pb.onclick=function(){
+      var go=!st.playing; Object.keys(PST).forEach(function(k){PST[k].playing=false}); clearInterval(ptimer);
+      document.querySelectorAll('.spp').forEach(function(o){o._icon&&o._icon()});
+      if(go){st.playing=true;pnow=id;ptimer=setInterval(function(){st.pos=Math.min(e.len,st.pos+1);document.querySelectorAll('.spp[data-ep="'+id+'"]').forEach(function(o){o._paint()});if(st.pos>=e.len){st.playing=false;clearInterval(ptimer);icon()}},1000)}
+      icon();
+    };
+    el.querySelectorAll('[data-skip]').forEach(function(b){b.onclick=function(){st.pos=Math.min(e.len,Math.max(0,st.pos+ +b.dataset.skip));paint()}});
+    bar.onclick=function(ev){var r=bar.getBoundingClientRect();st.pos=Math.round(Math.min(1,Math.max(0,(ev.clientX-r.left)/r.width))*e.len);paint()};
+    bar.onkeydown=function(ev){if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){ev.preventDefault();st.pos=Math.min(e.len,Math.max(0,st.pos+(ev.key==='ArrowRight'?5:-5)));paint()}};
+    sv.onclick=function(){st.saved=!st.saved;sicon()};
+  });
 }
 
 route();
