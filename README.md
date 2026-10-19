@@ -56,6 +56,6 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 
 ## Topic pages
 
-- `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page mixes our articles with the related ReadSiteNews stories (`EXT`), newest first.
+- `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page lists the 12 latest stories from that topic on the live site (`js/rsn.js`, thumbnails in `assets/img/rs2/`), newest first. Stories that exist as prototype articles link to the local page; the rest open readsitenews.com.
 - Mobile follows the Figma frame. From 800px wide the page uses a 751/371 grid: the newest story becomes a large lead, list rows show a dek, and the sidebar holds the sub-section links, the newsletter box and Trending.
 - `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Topic descriptions and sub-sections are the final SiteNews content (`TDESC`, `SUBS`).

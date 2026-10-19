@@ -434,20 +434,28 @@ function topic(t){
 }
 function slug(s){return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function pdate(d){var t=Date.parse(d||'');return isNaN(t)?0:t}
+function fmtDate(iso){var d=new Date(iso+'T12:00:00');return isNaN(d)?'':d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function normT(x){return (x||'').toLowerCase().replace(/&amp;/g,'&').replace(/[‘’'"“”]/g,'').replace(/\s+/g,' ').trim()}
 function topicPool(t){
-  var out=[];
-  ORDER.forEach(function(id){var a=A[id];if(!a||a.topic==='Newsletter')return;if(t!=='All'&&a.topic!==t)return;
-    out.push({href:'#a-'+id,tag:a.sp?'Partner content':a.tag,title:a.title,dek:a.homeDek||a.dek,date:a.date,img:a.img?IMG[a.img]:null,focus:FOCUS[id]})});
-  for(var k in EXT){var e=EXT[k];if(t!=='All'&&e.tag!==t)continue;
-    out.push({href:e.url,ext:1,tag:e.tag,title:e.title,date:e.date,img:IMG[e.img]})}
-  return out.sort(function(a,b){return pdate(b.date)-pdate(a.date)});
+  /* Live ReadSiteNews stories (RSN_TOPICS); any that exist as articles in this prototype link to the local page */
+  var local={}; ORDER.forEach(function(id){if(A[id])local[normT(A[id].title)]=id});
+  var P=window.RSN_POSTS||{}, T=window.RSN_TOPICS||{}, seen={}, out=[];
+  var ids=t==='All'?[].concat.apply([],TOPICS.map(function(k){return T[k]||[]})):(T[t]||[]);
+  var catOf=function(pid){for(var i=0;i<TOPICS.length;i++){if((T[TOPICS[i]]||[]).indexOf(pid)>=0)return TOPICS[i]}return 'News'};
+  ids.forEach(function(pid){if(seen[pid]||!P[pid])return;seen[pid]=1;var p=P[pid], lid=local[normT(p[2])], a=lid&&A[lid];
+    out.push({href:a?'#a-'+lid:RS+p[0]+'/',ext:!a,tag:t==='All'?catOf(pid):t,title:p[2],dek:p[3],date:fmtDate(p[1]),iso:p[1],img:a&&a.img?IMG[a.img]:((window.RSN_IMG&&RSN_IMG[pid])||window.RSN_DIR+pid+'.webp'),focus:a?FOCUS[lid]:null})});
+  /* prototype-only articles that aren't on the live site yet */
+  ORDER.forEach(function(id){var a=A[id];if(!a||a.topic==='Newsletter'||!a.date)return;if(t!=='All'&&a.topic!==t)return;
+    if(out.some(function(x){return x.href==='#a-'+id}))return;
+    out.push({href:'#a-'+id,tag:a.sp?'Partner content':(t==='All'?a.topic:t),title:a.title,dek:a.homeDek||a.dek,date:a.date,img:a.img?IMG[a.img]:null,focus:FOCUS[id]})});
+  return out.sort(function(a,b){return pdate(b.iso||b.date)-pdate(a.iso||a.date)});
 }
 function tpAttrs(x){return 'href="'+x.href+'"'+(x.ext?' target="_blank" rel="noopener"':'')}
 function tpRow(x,hidden,isLead){
-  return '<a class="tp-row press'+(isLead?' tp-row-lead':'')+'" '+tpAttrs(x)+(hidden?' hidden data-extra':'')+'><div class="tp-txt"><span class="tp-k">'+x.tag+'</span><span class="tp-t">'+x.title+'</span>'+(x.dek&&!x.ext?'<span class="tp-d">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(x.img?'<img class="tp-img" src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+' loading="lazy">':'')+'</a>';
+  return '<a class="tp-row press'+(isLead?' tp-row-lead':'')+'" '+tpAttrs(x)+(hidden?' hidden data-extra':'')+'><div class="tp-txt"><span class="tp-k">'+x.tag+'</span><span class="tp-t">'+x.title+'</span>'+(x.dek?'<span class="tp-d">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(x.img?'<img class="tp-img" src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+' loading="lazy">':'')+'</a>';
 }
 function tpLead(x){
-  return '<a class="tp-lead press" '+tpAttrs(x)+'>'+(x.img?'<img src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+'>':'')+'<div class="tp-ltxt"><span class="tp-k">'+x.tag+'</span><span class="tp-lt">'+x.title+'</span>'+(x.dek&&!x.ext?'<span class="tp-ld">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'')+'</span></div></a>';
+  return '<a class="tp-lead press" '+tpAttrs(x)+'>'+(x.img?'<img src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+'>':'')+'<div class="tp-ltxt"><span class="tp-k">'+x.tag+'</span><span class="tp-lt">'+x.title+'</span>'+(x.dek?'<span class="tp-ld">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'')+'</span></div></a>';
 }
 var TDESC={
  People:'Meet the leaders shaping Canadian construction, with executive moves, candid interviews and insights from the industry’s rising talent.',
