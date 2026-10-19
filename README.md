@@ -58,4 +58,4 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 
 - `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page mixes our articles with the related ReadSiteNews stories (`EXT`), newest first.
 - Mobile follows the Figma frame. From 800px wide the page uses a 751/371 grid: the newest story becomes a large lead, list rows show a dek, and the sidebar holds the sub-section links, the newsletter box and Trending.
-- `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Economy's sub-sections come from the design; the others are proposals.
+- `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Topic descriptions and sub-sections are the final SiteNews content (`TDESC`, `SUBS`).
