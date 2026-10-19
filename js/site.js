@@ -449,7 +449,7 @@ function tpRow(x,hidden,isLead){
 function tpLead(x){
   return '<a class="tp-lead press" '+tpAttrs(x)+'>'+(x.img?'<img src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+'>':'')+'<div class="tp-ltxt"><span class="tp-k">'+x.tag+'</span><span class="tp-lt">'+x.title+'</span>'+(x.dek&&!x.ext?'<span class="tp-ld">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'')+'</span></div></a>';
 }
-var TDESC={Projects:'Track the construction projects transforming Canada, from major infrastructure investments to the developments creating your next business opportunity.'};
+var TDESC={Projects:'Track the construction projects transforming Canada.'};
 /* Sub-sections per topic: [label, keyword filter]. Economy's list is from the Figma frame; the rest are proposed. */
 var SUBS={
  Economy:[['Construction Outlook & Market Trends',/outlook|boom|market|productiv|data shows/i],['Construction Costs & Materials',/cost|material|price|lumber|diesel/i],['Trade & Tariffs',/tariff|trade|port/i],['Government Policy & Regulation',/ottawa|act|policy|regulat|mandate|government|federal/i],['Infrastructure Investment & Funding',/\$|invest|fund|loan|capital/i],['Mergers, Acquisitions & Business Expansion',/merger|acquir|buy|sells|deal/i],['Housing Economics & Development',/housing|home|residential/i]],
