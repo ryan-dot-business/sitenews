@@ -2,7 +2,7 @@
 var IMG = {
   antlogo:'assets/img/ant-logo.png',
   ant:'assets/img/ant.jpg', carney:'assets/img/carney.jpg', nickel:'assets/img/nickel.jpg',
-  fortis:'assets/img/fortis.jpg', port:'assets/img/port.jpg', forty:'assets/img/forty.jpg', avatar:'assets/img/avatar.png', truck:'assets/img/ant-truck.jpg', pmsept:'assets/img/pm-sept.jpg', emav:'assets/img/em-avatar.png', wsp:'assets/img/wsp.png', em40:'assets/img/em-40.jpg', emcity:'assets/img/em-city.jpg', merger:'assets/img/merger.jpg', careers:'assets/img/careers.jpg', pomerleau:'assets/img/pomerleau.jpg', bell:'assets/img/bell.jpg', ellisdon:'assets/img/ellisdon.jpg', pacific:'assets/img/pacific.jpg', lng:'assets/img/lng.jpg', lang:'assets/img/ant-langston.jpg', pod:'assets/img/podcast-art.png', podart:'assets/img/pod-art.jpg'
+  fortis:'assets/img/fortis.jpg', port:'assets/img/port.jpg', forty:'assets/img/forty.jpg', avatar:'assets/img/avatar.png', truck:'assets/img/ant-truck.jpg', pmsept:'assets/img/pm-sept.jpg', emav:'assets/img/em-avatar.png', wsp:'assets/img/wsp.png', em40:'assets/img/em-40.jpg', emcity:'assets/img/em-city.jpg', merger:'assets/img/merger.jpg', careers:'assets/img/careers.jpg', pomerleau:'assets/img/pomerleau.jpg', bell:'assets/img/bell.jpg', ellisdon:'assets/img/ellisdon.jpg', pacific:'assets/img/pacific.jpg', lng:'assets/img/lng.jpg', lang:'assets/img/ant-langston.jpg', pod:'assets/img/podcast-art.png', podart:'assets/img/pod-cover-sm.jpg', podcover:'assets/img/pod-cover.jpg', podhero:'assets/img/pod-hero.jpg'
 };
 var RH='Russell Hixson', ST='Staff';
 function P(t){return{k:'p',t:t}} function N(t){return{k:'note',t:t}} function S(h,t){return{k:'s',h:h,t:t}}
@@ -437,11 +437,11 @@ var EP_LINKS=[[/Pacific Link pipeline/,'#a-pacific'],[/LNG Canada moves to Phase
 function linkify(s){for(var i=0;i<EP_LINKS.length;i++){var m=s.match(EP_LINKS[i][0]);if(m)return s.replace(m[0],'<a href="'+EP_LINKS[i][1]+'">'+m[0]+'</a>')}return s}
 function epMin(e){return Math.round(e.len/60)+' min'}
 var SPEAKER='<svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg>';
-var APPLE_SVG='<svg width="26" height="30" viewBox="0 0 24 28" aria-hidden="true"><path transform="translate(0 2)" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" fill="#000"/></svg>';
-var SPOT_SVG='<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#1ed760"/><path d="M7.6 11.2c4.9-1.4 10.6-.9 14.9 1.6M8.4 15.2c4-1.1 8.7-.7 12.3 1.4M9.2 19c3.2-.8 6.6-.5 9.4 1.1" fill="none" stroke="#000" stroke-width="2.1" stroke-linecap="round"/></svg>';
+var APPLE_SVG='<img src="assets/img/ic-apple.png" width="29" height="30" alt="">';
+var SPOT_SVG='<img src="assets/img/ic-spotify.png" width="30" height="30" alt="">';
 function listenOn(){return '<div class="lsn"><div class="lsn-h">'+SPEAKER+'<span>LISTEN ON</span></div><div class="lsn-b"><a class="lsn-btn press" href="'+POD_LINKS.apple+'" target="_blank" rel="noopener">'+APPLE_SVG+'Apple Podcasts</a><a class="lsn-btn press" href="'+POD_LINKS.spotify+'" target="_blank" rel="noopener">'+SPOT_SVG+'Spotify</a></div></div>'}
 function spPlayer(e,big){
-  return '<div class="spp'+(big?' spp-big':'')+'" data-ep="'+e.id+'"><img class="spp-art" src="'+IMG.podart+'" alt="Digging In cover art">'+
+  return '<div class="spp'+(big?' spp-big':'')+'" data-ep="'+e.id+'"><img class="spp-art" src="'+(big?IMG.podcover:IMG.podart)+'" alt="Digging In cover art">'+
    '<svg class="spp-logo" width="20" height="20" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#fff"/><path d="M7.6 11.2c4.9-1.4 10.6-.9 14.9 1.6M8.4 15.2c4-1.1 8.7-.7 12.3 1.4M9.2 19c3.2-.8 6.6-.5 9.4 1.1" fill="none" stroke="#282828" stroke-width="2.4" stroke-linecap="round"/></svg>'+
    '<div class="spp-meta"><a class="spp-t" href="#ep-'+e.id+'">'+e.title+'</a><span class="spp-s">'+e.short+' · Digging In</span><button class="spp-save" type="button" data-save aria-pressed="false"></button></div>'+
    '<div class="spp-ctl"><button class="spp-sk" type="button" data-skip="-15" aria-label="Back 15 seconds"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5A6.5 6.5 0 1 1 2.5 9" fill="none" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/><path d="M9 .5v4L6.3 2.5z" fill="#bbb"/><text x="9" y="12.2" font-size="6.5" font-family="system-ui" font-weight="700" fill="#bbb" text-anchor="middle">15</text></svg></button>'+
@@ -458,7 +458,7 @@ function podcastPage(){
   var latest=EPS[0];
   return '<div class="pod">'+podShowHead()+
    '<div class="pod-grid"><div class="pod-main">'+
-     '<div class="pod-hero"><img src="'+IMG.podart+'" alt="Digging In with Russell Hixson, a SiteNews podcast"></div>'+
+     '<div class="pod-hero"><img src="'+IMG.podhero+'" alt="Digging In with Russell Hixson, a SiteNews podcast"></div>'+
      '<h2 class="pod-sh pod-eph">Episodes</h2>'+
      '<div class="eplist">'+EPS.map(epRow).join('')+'</div>'+
    '</div><aside class="pod-side">'+
