@@ -53,3 +53,9 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - Show notes are built from the episode description. Sentences after the colon become a numbered headline list, and known stories (Pacific Link, LNG Canada, EllisDon, Building Canada Strong Act, 40 Under 40) link to their articles.
 - Episode data lives in `EPS` in `js/site.js`. Durations are placeholders until the feed is wired up. Playback is simulated: play/pause, ±15s and seek work, and the position carries over between pages.
 - Art: `pod-hero.jpg` (hero), `pod-cover.jpg` / `pod-cover-sm.jpg` (cover art), `ic-apple.png` / `ic-spotify.png` (Listen on buttons).
+
+## Topic pages
+
+- `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page mixes our articles with the related ReadSiteNews stories (`EXT`), newest first.
+- Mobile follows the Figma frame. From 800px wide the page uses a 751/371 grid: the newest story becomes a large lead, list rows show a dek, and the sidebar holds the sub-section links, the newsletter box and Trending.
+- `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Economy's sub-sections come from the design; the others are proposals.

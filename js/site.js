@@ -407,18 +407,58 @@ function article(id){ current=id;
    big.html+trending()+moreCategory(id,big.shown)+promo40();
 }
 function topic(t){
+  var sub=null, parts=t.split('/'); t=parts[0];
   if(t!=='All'&&TOPICS.indexOf(t)<0) t='All';
-  var ids=t==='All'?ORDER:ORDER.filter(function(id){return A[id].topic===t});
-  var lead=null; for(var i=0;i<ids.length;i++){if(A[ids[i]].img){lead=ids[i];break}}
-  var rest=ids.filter(function(id){return id!==lead});
-  var la=lead&&A[lead];
-  return '<div class="topic"><div class="stack" style="gap:6px;padding-bottom:18px"><span class="tag or" style="letter-spacing:.6px">'+(t==='All'?'All stories':'Topic')+'</span><h1>'+(t==='All'?'Latest':t)+'</h1><p class="d14" style="margin:4px 0 0">'+DESC[t]+'</p></div>'+
-   '<nav class="chips" aria-label="Topics">'+['All'].concat(TOPICS).map(function(c){return '<a class="chip press" href="#t-'+c+'"'+(c===t?' aria-current="page"':'')+'>'+(c==='All'?'All stories':c)+'</a>'}).join('')+'</nav>'+
-   '<div class="rule"></div>'+
-   (la?'<a class="lead" href="#a-'+lead+'"><img src="'+IMG[la.img]+'" alt="'+la.alt+'" style="object-position:'+(FOCUS[lead]||'50% 50%')+'"><div class="stack"><span class="river"><span class="k">'+la.tag+'</span></span><span class="t20">'+la.title+'</span><span class="d14">'+la.dek+'</span><span class="river"><span class="by">'+by(la)+'</span></span></div></a>':'')+
-   '<div class="river">'+rest.map(riverItem).join('')+'</div>'+
-   (ids.length?'':'<p class="d14" style="padding:24px 0">No stories in this section yet.</p>')+'</div>';
+  var subs=SUBS[t]||[];
+  if(parts[1]){subs.forEach(function(s){if(slug(s[0])===parts[1])sub=s})}
+  var all=topicPool(t), list=all;
+  if(sub&&sub[1]){var f=all.filter(function(x){return sub[1].test(x.title+' '+(x.dek||''))});if(f.length)list=f}
+  var name=t==='All'?'News':t, PAGE=8;
+  var head='<header class="tp-hd">'+(sub?'<a class="tp-crumb" href="#t-'+t+'">'+name+'</a>':'')+'<h1>'+(sub?sub[0]:name)+'</h1>'+(sub?'':'<p>'+(TDESC[t]||DESC[t])+'</p>')+'</header>';
+  var nav=sub?'':'<nav class="tp-subs" aria-label="'+name+' sections">'+(t==='All'
+     ?TOPICS.map(function(x){return '<a class="press" href="#t-'+x+'">'+x+'</a>'})
+     :subs.map(function(s){return '<a class="press" href="#t-'+t+'/'+slug(s[0])+'">'+s[0]+'</a>'})).join('')+'</nav>';
+  var lead=list[0], rest=list.slice(1);
+  var rows=rest.map(function(x,i){return tpRow(x,i>=PAGE)}).join('');
+  return '<div class="tp">'+head+
+   '<div class="tp-grid"><div class="tp-main">'+nav+
+     (lead?tpLead(lead):'')+
+     '<div class="tp-list">'+(lead?tpRow(lead,false,true):'')+rows+'</div>'+
+     (rest.length>PAGE?'<div class="tp-more"><button class="tp-morebtn press" type="button" data-more>See More</button></div>':'')+
+     (list.length?'':'<p class="d14" style="padding:24px 0">No stories in this section yet.</p>')+
+   '</div><aside class="tp-side">'+
+     (nav?'<div class="tp-sidenav dup"><h2>'+(t==='All'?'Topics':'In '+name)+'</h2>'+nav+'</div>':'<div class="tp-sidenav"><h2>More in '+name+'</h2><nav class="tp-subs">'+subs.filter(function(s){return s!==sub}).map(function(s){return '<a class="press" href="#t-'+t+'/'+slug(s[0])+'">'+s[0]+'</a>'}).join('')+'</nav></div>')+
+     '<div class="tp-nl">'+block({k:'nl'}).replace(/nlIn/g,'tpIn')+'</div>'+
+     trending()+
+   '</aside></div></div>';
 }
+function slug(s){return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function pdate(d){var t=Date.parse(d||'');return isNaN(t)?0:t}
+function topicPool(t){
+  var out=[];
+  ORDER.forEach(function(id){var a=A[id];if(!a||a.topic==='Newsletter')return;if(t!=='All'&&a.topic!==t)return;
+    out.push({href:'#a-'+id,tag:a.sp?'Partner content':a.tag,title:a.title,dek:a.homeDek||a.dek,date:a.date,img:a.img?IMG[a.img]:null,focus:FOCUS[id]})});
+  for(var k in EXT){var e=EXT[k];if(t!=='All'&&e.tag!==t)continue;
+    out.push({href:e.url,ext:1,tag:e.tag,title:e.title,date:e.date,img:IMG[e.img]})}
+  return out.sort(function(a,b){return pdate(b.date)-pdate(a.date)});
+}
+function tpAttrs(x){return 'href="'+x.href+'"'+(x.ext?' target="_blank" rel="noopener"':'')}
+function tpRow(x,hidden,isLead){
+  return '<a class="tp-row press'+(isLead?' tp-row-lead':'')+'" '+tpAttrs(x)+(hidden?' hidden data-extra':'')+'><div class="tp-txt"><span class="tp-k">'+x.tag+'</span><span class="tp-t">'+x.title+'</span>'+(x.dek&&!x.ext?'<span class="tp-d">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(x.img?'<img class="tp-img" src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+' loading="lazy">':'')+'</a>';
+}
+function tpLead(x){
+  return '<a class="tp-lead press" '+tpAttrs(x)+'>'+(x.img?'<img src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+'>':'')+'<div class="tp-ltxt"><span class="tp-k">'+x.tag+'</span><span class="tp-lt">'+x.title+'</span>'+(x.dek&&!x.ext?'<span class="tp-ld">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'')+'</span></div></a>';
+}
+var TDESC={Projects:'Track the construction projects transforming Canada, from major infrastructure investments to the developments creating your next business opportunity.'};
+/* Sub-sections per topic: [label, keyword filter]. Economy's list is from the Figma frame; the rest are proposed. */
+var SUBS={
+ Economy:[['Construction Outlook & Market Trends',/outlook|boom|market|productiv|data shows/i],['Construction Costs & Materials',/cost|material|price|lumber|diesel/i],['Trade & Tariffs',/tariff|trade|port/i],['Government Policy & Regulation',/ottawa|act|policy|regulat|mandate|government|federal/i],['Infrastructure Investment & Funding',/\$|invest|fund|loan|capital/i],['Mergers, Acquisitions & Business Expansion',/merger|acquir|buy|sells|deal/i],['Housing Economics & Development',/housing|home|residential/i]],
+ Projects:[['Major Projects & Nation-Building',/nation|major projects|national interest|crawford|act/i],['Energy & Pipelines',/pipeline|lng|gas|oil|power|hydro|mactaquac|nuclear/i],['Mining & Resources',/mine|mining|nickel/i],['Transit & Transportation',/transit|subway|skytrain|rail|highway/i],['Ports & Trade Infrastructure',/port|terminal/i],['Data Centres & Digital Infrastructure',/data centre|ai /i],['Manufacturing & Industrial',/factory|plant|industrial|ev /i]],
+ People:[['People Moves',/people moves|appoint|hire/i],['Q&As & Profiles',/q&a|profile/i],['40 Under 40',/40 under 40/i],['Awards & Recognition',/award/i]],
+ Technology:[['Construction Software',/software|procore|app/i],['AI & Data Centres',/ai |data centre/i],['Equipment & Machinery',/equipment|fleet|komatsu|machine/i],['Drones & Reality Capture',/drone/i]],
+ Sustainability:[['Energy Transition',/hydro|nuclear|power|energy|mactaquac/i],['Low-Carbon Building',/carbon|green|low-carbon/i],['Water & Wastewater',/water/i],['Climate Resilience',/climate|resilien/i]],
+ Recruitment:[['Careers & Pay',/career|pay|salar/i],['Skilled Trades & Apprenticeships',/trade|apprentic/i],['Workforce Development',/workforce|training|labour/i],['Health & Safety',/safety|health/i]]
+};
 
 /* ---------- podcast: Digging In ---------- */
 var POD_OVERVIEW='Canada’s construction industry moves fast. Digging In helps you lead through it. Join veteran journalist Russell Hixson for sharp analysis and candid conversations with industry decision-makers. From policy and economic shifts to emerging technology and major projects, SiteNews’ podcast digs into what matters to your business—and what’s coming next.';
@@ -504,13 +544,14 @@ function route(){
   else if(h==='newsletter'){app.innerHTML=nlIssue(); t='Great pipes | SiteNews newsletter';}
   else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In podcast | SiteNews';}
   else if(h.indexOf('ep-')===0&&EP[h.slice(3)]){var ep=EP[h.slice(3)];app.innerHTML=episodePage(ep.id); t=ep.title+' | Digging In | SiteNews';}
-  else if(h.indexOf('t-')===0){var tn=h.slice(2); app.innerHTML=topic(tn); t=(tn==='All'?'Latest':tn)+' | SiteNews';}
+  else if(h.indexOf('t-')===0){var tn=decodeURIComponent(h.slice(2)); app.innerHTML=topic(tn); t=app.querySelector('.tp-hd h1').textContent+' | SiteNews';}
   else {app.innerHTML=home(); if(h==='summit'||h==='signup'||h==='forty') scrollTo=h;}
   document.title=t;
   document.body.classList.toggle('art-pg',h.indexOf('a-')===0&&!!A[h.slice(2)]);
   var isPod=h==='podcast'||(h.indexOf('ep-')===0&&!!EP[h.slice(3)]);
   setLogoMode(!(h.indexOf('a-')===0&&A[h.slice(2)])&&h.indexOf('t-')!==0&&h!=='newsletter'&&!isPod);
   document.body.classList.toggle('pod-pg',isPod);
+  document.body.classList.toggle('tp-pg',h.indexOf('t-')===0);
   if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-12; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
   else window.scrollTo(0,0);
   wirePlayer();
@@ -594,6 +635,8 @@ document.addEventListener('click',function(e){
   var show=function(){var sp=b.classList.contains('copybtn')&&b.querySelector('span');if(sp){sp.textContent='Copied!';b.classList.add('ok');setTimeout(function(){sp.textContent='Copy link';b.classList.remove('ok')},1800);return}var c=document.getElementById('copied');if(c){c.hidden=false;setTimeout(function(){c.hidden=true},1800)}};
   try{navigator.clipboard.writeText(url).then(show,show)}catch(err){show()}
 });
+
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-more]');if(!b)return;document.querySelectorAll('[data-extra]').forEach(function(r){r.hidden=false});b.parentNode.remove()});
 
 /* ---------- podcast player (Spotify-style, simulated playback) ---------- */
 var PST={}, ptimer=null, pnow=null;
