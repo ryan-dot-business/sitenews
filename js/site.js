@@ -415,22 +415,16 @@ function topic(t){
   if(sub&&sub[1]){var f=all.filter(function(x){return sub[1].test(x.title+' '+(x.dek||''))});if(f.length)list=f}
   var name=t==='All'?'News':t, PAGE=8;
   var head='<header class="tp-hd">'+(sub?'<a class="tp-crumb" href="#t-'+t+'">'+name+'</a>':'')+'<h1>'+(sub?sub[0]:name)+'</h1>'+(sub?'':'<p>'+(TDESC[t]||DESC[t])+'</p>')+'</header>';
-  var nav=sub?'':'<nav class="tp-subs" aria-label="'+name+' sections">'+(t==='All'
+  var nav='<nav class="tp-subs" aria-label="'+name+' sections">'+(t==='All'
      ?TOPICS.map(function(x){return '<a class="press" href="#t-'+x+'">'+x+'</a>'})
-     :subs.map(function(s){return '<a class="press" href="#t-'+t+'/'+slug(s[0])+'">'+s[0]+'</a>'})).join('')+'</nav>';
-  var lead=list[0], rest=list.slice(1);
-  var rows=rest.map(function(x,i){return tpRow(x,i>=PAGE)}).join('');
+     :subs.map(function(s){return '<a class="press" href="#t-'+t+'/'+slug(s[0])+'"'+(s===sub?' aria-current="page"':'')+'>'+s[0]+'</a>'})).join('')+'</nav>';
+  var rows=list.map(function(x,i){return tpRow(x,i>=PAGE+1)}).join('');
   return '<div class="tp">'+head+
-   '<div class="tp-grid"><div class="tp-main">'+nav+
-     (lead?tpLead(lead):'')+
-     '<div class="tp-list">'+(lead?tpRow(lead,false,true):'')+rows+'</div>'+
-     (rest.length>PAGE?'<div class="tp-more"><button class="tp-morebtn press" type="button" data-more>See More</button></div>':'')+
+   '<div class="tp-main">'+nav+
+     '<div class="tp-list">'+rows+'</div>'+
+     (list.length>PAGE+1?'<div class="tp-more"><button class="tp-morebtn press" type="button" data-more>See More</button></div>':'')+
      (list.length?'':'<p class="d14" style="padding:24px 0">No stories in this section yet.</p>')+
-   '</div><aside class="tp-side">'+
-     (nav?'<div class="tp-sidenav dup"><h2>'+(t==='All'?'Topics':'In '+name)+'</h2>'+nav+'</div>':'<div class="tp-sidenav"><h2>More in '+name+'</h2><nav class="tp-subs">'+subs.filter(function(s){return s!==sub}).map(function(s){return '<a class="press" href="#t-'+t+'/'+slug(s[0])+'">'+s[0]+'</a>'}).join('')+'</nav></div>')+
-     '<div class="tp-nl">'+block({k:'nl'}).replace(/nlIn/g,'tpIn')+'</div>'+
-     trending()+
-   '</aside></div></div>';
+   '</div></div>';
 }
 function slug(s){return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
 function pdate(d){var t=Date.parse(d||'');return isNaN(t)?0:t}
@@ -453,9 +447,6 @@ function topicPool(t){
 function tpAttrs(x){return 'href="'+x.href+'"'+(x.ext?' target="_blank" rel="noopener"':'')}
 function tpRow(x,hidden,isLead){
   return '<a class="tp-row press'+(isLead?' tp-row-lead':'')+'" '+tpAttrs(x)+(hidden?' hidden data-extra':'')+'><div class="tp-txt"><span class="tp-k">'+x.tag+'</span><span class="tp-t">'+x.title+'</span>'+(x.dek?'<span class="tp-d">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(x.img?'<img class="tp-img" src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+' loading="lazy">':'')+'</a>';
-}
-function tpLead(x){
-  return '<a class="tp-lead press" '+tpAttrs(x)+'>'+(x.img?'<img src="'+x.img+'" alt=""'+(x.focus?' style="object-position:'+x.focus+'"':'')+'>':'')+'<div class="tp-ltxt"><span class="tp-k">'+x.tag+'</span><span class="tp-lt">'+x.title+'</span>'+(x.dek?'<span class="tp-ld">'+x.dek+'</span>':'')+'<span class="tp-dt">'+(x.date||'')+'</span></div></a>';
 }
 var TDESC={
  People:'Meet the leaders shaping Canadian construction, with executive moves, candid interviews and insights from the industry’s rising talent.',
