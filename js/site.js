@@ -422,7 +422,7 @@ function topic(t){
 
 /* ---------- podcast: Digging In ---------- */
 var POD_OVERVIEW='Canada’s construction industry moves fast. Digging In helps you lead through it. Join veteran journalist Russell Hixson for sharp analysis and candid conversations with industry decision-makers. From policy and economic shifts to emerging technology and major projects, SiteNews’ podcast digs into what matters to your business—and what’s coming next.';
-var POD_LINKS={apple:'https://podcasts.apple.com/ca/search?term=Digging%20In%20SiteNews',spotify:'https://open.spotify.com/search/Digging%20In%20SiteNews'};
+var POD_LINKS={apple:'https://podcasts.apple.com/ca/podcast/digging-in/id1824516328',spotify:'https://open.spotify.com/show/29D6cddZI3smjQYGbls0xK'};
 /* durations are placeholders until the feed is wired up */
 var EPS=[
  {id:'boom',title:'$200B boom',date:'Oct 13, 2026',short:'Oct 13',len:1709,d:'Is Canada on the cusp of a $200B construction boom? Bay du Nord offshore oil project has a new investor. Ottawa is rolling out a $2B heat pump program. Nuclear reactors are on the move. The Build Canada Strong act has its first major legal challenge.'},
