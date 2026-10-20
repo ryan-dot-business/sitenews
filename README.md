@@ -59,3 +59,9 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page lists the 12 latest stories from that topic on the live site (`js/rsn.js`, thumbnails in `assets/img/rs2/`), newest first. Stories that exist as prototype articles link to the local page; the rest open readsitenews.com.
 - Mobile and desktop follow the Figma frames. On desktop the sub-section links run inline with dividers, and the story list is a single 720px column with the thumbnail (150x110) on the left.
 - `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Topic descriptions and sub-sections are the final SiteNews content (`TDESC`, `SUBS`).
+
+## Desktop homepage (Figma 99:2143)
+
+- Containers: header 1200px, homepage content 1180px (7/5 grid for lead and trending, 8/4 grid for the body), footer 1376px.
+- Ad units, homepage and desktop only: a 970×90 leaderboard band above the header and above the footer (`.adband`), and a 300×250 box at the top of the sidebar (`.ad-mpu`). They hold placeholders (`.ad-slot`) until the creatives are added; put an `<img>` inside `.ad-slot`.
+- The podcast block uses the live Spotify-style player (`spPlayer(EPS[0])`) at every width.
