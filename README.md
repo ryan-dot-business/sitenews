@@ -65,3 +65,8 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - Containers: header 1200px, homepage content 1180px (7/5 grid for lead and trending, 8/4 grid for the body), footer 1376px.
 - Ad units, homepage and desktop only: a 970×90 leaderboard band above the header and above the footer (`.adband`), and a 300×250 box at the top of the sidebar (`.ad-mpu`). Creatives live in `assets/img/ads/` and the `ADS` list in `js/site.js`; each page load shuffles them, so the two leaderboards always show different ads and the 300×250 box picks one at random.
 - The podcast block uses the live Spotify-style player (`spPlayer(EPS[0])`) at every width.
+
+## Article ads
+
+- A 970×90 leaderboard sits above the header, between the bigger-story block and Trending, and above the footer. These are desktop only, and each one shows a different creative.
+- The newsletter CTA comes right after the Key Takeaways box when an article has one; otherwise it comes after the third paragraph. After that, a full-width 300×250 ad (`adIn()`) appears every 3 paragraphs, never after the last one and never between a Q&A question and its answer. This applies at all widths, and gated articles skip it.

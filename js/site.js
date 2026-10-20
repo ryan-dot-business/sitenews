@@ -377,13 +377,26 @@ function block(b){
   return '';
 }
 function shareRow(top){return '<div class="share'+(top?'':' share-end')+'"><button class="circ press" type="button" aria-label="Comments"><svg width="16" height="15" viewBox="0 0 16 15" aria-hidden="true"><path d="M8 0C3.6 0 0 2.8 0 6.3c0 2 1.2 3.8 3 5L2.3 15l4-2.5c.6.1 1.1.1 1.7.1 4.4 0 8-2.8 8-6.3S12.4 0 8 0z" fill="#1d1d1f"/></svg></button><button class="circ press" type="button" data-copy aria-label="Copy link to share by email"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1.2C0 .5.5 0 1.2 0h13.6c.7 0 1.2.5 1.2 1.2v.3L8 6.6 0 1.5z" fill="#1d1d1f"/><path d="M0 3.2v7.6c0 .7.5 1.2 1.2 1.2h13.6c.7 0 1.2-.5 1.2-1.2V3.2L8 8.4z" fill="#1d1d1f"/></svg></button><div class="pill"><a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="width:32px;height:32px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M3.4 6.2h2v6.4h-2zM4.4 3.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM6.7 6.2h1.9v.9c.3-.5.9-1 1.9-1 2 0 2.4 1.3 2.4 3v3.5h-2V9.5c0-.7 0-1.6-1-1.6s-1.2.8-1.2 1.6v3.1h-2z" fill="#fbf7f6"/></svg></a><a href="https://x.com/" target="_blank" rel="noopener" aria-label="Share on X" style="width:32px;height:32px;display:grid;place-items:center;opacity:.5"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M4 4h2.3l2 2.8L10.6 4h1.2L8.9 7.5 12.2 12H9.9L7.7 9 5.2 12H4l3.1-3.7z" fill="#fbf7f6"/></svg></a><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Share on Facebook" style="width:32px;height:32px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#6e6e6e"/><path d="M10 18v-6.5h2.1l.3-2.5H10V7.5c0-.7.2-1.2 1.2-1.2h1.3V4.1c-.2 0-1-.1-1.9-.1-1.9 0-3.1 1.1-3.1 3.2V9H5.4v2.5h2.1V18z" fill="#fbf7f6"/></svg></a></div>'+(top?'<span id="copied" ':'<span ')+'class="d14" style="font-size:12px" hidden>Link copied</span></div>';}
+/* Article body: newsletter CTA after the key takeaways box (or after 3 paragraphs), then an ad every 3 paragraphs. */
+var UNIT={lead:1,p:1,s:1,q:1,ans:1,pm:1,mv:1,job:1,tl:1,fig:1};
+function adIn(){return '<div class="ad-in" role="complementary" aria-label="Advertisement"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'}
+function withAds(list,render,startCount){
+  var out='',n=startCount||0;
+  list.forEach(function(x,i){out+=render(x);if(UNIT[x.k]){n++;var nx=list[i+1];
+    if(n>=3&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();n=0}}});
+  return out;
+}
 function body(a){
-  if(a.b.length&&a.b[0].k==='kt'&&!a.gate){
-    var rest=a.b.slice(1).filter(function(x){return x.k!=='ws'&&x.k!=='nl'});
-    return block(a.b[0])+block({k:'nl'})+'<div class="ws-sec">'+block({k:'ws'})+'<div class="ws-body">'+rest.map(function(x){return x.k==='lead'?'<p>'+x.pre+(x.link?'<a href="#a-'+x.to+'">'+x.link+'</a>':'')+x.post+'</p>':block(x)}).join('')+'</div></div>';
+  var bl=a.b.filter(function(x){return x.k!=='nl'});
+  if(bl.length&&bl[0].k==='kt'&&!a.gate){
+    var rest=bl.slice(1).filter(function(x){return x.k!=='ws'});
+    return block(bl[0])+block({k:'nl'})+'<div class="ws-sec">'+block({k:'ws'})+'<div class="ws-body">'+withAds(rest,function(x){return x.k==='lead'?'<p>'+x.pre+(x.link?'<a href="#a-'+x.to+'">'+x.link+'</a>':'')+x.post+'</p>':block(x)})+'</div></div>';
   }
   if(a.gate&&!subscribed){return a.b.slice(0,a.gate).map(block).join('')+'<div class="gate"><div class="gatebox"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5" fill="#ff6a29"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" fill="none" stroke="#ff6a29" stroke-width="2"/></svg><h2>This exclusive content? Only for subscribers.</h2><p>Join free to unlock the full list, plus the 5-minute weekly newsletter on Canadian construction.</p><div class="signup">'+signup('gateEmail')+'</div></div></div>';}
-  return a.b.map(block).join('');
+  var head='',seen=0,cut=bl.length;
+  for(var q=0;q<bl.length;q++){if(UNIT[bl[q].k])seen++;if(seen===3){cut=q+1;break}}
+  if(a.b.some(function(x){return x.k==='nl'})||bl.length>cut){head=bl.slice(0,cut).map(block).join('')+(cut<bl.length?block({k:'nl'}):'');return head+withAds(bl.slice(cut),block)}
+  return bl.map(block).join('');
 }
 function endmods(){ return shareRow(false); }
 function promo40(){
@@ -405,7 +418,7 @@ function article(id){ current=id;
    '<div class="hair lead-rule"></div>'+
    (a.img?'<figure'+(a.tall?' class="tall"':'')+'><img src="'+IMG[a.img]+'" alt="'+a.alt+'"><figcaption>'+a.credit+'</figcaption></figure>':'<div style="height:8px"></div>')+
    '<div class="prose">'+body(a)+'</div>'+endmods()+'</article>'+
-   big.html+trending()+moreCategory(id,big.shown)+promo40();
+   big.html+'<div class="adband ad-rc"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-970" href="#home" aria-label="Advertisement"><span>970 × 90</span></a></div>'+trending()+moreCategory(id,big.shown)+promo40();
 }
 function topic(t){
   var sub=null, parts=t.split('/'); t=parts[0];
@@ -551,8 +564,9 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 var AD_PICK={lb:shuffle(ADS.lb),mpu:shuffle(ADS.mpu)};
 function adImg(x){return '<img src="'+x.src+'" alt="'+x.alt+'">'}
 function fillAds(){
-  ['adTop','adBot'].forEach(function(id,i){var s=document.querySelector('#'+id+' .ad-slot');if(s&&!s.querySelector('img'))s.innerHTML=adImg(AD_PICK.lb[i%AD_PICK.lb.length])});
-  document.querySelectorAll('.ad-mpu .ad-slot').forEach(function(s){if(!s.querySelector('img'))s.innerHTML=adImg(AD_PICK.mpu[0])});
+  var lb=[].slice.call(document.querySelectorAll('#adTop .ad-slot, main .ad-970, #adBot .ad-slot'));
+  lb.forEach(function(sl,i){if(!sl.querySelector('img'))sl.innerHTML=adImg(AD_PICK.lb[i%AD_PICK.lb.length])});
+  [].slice.call(document.querySelectorAll('.ad-300')).forEach(function(sl,i){if(!sl.querySelector('img'))sl.innerHTML=adImg(AD_PICK.mpu[i%AD_PICK.mpu.length])});
 }
 /* ---------- routing ---------- */
 var app=document.getElementById('app');
