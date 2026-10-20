@@ -541,6 +541,19 @@ function episodePage(id){
   '</div>';
 }
 
+
+/* ---------- ads: a random creative per slot on every page load ---------- */
+var ADS={
+ lb:[{src:'assets/img/ads/lb-studson.jpg',alt:'Studson: Advanced head protection built for the job site'},{src:'assets/img/ads/lb-arkance.jpg',alt:'ARKANCE: Need additional project support?'},{src:'assets/img/ads/lb-mobilization.jpg',alt:'Mobilization Funding: Field Tested, pre-order today'}],
+ mpu:[{src:'assets/img/ads/mpu-brady.jpg',alt:'Brady: Built for tough jobs and inspections'},{src:'assets/img/ads/mpu-dell.jpg',alt:'Dell Pro Rugged laptops'}]
+};
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+var AD_PICK={lb:shuffle(ADS.lb),mpu:shuffle(ADS.mpu)};
+function adImg(x){return '<img src="'+x.src+'" alt="'+x.alt+'">'}
+function fillAds(){
+  ['adTop','adBot'].forEach(function(id,i){var s=document.querySelector('#'+id+' .ad-slot');if(s&&!s.querySelector('img'))s.innerHTML=adImg(AD_PICK.lb[i%AD_PICK.lb.length])});
+  document.querySelectorAll('.ad-mpu .ad-slot').forEach(function(s){if(!s.querySelector('img'))s.innerHTML=adImg(AD_PICK.mpu[0])});
+}
 /* ---------- routing ---------- */
 var app=document.getElementById('app');
 function route(){
@@ -563,6 +576,7 @@ function route(){
   else window.scrollTo(0,0);
   wirePlayer();
   wireVideo();
+  fillAds();
 }
 window.addEventListener('hashchange',route);
 
