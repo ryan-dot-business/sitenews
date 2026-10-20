@@ -426,7 +426,7 @@ html,body{overflow-x:clip}
   .h-lead .stack{gap:6px}
   .h-lead .t20{font-size:clamp(26px,2.25vw,32px);line-height:1.2;letter-spacing:-.64px;text-wrap:pretty}
   .h-lead .d14{font-family:var(--ui);font-size:20px;line-height:1.4;font-weight:500;letter-spacing:-.4px;color:var(--muted);text-wrap:balance}
-  .h-lead .tag{margin-top:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
+  .h-lead .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
   .h-lead .pic{grid-column:1;grid-row:2;padding:14px 16px 0}
   .h-lead .card img{aspect-ratio:652/370}
   .h-trend{display:block;grid-column:2;grid-row:1/span 2;padding:0 16px}
@@ -440,11 +440,11 @@ html,body{overflow-x:clip}
   .h-trend .trend li:nth-last-child(-n+2) a{padding-bottom:8px}
 
   /* body: 8/4 */
-  .h-body{display:grid;grid-template-columns:minmax(0,783fr) minmax(0,387fr);column-gap:10px;align-items:start}
+  .h-body{display:grid;grid-template-columns:minmax(0,776fr) minmax(0,372fr);column-gap:32px;align-items:start}
   .h-main{display:flex;flex-direction:column;padding:0 16px}
-  .h-side{display:flex;flex-direction:column;gap:12px}
+  .h-side{display:flex;flex-direction:column;gap:24px;padding-top:32px}
   .h-c,.h-side>.o6{display:block}
-  .nl-wrap{margin-bottom:0;gap:12px}
+  .nl-wrap{margin-bottom:0;gap:0}
 
   /* story cards: image left */
   .h-main .h-c{margin-bottom:10px}
@@ -459,17 +459,18 @@ html,body{overflow-x:clip}
   .h-main .card .ptag{margin-bottom:3px}
   .h-main .card .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px;text-wrap:pretty}
   .h-main .card .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted)}
-  .h-main .card .tag{margin-top:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
+  .h-main .card .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
 
-  /* 40 Under 40: text left, image right */
-  #forty{display:grid;grid-template-columns:344px minmax(0,1fr);column-gap:14px;align-items:center;padding:13px 0 0;border-top:3px solid rgba(0,0,0,.1);margin-top:0}
-  #forty>.px:first-child{padding:0;gap:0}
+  /* 40 Under 40 feature: green panel, text left, image right */
+  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin-top:16px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
+  #forty:before{content:'';position:absolute;left:0;right:0;top:-19px;height:3px;background:rgba(0,0,0,.1)}
+  #forty>.px:first-child{padding:0 16px 0 0;gap:0;align-items:center}
   #forty>.px:first-child>.rule{display:none}
-  #forty .stack{gap:4px}
-  #forty .tag{font-family:var(--ui);font-size:14px;font-weight:700;letter-spacing:-.28px}
+  #forty .stack{gap:4px;width:max-content;max-width:100%;margin:0 auto}
+  #forty .tag{font-family:var(--ui);font-size:14px;font-weight:700;letter-spacing:-.28px;color:#154115}
   #forty .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
-  #forty .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted)}
-  #forty>.px:last-child{padding:0 16px 0 0}
+  #forty .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
+  #forty>.px:last-child{padding:0 8px 0 0}
   #forty img{border-radius:5px!important}
 
   /* latest stories: image right */
@@ -493,7 +494,11 @@ html,body{overflow-x:clip}
 
   /* sidebar */
   .h-side .hero{min-height:398px;padding:31px 26px 31px}
-  .h-side .vcard{padding-top:4px}
+  .h-side .vcard{padding-top:18px}
+  .h-side .vcard .px,.h-side .vcard .pic{padding-left:0;padding-right:0}
+  .h-side .vcard .rule{display:none}
+  .h-side .vcard .stack{gap:6px}
+  .h-side .vcard .tag{margin-top:10px}
 
   /* ad units */
   .adband{position:relative;z-index:41;display:flex;flex-direction:column;align-items:center;gap:10px;padding:11px 16px 12px;background:#ece9e8}
