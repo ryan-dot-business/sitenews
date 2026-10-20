@@ -545,12 +545,12 @@ var app=document.getElementById('app');
 function route(){
   var h=(location.hash||'').slice(1);
   closeAll();
-  var scrollTo=null, t='SiteNews';
+  var scrollTo=null, t='Site News — for construction';
   if(h.indexOf('a-')===0&&A[h.slice(2)]){app.innerHTML=article(h.slice(2)); t=A[h.slice(2)].title+' | SiteNews';}
   else if(h==='newsletter'){app.innerHTML=nlIssue(); t='Great pipes | SiteNews newsletter';}
-  else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In podcast | SiteNews';}
+  else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In — Site News';}
   else if(h.indexOf('ep-')===0&&EP[h.slice(3)]){var ep=EP[h.slice(3)];app.innerHTML=episodePage(ep.id); t=ep.title+' | Digging In | SiteNews';}
-  else if(h.indexOf('t-')===0){var tn=decodeURIComponent(h.slice(2)); app.innerHTML=topic(tn); t=app.querySelector('.tp-hd h1').textContent+' | SiteNews';}
+  else if(h.indexOf('t-')===0){var tn=decodeURIComponent(h.slice(2)); app.innerHTML=topic(tn); t=app.querySelector('.tp-hd h1').textContent+' — Site News';}
   else {app.innerHTML=home(); if(h==='summit'||h==='signup'||h==='forty') scrollTo=h;}
   document.title=t;
   document.body.classList.toggle('art-pg',h.indexOf('a-')===0&&!!A[h.slice(2)]);
