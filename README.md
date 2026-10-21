@@ -57,7 +57,7 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 ## Topic pages
 
 - `#t-<Topic>` (and `#t-All` = News): title, description, sub-section links, story list, See More (first 9 stories, then the rest). Each page lists the 12 latest stories from that topic on the live site (`js/rsn.js`, thumbnails in `assets/img/rs2/`), newest first. Stories that exist as prototype articles link to the local page; the rest open readsitenews.com.
-- Mobile and desktop follow the Figma frames. On desktop the sub-section links run inline with dividers, and the story list is a single 720px column with the thumbnail (150x110) on the left.
+- Mobile and desktop follow the Figma frames. On desktop: 65px title, 24px description, inline sub-section links with dividers, and an 800px story list under a rule, each row with a 200x130 thumbnail on the left and a 23px headline.
 - `#t-<Topic>/<sub-section>` shows a sub-section: stories are filtered by keywords in `SUBS`, falling back to the whole topic when nothing matches. Topic descriptions and sub-sections are the final SiteNews content (`TDESC`, `SUBS`).
 
 ## Desktop homepage (Figma 99:2143)
