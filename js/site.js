@@ -661,6 +661,34 @@ document.addEventListener('click',function(e){if(innerWidth>=800&&!brandsL.hidde
 document.addEventListener('click',function(e){if(!tPop.hidden&&!tPop.contains(e.target))setTopicsPop(false);if(!mPop.hidden&&!mPop.contains(e.target)&&!menuBtn.contains(e.target))setMorePop(false)});
 [tPop,mPop].forEach(function(p){p.addEventListener('click',function(e){if(e.target.closest('a')){setTopicsPop(false);setMorePop(false)}})});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){setTopicsPop(false);setMorePop(false)}});
+/* ---------- desktop search ---------- */
+var SEARCH_EG=['Ontario Line','LNG Canada','modular housing','skilled trades','Gordie Howe','critical minerals','carbon capture','Pacific Link','uranium mine','EV factory','nickel mine','Nunavut port','offshore wind','data centre','gas pipeline']; /* every phrase returns at least one story */
+var dS=document.getElementById('dSearch'), dq=document.getElementById('dq'), dsBtn=document.getElementById('dsBtn'), sPop=document.getElementById('searchPop'), spHead=document.getElementById('spHead'), spList=document.getElementById('spList'), spSel=-1;
+function egPhrase(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5});return 'eg. '+a[0]+', '+a[1]}
+function setSearch(on){dS.classList.toggle('open',on);dsBtn.setAttribute('aria-expanded',on);
+  if(on){setTopicsPop(false);setMorePop(false);setBrands(false);dq.placeholder=egPhrase();setTimeout(function(){dq.focus()},30);if(dq.value)runSearch()}
+  else{sPop.hidden=true;dq.setAttribute('aria-expanded','false');dq.removeAttribute('aria-activedescendant');dq.blur();if(!dq.value)dq.placeholder='Search'}}
+var STXT={};function storyText(id){if(!STXT[id]){var a=A[id];STXT[id]=JSON.stringify(a.b||'').replace(/<[^>]+>/g,' ').toLowerCase()}return STXT[id]}
+function runSearch(){var v=dq.value.trim(), s=v.toLowerCase();spSel=-1;
+  if(!s){sPop.hidden=true;dq.setAttribute('aria-expanded','false');dq.removeAttribute('aria-activedescendant');return}
+  /* match headline/dek/tag first, then anything in the story text */
+  var ids=ORDER.filter(function(id){return A[id]&&A[id].topic!=='Newsletter'});
+  var top=ids.filter(function(id){var a=A[id];return (a.title+' '+a.dek+' '+a.tag+' '+(a.author||'')).toLowerCase().indexOf(s)>-1});
+  var hits=top.concat(ids.filter(function(id){return top.indexOf(id)<0&&storyText(id).indexOf(s)>-1}));
+  spHead.innerHTML=hits.length?'<div class="sp-head">'+hits.length+(hits.length===1?' story':' stories')+'</div>'
+    :'<p class="sp-none">No stories match “'+v.replace(/</g,'&lt;')+'”. Try '+egPhrase().slice(4)+'.</p>';
+  spList.innerHTML=hits.slice(0,6).map(function(id,i){var a=A[id];return '<a class="sp-item" id="sp-'+i+'" role="option" aria-selected="false" href="#a-'+id+'"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span></a>'}).join('');
+  dq.removeAttribute('aria-activedescendant');dq.setAttribute('aria-expanded',hits.length?'true':'false');
+  sPop.hidden=false;placePop(sPop,dS,false)}
+dsBtn.addEventListener('click',function(e){e.stopPropagation();if(!dS.classList.contains('open'))setSearch(true);else if(dq.value)runSearch();else setSearch(false)});
+dq.addEventListener('input',runSearch);
+dq.addEventListener('keydown',function(e){var items=[].slice.call(sPop.querySelectorAll('.sp-item'));
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!items.length)return;e.preventDefault();spSel=(spSel+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items.forEach(function(x,i){x.classList.toggle('on',i===spSel);x.setAttribute('aria-selected',i===spSel)});dq.setAttribute('aria-activedescendant',items[spSel].id)}
+  else if(e.key==='Enter'){e.preventDefault();var t=items[spSel<0?0:spSel];if(t){location.hash=t.getAttribute('href');dq.value='';setSearch(false)}}
+  else if(e.key==='Escape'){dq.value='';setSearch(false)}});
+dS.addEventListener('submit',function(e){e.preventDefault()});
+sPop.addEventListener('click',function(e){if(e.target.closest('a')){dq.value='';setSearch(false)}});
+document.addEventListener('click',function(e){if(dS.classList.contains('open')&&!dS.contains(e.target)&&!sPop.contains(e.target)){sPop.hidden=true;if(!dq.value)setSearch(false)}});
 window.addEventListener('resize',function(){if(!isDesk()){setTopicsPop(false);setMorePop(false)}else if(!menuL.hidden)setMenu(false)});
 var mtb=document.querySelector('.mtopics'), mtp=document.getElementById('topicsPanel');
 mtb.addEventListener('click',function(){var on=mtp.hidden;mtp.hidden=!on;mtb.setAttribute('aria-expanded',on)});
