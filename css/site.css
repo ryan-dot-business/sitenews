@@ -49,7 +49,7 @@ body.inner .caret{display:none}
 .brands .ej{font-family:'Museo Slab Rounded','Zilla Slab',Georgia,serif;font-weight:700;color:#2c8c06}
 .brands-ft{display:flex;align-items:center;justify-content:space-between;font-family:var(--display);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:#000}
 .brands .st-logo{flex:none;display:block;width:27px;height:24px}
-.brands .st-word{display:inline-block;font-family:'Acumin Pro Condensed','Arial Narrow',var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;transform:scaleX(.82);transform-origin:left}
+.brands .st-word{display:block;flex:none;width:44px;height:15px}
 .sm2{font-weight:700}.sm2 b{font-weight:700;color:#2433ff}
 .sm{font-family:var(--display);font-size:16px;font-weight:700;color:rgba(0,0,0,.3)}
 .menu{position:absolute;inset:0;background:var(--white);overflow-y:auto;animation:fade .18s ease-out;overscroll-behavior:contain}
