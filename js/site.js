@@ -617,7 +617,7 @@ var logoBtn=document.getElementById('logoBtn'), menuBtn=document.getElementById(
 var brandsL=document.getElementById('brandsLayer'), menuL=document.getElementById('menuLayer');
 function placeLayers(){var b=document.querySelector('.hdr').getBoundingClientRect().bottom;document.querySelectorAll('.layer').forEach(function(l){l.style.top=Math.max(0,b)+'px'})}
 function setBrands(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();if(on&&innerWidth>=800){var lb=logoBtn.getBoundingClientRect(),br=brandsL.querySelector('.brands'),lt=parseFloat(brandsL.style.top)||0;br.style.top=(lb.bottom+3-lt)+'px';br.style.left=Math.max(16,lb.left-10)+'px'}brandsL.hidden=!on;if(onHome)logoBtn.setAttribute('aria-expanded',on);if(on)setMenu(false);}
-function setMenu(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();menuL.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.setAttribute('aria-label',on?'Close menu':'Menu');document.body.style.overflow=on?'hidden':'';if(on){setBrands(false);}else{q.value='';search('');}}
+function setMenu(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();menuL.hidden=!on;if(on&&!q.value){var qcs=getComputedStyle(q);fitEgInto(q,q.clientWidth-parseFloat(qcs.paddingLeft)-parseFloat(qcs.paddingRight)-2)}menuBtn.setAttribute('aria-expanded',on);menuBtn.setAttribute('aria-label',on?'Close menu':'Menu');document.body.style.overflow=on?'hidden':'';if(on){setBrands(false);}else{q.value='';search('');}}
 function closeAll(){setBrands(false);setMenu(false);if(typeof tPop!=='undefined'&&tPop){setTopicsPop(false);setMorePop(false)}}
 var onHome=true;
 function setLogoMode(home){onHome=home;document.body.classList.toggle('inner',!home);
@@ -666,16 +666,18 @@ var SEARCH_EG=['Ontario Line','LNG Canada','modular housing','skilled trades','G
 var dS=document.getElementById('dSearch'), dq=document.getElementById('dq'), dsBtn=document.getElementById('dsBtn'), sPop=document.getElementById('searchPop'), spHead=document.getElementById('spHead'), spList=document.getElementById('spList'), spSel=-1;
 function egPhrase(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5});return 'eg. '+a[0]+', '+a[1]}
 /* the open box is always 284px (the design width): show two example phrases if they fit, otherwise one */
-var DS_MAX=284, DS_PAD=16+48, dsCtx;
-var dsW={}, dsLS=0;
-function textW(t){ /* cached canvas measurement in the input's font; cache resets once web fonts finish loading */
-  if(dsW[t]!=null)return dsW[t];
-  if(!dsCtx){dsCtx=document.createElement('canvas').getContext('2d');var cs=getComputedStyle(dq);dsCtx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;dsLS=parseFloat(cs.letterSpacing)||0}
-  return dsW[t]=dsCtx.measureText(t).width+Math.max(0,t.length-1)*dsLS}
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){dsCtx=null;dsW={}});
-function fitEg(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5}), t='eg. '+a[0];
-  for(var k=1;k<a.length;k++){if(textW(t+', '+a[k])+DS_PAD<=DS_MAX){t+=', '+a[k];break}}
-  dq.placeholder=t}
+var DS_MAX=284, DS_PAD=16+48, egCtx, egCache={};
+function textW(t,inp){ /* canvas measurement in the input's own font, cached; cache resets once web fonts finish loading */
+  var cs=getComputedStyle(inp), f=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily, ls=parseFloat(cs.letterSpacing)||0, key=f+'|'+t;
+  if(egCache[key]!=null)return egCache[key];
+  if(!egCtx)egCtx=document.createElement('canvas').getContext('2d');
+  egCtx.font=f;return egCache[key]=egCtx.measureText(t).width+Math.max(0,t.length-1)*ls}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){egCache={}});
+/* example placeholder: a random phrase, plus a second one if the pair fits the box's text area */
+function fitEgInto(inp,avail){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5}), t='eg. '+a[0];
+  for(var k=1;k<a.length;k++){if(textW(t+', '+a[k],inp)<=avail){t+=', '+a[k];break}}
+  inp.placeholder=t}
+function fitEg(){fitEgInto(dq,DS_MAX-DS_PAD)}  /* desktop box is always 284px */
 function setSearch(on){dS.classList.toggle('open',on);dsBtn.setAttribute('aria-expanded',on);
   if(on){setTopicsPop(false);setMorePop(false);setBrands(false);fitEg();setTimeout(function(){dq.focus()},30);if(dq.value)runSearch()}
   else{sPop.hidden=true;dq.setAttribute('aria-expanded','false');dq.removeAttribute('aria-activedescendant');dq.blur();if(!dq.value)dq.placeholder='Search'}}
