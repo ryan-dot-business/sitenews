@@ -62,7 +62,7 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 
 ## Desktop homepage (Figma 99:2143)
 
-- Containers: header 1200px, homepage content 1180px (7/5 grid for lead and trending, 8/4 grid for the body), footer 1376px.
+- Containers: header 1350px, homepage content 1350px (783/557 lead and trending, 889/429 body with a 32px gap), footer 1376px.
 - Ad units, homepage and desktop only: a 970×90 leaderboard band above the header and above the footer (`.adband`), and a 300×250 box at the top of the sidebar (`.ad-mpu`). Creatives live in `assets/img/ads/` and the `ADS` list in `js/site.js`; each page load shuffles them, so the two leaderboards always show different ads and the 300×250 box picks one at random.
 - The podcast block uses the live Spotify-style player (`spPlayer(EPS[0])`) at every width.
 
