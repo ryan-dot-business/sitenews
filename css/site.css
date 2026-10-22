@@ -428,8 +428,8 @@ html,body{overflow-x:clip}
   .h-lead .t20{font-size:clamp(26px,2.25vw,32px);line-height:1.2;letter-spacing:-.64px;text-wrap:pretty}
   .h-lead .d14{font-family:var(--ui);font-size:20px;line-height:1.4;font-weight:500;letter-spacing:-.4px;color:var(--muted);text-wrap:balance}
   .h-lead .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
-  .h-lead .pic{grid-column:1;grid-row:2;padding:14px 16px 0}
-  .h-lead .card img{aspect-ratio:742/370}
+  .h-lead .pic{grid-column:1;grid-row:2;padding:24px 0 0 16px}
+  .h-lead .card img{aspect-ratio:749/370}
   .h-trend{display:block;grid-column:2;grid-row:1/span 2;align-self:center;padding:0 16px}
   .h-trend .sec{padding:0;gap:0!important}
   .h-trend .rule{display:none}
@@ -443,7 +443,7 @@ html,body{overflow-x:clip}
 
   /* body: 8/4 */
   .h-body{display:grid;grid-template-columns:minmax(0,886fr) minmax(0,422fr);column-gap:42px;align-items:start}
-  .h-main{display:flex;flex-direction:column;padding:12px 0 10px 16px}
+  .h-main{display:flex;flex-direction:column;padding:32px 0 10px 16px}
   .h-side{display:flex;flex-direction:column;gap:24px;padding-top:32px}
   .h-c,.h-side>.o6{display:block}
   .nl-wrap{margin-bottom:0;gap:0}
