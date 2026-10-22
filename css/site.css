@@ -420,7 +420,7 @@ html,body{overflow-x:clip}
   .home [class*=" o"],.home [class^="o"]{order:0}
 
   /* lead + trending: 7/5 of a 12-col grid */
-  .h-top{display:grid;grid-template-columns:minmax(0,774fr) minmax(0,544fr);grid-template-rows:auto 1fr;column-gap:32px;align-items:start;padding-top:30px}
+  .h-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:auto 1fr;column-gap:32px;align-items:start;padding:30px 16px 0 0}
   .h-lead{display:contents}
   .h-lead>.card{display:contents}
   .h-lead .txt{grid-column:1;grid-row:1;padding:0 16px}
@@ -437,7 +437,7 @@ html,body{overflow-x:clip}
   .h-trend .sechead svg{width:30px;height:auto;flex:none}
   .h-trend .nd{display:none}
   .home .tr5{display:list-item}
-  .h-trend .trend li+li{border-top:2px solid rgba(0,0,0,.2)}
+  .h-trend .trend li+li{border-top:2px solid #e2dedd}
   .h-trend .trend a{align-items:center;gap:14px;padding:16px 16px 16px 8px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;letter-spacing:-.02em}
   .h-trend .trend .n{width:30px;text-align:left;font-size:clamp(24px,2.25vw,32px);line-height:1.3;letter-spacing:-.02em}
 
@@ -464,8 +464,8 @@ html,body{overflow-x:clip}
   .h-main .card .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
 
   /* 40 Under 40 feature: green panel, text left, image right */
-  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin-top:27px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
-  #forty:before{content:'';position:absolute;left:0;right:0;top:-27px;height:3px;background:rgba(0,0,0,.1)}
+  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin:35px 8px 0 16px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
+  #forty:before{content:'';position:absolute;left:-16px;right:-8px;top:-35px;height:3px;background:#e2dedd}
   #forty>.px:first-child{padding:0 16px 0 0;gap:0;align-items:flex-start}
   #forty>.px:first-child>.rule{display:none}
   #forty .stack{gap:4px;min-width:0;margin:0 0 0 32px}
@@ -480,7 +480,7 @@ html,body{overflow-x:clip}
   .lat1>.rule{display:none}
   .h-main .river.px{padding-left:0;padding-right:0}
   .lat1>.sechead{padding:0!important}
-  .h-main .river>a{border-bottom:0;border-top:3px solid #c9c6c5;padding:18px 16px 18px 0;gap:14px;align-items:center}
+  .h-main .river>a{border-bottom:0;border-top:3px solid #e2dedd;padding:18px 16px 18px 0;gap:14px;align-items:center}
   .h-main .river>.sechead+a{margin-top:12px}
   .h-main .river .body{padding-left:16px;gap:6px}
   .h-main .river .thumb{width:200px;height:130px;aspect-ratio:auto;margin:0}
@@ -489,18 +489,42 @@ html,body{overflow-x:clip}
   .h-main .river .rd{display:block;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted)}
   .h-main .river .by{margin-top:3px;font-size:12px;text-transform:uppercase}
   .lat2{padding-bottom:24px}
-  #podcast{padding:14px 0 32px;gap:8px}
-  #podcast>.rule{height:3px;background:rgba(0,0,0,.1)}
-  #podcast>div{padding-top:0!important;gap:10px!important}
+  #podcast{display:flex;flex-direction:column;padding:12px 0 32px;gap:0}
+  #podcast>div:not(.rule){display:contents!important}
+  #podcast .sechead{order:-1;padding-bottom:12px}
+  #podcast .sechead svg{margin-right:13px}
+  #podcast>.rule{order:0;height:3px;background:#e2dedd}
+  #podcast .spp{order:1;margin:20px 16px 0}
   .h-main .event{margin:16px}
 
   /* sidebar */
+  .h-side .nl-card{padding:18px 24px 27px 16px}
   .h-side .hero{min-height:398px;padding:31px 26px 31px}
   .h-side .vcard{padding-top:18px}
   .h-side .vcard .px,.h-side .vcard .pic{padding-left:0;padding-right:0}
   .h-side .vcard .rule{display:none}
   .h-side .vcard .stack{gap:6px}
   .h-side .vcard .tag{margin-top:10px}
+  .h-side .vcard{padding-bottom:18px}
+  .h-side .vcard .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
+  .h-side .vcard .d14{font-size:14px;line-height:1.4;letter-spacing:-.28px}
+  .h-side .vcard .tag{font-size:12px;letter-spacing:-.24px}
+  .h-side .vwrap{aspect-ratio:auto;height:462px}
+  /* newsletter promo + latest issue, sized to the Figma sidebar */
+  .h-side .hero h1{font-size:46px;line-height:37.4px;letter-spacing:-1.84px}
+  .h-side .hero .for{margin-top:11px;font-size:14px;letter-spacing:-.56px}
+  .h-side .hero .pitch{margin-top:12px;max-width:320px;font-size:14px;letter-spacing:-.42px}
+  .h-side .hero .signup{margin-top:auto;padding-top:24px;max-width:320px}
+  .h-side .hero .signup form{gap:8px}
+  .h-side .hero input{height:46px;padding:12px;border-radius:10px;font-size:14px}
+  .h-side .hero .btn-or{height:50px;border-radius:10px;font-family:var(--display);font-size:18px;font-weight:750;letter-spacing:-.36px;gap:10px}
+  .h-side .nl-pill{padding:4px 6px;font-size:10px}
+  .h-side .nl-title{margin-top:14px;font-size:16px;letter-spacing:-.32px}
+  .h-side .nl-title .date{font-size:14px}
+  .h-side .nl-dek{margin:4px 0 0;font-size:14px;line-height:1.4;letter-spacing:-.28px}
+  /* section labels: 13px like Figma */
+  .home .h-trend .sechead h2,.home .lat1 .sechead h2,.home #podcast .sechead h2{font-size:13px}
+  .home .lat1 .allbtn{padding:0;font-size:13px}
 
   /* ad units */
   .adband{position:relative;z-index:41;display:flex;flex-direction:column;align-items:center;gap:10px;padding:11px 16px 12px;background:#ece9e8}
