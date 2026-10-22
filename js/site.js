@@ -665,8 +665,19 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){setTopicsPo
 var SEARCH_EG=['Ontario Line','LNG Canada','modular housing','skilled trades','Gordie Howe','critical minerals','carbon capture','Pacific Link','uranium mine','EV factory','nickel mine','Nunavut port','offshore wind','data centre','gas pipeline']; /* every phrase returns at least one story */
 var dS=document.getElementById('dSearch'), dq=document.getElementById('dq'), dsBtn=document.getElementById('dsBtn'), sPop=document.getElementById('searchPop'), spHead=document.getElementById('spHead'), spList=document.getElementById('spList'), spSel=-1;
 function egPhrase(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5});return 'eg. '+a[0]+', '+a[1]}
+/* size the open box to its example text (max 284px, the design width); if two phrases don't fit, show one */
+var DS_MAX=284, DS_PAD=16+48, dsCtx;
+var dsW={}, dsLS=0;
+function textW(t){ /* cached canvas measurement in the input's font; cache resets once web fonts finish loading */
+  if(dsW[t]!=null)return dsW[t];
+  if(!dsCtx){dsCtx=document.createElement('canvas').getContext('2d');var cs=getComputedStyle(dq);dsCtx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;dsLS=parseFloat(cs.letterSpacing)||0}
+  return dsW[t]=dsCtx.measureText(t).width+Math.max(0,t.length-1)*dsLS}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){dsCtx=null;dsW={}});
+function fitEg(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5}), t='eg. '+a[0]+', '+a[1];
+  if(textW(t)+DS_PAD>DS_MAX){a=a.filter(function(x){return textW('eg. '+x)+DS_PAD<=DS_MAX});t='eg. '+a[0]}
+  dq.placeholder=t;dS.style.setProperty('--dsw',Math.ceil(textW(t)+DS_PAD+2)+'px')}
 function setSearch(on){dS.classList.toggle('open',on);dsBtn.setAttribute('aria-expanded',on);
-  if(on){setTopicsPop(false);setMorePop(false);setBrands(false);dq.placeholder=egPhrase();setTimeout(function(){dq.focus()},30);if(dq.value)runSearch()}
+  if(on){setTopicsPop(false);setMorePop(false);setBrands(false);fitEg();setTimeout(function(){dq.focus()},30);if(dq.value)runSearch()}
   else{sPop.hidden=true;dq.setAttribute('aria-expanded','false');dq.removeAttribute('aria-activedescendant');dq.blur();if(!dq.value)dq.placeholder='Search'}}
 var STXT={};function storyText(id){if(!STXT[id]){var a=A[id];STXT[id]=JSON.stringify(a.b||'').replace(/<[^>]+>/g,' ').toLowerCase()}return STXT[id]}
 function runSearch(){var v=dq.value.trim(), s=v.toLowerCase();spSel=-1;
