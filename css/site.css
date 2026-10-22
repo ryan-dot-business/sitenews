@@ -432,12 +432,13 @@ html,body{overflow-x:clip}
   .h-trend{display:block;grid-column:2;grid-row:1/span 2;padding:0 16px}
   .h-trend .sec{padding:0;gap:0!important}
   .h-trend .rule{display:none}
-  .h-trend .sechead{gap:12px}
+  .h-trend .sechead{gap:20px}
+  .h-trend .sechead svg{width:30px;height:auto;flex:none}
+  .h-trend .nd{display:none}
   .home .tr5{display:list-item}
   .h-trend .trend li+li{border-top:2px solid rgba(0,0,0,.2)}
-  .h-trend .trend a{align-items:center;gap:14px;padding:16px 16px 16px 0;font-size:clamp(19px,1.6vw,23px);line-height:1.2;letter-spacing:-.02em}
+  .h-trend .trend a{align-items:center;gap:14px;padding:16px 16px 16px 8px;font-size:clamp(19px,1.6vw,23px);line-height:1.2;letter-spacing:-.02em}
   .h-trend .trend .n{width:30px;text-align:left;font-size:clamp(24px,2.25vw,32px);line-height:1.3;letter-spacing:-.02em}
-  .h-trend .trend li:nth-last-child(-n+2) a{padding-bottom:8px}
 
   /* body: 8/4 */
   .h-body{display:grid;grid-template-columns:minmax(0,886fr) minmax(0,422fr);column-gap:42px;align-items:start}
@@ -447,9 +448,9 @@ html,body{overflow-x:clip}
   .nl-wrap{margin-bottom:0;gap:0}
 
   /* story cards: image left */
-  .h-main .h-c{margin-bottom:10px}
-  .h-main .card{display:grid;grid-template-columns:minmax(0,1fr) 200px;column-gap:14px;align-items:center;padding:16px 0;border-top:3px solid #e2dedd}
-  .h-main .h-c.o3 .card{padding:16px 0!important;border-top:0}
+  .h-main .h-c{margin-bottom:0}
+  .h-main .card{display:grid;grid-template-columns:minmax(0,1fr) 200px;column-gap:14px;align-items:center;padding:18px 16px 18px 0;border-top:3px solid #e2dedd}
+  .h-main .h-c.o3 .card{padding:18px 16px 18px 0!important;border-top:0}
   .h-main .card .txt{display:contents}
   .h-main .card .rule{display:none}
   .h-main .card .pic{grid-column:2;grid-row:1;padding:0}
@@ -462,8 +463,8 @@ html,body{overflow-x:clip}
   .h-main .card .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
 
   /* 40 Under 40 feature: green panel, text left, image right */
-  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin-top:19px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
-  #forty:before{content:'';position:absolute;left:0;right:0;top:-19px;height:3px;background:rgba(0,0,0,.1)}
+  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin-top:27px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
+  #forty:before{content:'';position:absolute;left:0;right:0;top:-27px;height:3px;background:rgba(0,0,0,.1)}
   #forty>.px:first-child{padding:0 16px 0 0;gap:0;align-items:flex-start}
   #forty>.px:first-child>.rule{display:none}
   #forty .stack{gap:4px;min-width:0;margin:0 0 0 32px}
@@ -478,11 +479,10 @@ html,body{overflow-x:clip}
   .lat1>.rule{display:none}
   .h-main .river.px{padding-left:0;padding-right:0}
   .lat1>.sechead{padding:0!important}
-  .h-main .river>a{border-bottom:0;border-top:3px solid #c9c6c5;padding:16px 0;gap:14px}
+  .h-main .river>a{border-bottom:0;border-top:3px solid #c9c6c5;padding:18px 16px 18px 0;gap:14px;align-items:center}
   .h-main .river>.sechead+a{margin-top:12px}
-  .h-main .river .body{padding-left:0;gap:6px}
+  .h-main .river .body{padding-left:16px;gap:6px}
   .h-main .river .thumb{width:200px;height:130px;aspect-ratio:auto;margin:0}
-  .h-main .lat2 .thumb{width:149px;height:112px;margin:0 16px}
   .h-main .river .k{font-size:14px;letter-spacing:-.28px;margin-bottom:3px}
   .h-main .river .h{font-size:23px;line-height:1.2;letter-spacing:-.46px}
   .h-main .river .rd{display:block;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--muted)}
