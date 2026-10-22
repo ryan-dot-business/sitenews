@@ -429,7 +429,7 @@ html,body{overflow-x:clip}
   .h-lead .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
   .h-lead .pic{grid-column:1;grid-row:2;padding:14px 16px 0}
   .h-lead .card img{aspect-ratio:742/370}
-  .h-trend{display:block;grid-column:2;grid-row:1/span 2;padding:0 16px}
+  .h-trend{display:block;grid-column:2;grid-row:1/span 2;align-self:center;padding:0 16px}
   .h-trend .sec{padding:0;gap:0!important}
   .h-trend .rule{display:none}
   .h-trend .sechead{gap:20px}
