@@ -426,6 +426,24 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 @media (min-width:800px){.ad-m2{display:none!important}}
 /* mobile home: lead, trending, MPU ad, story cards, newsletter, video, podcast, 40 Under 40, latest (no leaderboards) */
 @media (max-width:799px){
+  /* newsletter CTA (matches the desktop right rail): rounded block, centred column, dark latest-issue footer */
+  .home .nl-wrap{margin:16px 16px 14px;border-radius:20px;overflow:hidden}
+  .home .hero{min-height:398px;padding:32px 16px;align-items:center}
+  .home .hero>*{width:100%;max-width:360px}
+  .home .hero h1{font-size:46px;line-height:37.4px;letter-spacing:-1.84px}
+  .home .hero .for{margin-top:15px;font-size:14px;letter-spacing:-.56px}
+  .home .hero .pitch{margin-top:15px;font-size:14px;letter-spacing:-.42px;color:rgba(255,255,255,.7)}
+  .home .hero .signup{margin-top:auto;padding-top:24px}
+  .home .hero .signup form{gap:8px}
+  .home .hero input{height:46px;padding:12px;border-radius:10px;font-size:16px} /* 16px stops iOS zooming on focus */
+  .home .hero .btn-or{height:50px;border-radius:10px;font-family:var(--display);font-size:18px;font-weight:750;letter-spacing:-.36px;gap:10px}
+  .home .hero .btn-or svg{width:20px;height:20px}
+  .home .nl-card{padding:24px 24px 35px;background:var(--nl-dark);border-bottom:3px solid rgba(0,0,0,.07)}
+  .home .nl-pill{background:none;padding:4px 6px;font-size:11px}
+  .home .nl-title{margin-top:14px;font-size:20px;letter-spacing:-.4px}
+  .home .nl-title b{color:var(--white)}
+  .home .nl-title .date{font-size:14px;font-weight:590;color:rgba(255,255,255,.42)}
+  .home .nl-dek{margin:6px 0 0;font-size:16px;line-height:1.6;letter-spacing:-.32px;color:rgba(255,255,255,.5)}
   .home .o5{order:2}.home .ad-mpu{order:3}.home .o2{order:4}.home .o3{order:5}.home .o4{order:6}.home .o7{order:7}.home .o9{order:8}
   .home .o10{order:9}.home .ad-m2{order:10}.home .o6{order:11}.home .o8{order:12}.home .o11{order:13}.home .o12{order:14}
   .home .h-lead .stack,.home .h-c .stack{display:flex;flex-direction:column}
