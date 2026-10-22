@@ -415,10 +415,33 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .river .rd{display:none}
 
 .adband{display:none}
+@media (min-width:800px){.ad-m2{display:none!important}}
 /* mobile home: lead, trending, MPU ad, story cards, newsletter, video, podcast, 40 Under 40, latest (no leaderboards) */
 @media (max-width:799px){
-  .home .o5{order:2}.home .ad-mpu{order:3}.home .o3{order:4}.home .o4{order:5}.home .o7{order:6}.home .o2{order:7}.home .o6{order:8}
-  .home .o8{order:9}.home .o9{order:10}.home .o10{order:11}.home .o11{order:12}.home .o12{order:13}
+  .home .o5{order:2}.home .ad-mpu{order:3}.home .o2{order:4}.home .o3{order:5}.home .o4{order:6}.home .o7{order:7}.home .o9{order:8}
+  .home .o10{order:9}.home .ad-m2{order:10}.home .o6{order:11}.home .o8{order:12}.home .o11{order:13}.home .o12{order:14}
+  .home .h-lead .stack,.home .h-c .stack{display:flex;flex-direction:column}
+  .home .h-lead .tag,.home .h-c .tag{order:-1;margin-bottom:3px}
+  /* 40 Under 40: green panel, inset 8px under a rule */
+  .home #forty{position:relative;margin:27px 8px 16px;padding:16px;gap:14px;border-radius:10px;background:#dde9dd}
+  .home #forty:before{content:'';position:absolute;left:0;right:0;top:-27px;height:3px;background:rgba(0,0,0,.1)}
+  .home #forty>.px{padding:0}
+  .home #forty .rule{display:none}
+  .home #forty .tag{font-family:var(--ui);font-size:14px;font-weight:700;letter-spacing:-.28px;color:#154115}
+  .home #forty .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
+  .home #forty .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
+  .home #forty img{border-radius:5px!important}
+  .home #forty .stack{gap:4px}
+  /* SiteSummit: same inset panel */
+  .home .ss{margin:0 8px;padding:24px 0 16px;border-top-color:rgba(0,0,0,.1)}
+  .home .ss-vid{aspect-ratio:370/247}
+  /* video: VIDEO label on top */
+  .home .vcard{padding:18px 0}
+  .home .vcard .vtag{display:block;order:-1;margin:0 0 10px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px;text-transform:uppercase;color:var(--orange-text)}
+  .home .vcard .tag:not(.vtag){display:none}
+  .home .vcard .rule{display:none}
+  .home .vcard .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
+  .home .vcard .d14{font-size:14px;line-height:1.4;letter-spacing:-.28px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .ad-mpu{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;padding:11px 0 12px;background:#ece9e8}
   .ad-mpu .ad-lab{margin:0;font-family:var(--display);font-size:12px;line-height:1.4;font-weight:500;letter-spacing:.36px;color:rgba(0,0,0,.5)}
   .ad-mpu .ad-slot{display:grid;place-items:center;width:300px;height:250px;background:#dcd7d5;color:rgba(0,0,0,.35)}
