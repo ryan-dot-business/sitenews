@@ -3,6 +3,7 @@
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:650;font-display:swap;src:url('../assets/fonts/Aspekta-650.woff2') format('woff2')}
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:700;font-display:swap;src:url('../assets/fonts/Aspekta-700.woff2') format('woff2')}
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:750;font-display:swap;src:url('../assets/fonts/Aspekta-750.woff2') format('woff2')}
+@font-face{font-family:'Druk Wide';font-style:normal;font-weight:700;font-display:swap;src:url('../assets/fonts/DrukWide-Bold.woff') format('woff')}
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:850;font-display:swap;src:url('../assets/fonts/Aspekta-850.woff2') format('woff2')}
 /* Layout: one 480px mobile column (designed at 402), sticky header, overlays pinned under it. Single light brand look. */
 :root{
@@ -170,7 +171,7 @@ body.inner .caret{display:none}
 .ss{margin:0 16px;padding:18px 0 32px;border-top:3px solid #e2dedd}
 .ss-card{display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:10px;background:#ffede2}
 .ss-txt{display:flex;flex-direction:column;gap:4px}
-.ss-logo{font-family:var(--display);font-size:31px;line-height:.86;font-weight:850;letter-spacing:.02em;text-transform:uppercase;color:#ff6c0e;transform:scaleX(1.18);transform-origin:left}
+.ss-logo{font-family:'Druk Wide',var(--display);font-size:31px;line-height:.86;font-weight:700;letter-spacing:-.62px;text-transform:uppercase;color:#ff6c0e}
 .ss-t{font-family:var(--display);font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
 .ss-d{font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
 .ss-btn{align-self:flex-start;margin-top:6px;padding:8px 12px;border-radius:10px;background:#fff;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:#151515}
