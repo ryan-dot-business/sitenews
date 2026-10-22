@@ -575,7 +575,7 @@ function episodePage(id){
 
 /* ---------- ads: a random creative per slot on every page load ---------- */
 var ADS={
- lb:[{src:'assets/img/ads/lb-studson.jpg',alt:'Studson: Advanced head protection built for the job site'},{src:'assets/img/ads/lb-arkance.jpg',alt:'ARKANCE: Need additional project support?'},{src:'assets/img/ads/lb-mobilization.jpg',alt:'Mobilization Funding: Field Tested, pre-order today'}],
+ lb:[{src:'assets/img/ads/lb-studson.jpg',alt:'Studson: Advanced head protection built for the job site'},{src:'assets/img/ads/lb-arkance.jpg',alt:'ARKANCE: Need additional project support?'},{src:'assets/img/ads/lb-mobilization.jpg',alt:'Mobilization Funding: Field Tested, pre-order today'},{src:'assets/img/ads/lb-eidebailly.jpg',alt:'Eide Bailly: Work with a proven industry leader'},{src:'assets/img/ads/lb-brady.jpg',alt:'Brady: Fewer POs. Zero compliance gaps.'},{src:'assets/img/ads/lb-droneaas.jpg',alt:'Drone as a Service: Aerial intelligence for better project results'}],
  mpu:[{src:'assets/img/ads/mpu-brady.jpg',alt:'Brady: Built for tough jobs and inspections'},{src:'assets/img/ads/mpu-dell.jpg',alt:'Dell Pro Rugged laptops'}]
 };
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
