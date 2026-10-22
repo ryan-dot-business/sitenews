@@ -394,6 +394,7 @@ function shareRow(top){return '<div class="share'+(top?'':' share-end')+'"><butt
 var UNIT={ul:1,lead:1,p:1,s:1,q:1,ans:1,pm:1,mv:1,job:1,tl:1,fig:1};
 function adIn(){return '<div class="ad-in" role="complementary" aria-label="Advertisement"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'}
 function withAds(list,render,startCount){
+  if(A[current]&&A[current].sp)return list.map(render).join(''); /* sponsored content: no in-article ads (leaderboards stay) */
   var out='',n=startCount||0,ads=0;
   list.forEach(function(x,i){out+=render(x);if(UNIT[x.k]){n++;var nx=list[i+1];
     if(n>=3&&ads<6&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();ads++;n=0}}});
