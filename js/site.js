@@ -193,6 +193,13 @@ var A = {
 // Focal point for square (1:1) crops on large cards: keeps the subject in frame
 var FOCUS={bcs:'68% 50%',nickel:'76% 50%',ant:'45% 50%',fortis:'27% 50%',port:'50% 50%',merger:'50% 50%',careers:'55% 50%',pomerleau:'60% 50%',bell:'40% 50%',ellisdon:'50% 50%',pacific:'38% 50%',lng:'50% 50%',people:'50% 50%'};
 var ORDER=['merger','careers','pomerleau','bell','ant','people','ellisdon','pacific','lng','port','bcs','mactaquac','nickel','fortis','procore','steiman'];
+/* Real SiteNews articles from js/feat.js join the prototype's own */
+(window.FEAT||[]).forEach(function(f){var o={};for(var k in f)if(k!=='id')o[k]=f[k];A[f.id]=o;ORDER.push(f.id)});
+for(var fk in (window.FEAT_IMG||{}))IMG[fk]=FEAT_IMG[fk];
+for(var ff in (window.FEAT_FILL||{}))if(A[ff])for(var fv in FEAT_FILL[ff])A[ff][fv]=FEAT_FILL[ff][fv];
+/* Home lead: a random one of the 17 SiteNews pack stories each page load */
+var PACK=(window.FEAT_PACK||['bcs']).filter(function(id){return A[id]&&A[id].img});
+var LEAD=PACK[Math.floor(Math.random()*PACK.length)]||'bcs';
 var TOPICS=['People','Projects','Technology','Sustainability','Recruitment','Economy'];
 var DESC={People:'Hires, promotions, profiles and the faces shaping the industry.',Projects:'The builds, bids and approvals moving Canadian infrastructure.',Technology:'Tools, software and machines changing how the job gets done.',Sustainability:'Lower-carbon building, energy transition and green infrastructure.',Recruitment:'Careers, pay, training and the skilled-trades talent race.',Economy:'Deals, policy and the money behind construction.',All:'Every story, newest first.'};
 var TREND=['mactaquac','procore','people','steiman'];
@@ -231,7 +238,7 @@ var STORIES=[
  {label:'Nation-Building Projects',ids:['bcs','nickel','x:nb3','x:nb2','x:nb1']},
  {label:'B.C. LNG',ids:['lng','fortis','x:lg1','x:lg2']},
  {label:'AI Data Centres',ids:['bell','x:dc1','x:dc2','x:dc3']},
- {label:'Mergers & Acquisitions',ids:['merger','pomerleau','procore','x:md1','x:md2','x:md3']}
+ {label:'Mergers & Acquisitions',ids:['merger','pomerleau','procore','edacq','gip','x:md1','x:md2','x:md3']}
 ];
 function rcGet(ref){return ref.indexOf('x:')===0?EXT[ref.slice(2)]:A[ref]}
 function rcTime(it){var t=Date.parse(it&&it.date||'');return isNaN(t)?0:t}
@@ -249,7 +256,7 @@ function biggerStory(id){var s=storyOf(id);if(!s)return {html:'',shown:[]};
 function moreCategory(id,shown){var a=A[id],tag=a.tag;
   var inStory=function(r){return !!storyOf(r.replace(/^x:/,''))||STORIES.some(function(s){return s.ids.indexOf(r)>=0})};
   var pool=Object.keys(A).filter(function(k){return k!==id&&A[k].tag===tag&&k!=='newsletter'})
-    .concat(Object.keys(EXT).filter(function(k){return EXT[k].tag===tag}).map(function(k){return 'x:'+k}))
+    .concat(Object.keys(EXT).filter(function(k){return EXT[k].tag===tag&&!Object.keys(A).some(function(j){return normT(A[j].title)===normT(EXT[k].title)})}).map(function(k){return 'x:'+k}))
     .filter(function(r){return shown.indexOf(r)<0});
   // Stories that aren't part of any bigger-story package come first, newest first
   pool.sort(function(x,y){return (inStory(x)-inStory(y))||(rcTime(rcGet(y))-rcTime(rcGet(x)))});
@@ -258,6 +265,10 @@ function signup(id,dark,label){
   if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">'+(label||'Join free')+' '+PLANE+'</button></form>';
 }
+/* Latest Stories: newest first, skipping whatever already has a slot on the home page */
+function homeRiver(){var skip={nickel:1,fortis:1,ant:1,newsletter:1};skip[LEAD]=1;TREND.forEach(function(t){skip[t]=1});
+  return ORDER.filter(function(id){var a=A[id];return a&&!skip[id]&&a.date&&a.img&&!a.sp&&a.topic!=='Newsletter'})
+    .sort(function(x,y){return pdate(A[y].date)-pdate(A[x].date)})}
 function riverItem(id){var a=A[id];return '<a class="press" href="#a-'+id+'"><div class="body"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span><span class="rd">'+(a.homeDek||a.dek)+'</span><span class="by">'+(a.date||'').replace(/,\s*\d{4}$/,'')+'</span></div>'+(a.img?'<img class="thumb" src="'+IMG[a.img]+'" alt="">':'')+'</a>'}
 function card(id,first,r10,tagStyle){var a=A[id];return '<a class="card'+(r10?' r10':'')+'" href="#a-'+id+'" style="'+(first?'padding-top:20px':'')+'"><div class="txt px">'+(first?'':'<div class="rule"></div>')+'<div class="stack">'+(a.sp?'<span class="ptag">PARTNER CONTENT</span>':'')+'<span class="t20">'+a.title+'</span><span class="d14">'+(a.homeDek||a.dek)+'</span>'+(a.sp?'':'<span class="tag"'+(tagStyle?' style="'+tagStyle+'"':'')+'>'+a.tag+'</span>')+'</div></div><div class="pic"><img src="'+IMG[a.img]+'" alt="'+a.alt+'" loading="lazy" style="object-position:'+(FOCUS[id]||'50% 50%')+'"></div></a>'}
 
@@ -330,7 +341,7 @@ function home(){
   return ''+
   '<div class="home">'+
    '<div class="h-top">'+
-    '<div class="h-lead o1">'+card('bcs',true)+'</div>'+
+    '<div class="h-lead o1">'+card(LEAD,true)+'</div>'+
     '<div class="h-trend o5">'+trending()+'</div>'+
    '</div>'+
    '<div class="h-body">'+
@@ -339,10 +350,10 @@ function home(){
      '<div class="h-c o7">'+card('fortis',false,true)+'</div>'+
      '<div class="h-c o4">'+card('ant')+'</div>'+
      '<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
-     '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+['merger','careers','pomerleau','bell'].map(riverItem).join('')+'</section>'+
+     '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+homeRiver().slice(0,4).map(riverItem).join('')+'</section>'+
      '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
    spPlayer(EPS[0])+'</div></section>'+
-     '<section class="px river lat2 o11">'+['ellisdon','pacific','lng','port'].map(riverItem).join('')+'</section>'+
+     '<section class="px river lat2 o11">'+homeRiver().slice(4,8).map(riverItem).join('')+'</section>'+
      '<section class="event o12" id="summit"><svg width="230" height="197" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#fff"/></svg><span style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.88)">Upcoming event · Toronto</span><h2>SITESUMMIT<br>YEAR 2</h2><p>Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</p><a class="go press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Get tickets</a></section>'+
     '</div>'+
     '<aside class="h-side">'+
@@ -364,6 +375,7 @@ function block(b){
     case 'mv': return '<div class="mv"><b>'+b.n+'</b>'+b.r+'</div>';
     case 'kt': return '<aside class="kt" aria-label="Key takeaways"><h2>Key Takeaways</h2><ul>'+b.items.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></aside>';
     case 'ws': return '<h2 class="ws">Whole Story</h2>';
+    case 'ul': return '<ul class="ul">'+b.items.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
     case 'h3': return '<h3 class="h3">'+b.t+'</h3>';
     case 'tl': return '<ul class="tl">'+b.items.map(function(x){return '<li><b>'+x[0]+':</b> '+x[1]+'</li>'}).join('')+'</ul>';
     case 'q': return '<p class="q"><b>'+(b.first?'SiteNews:':'SN:')+'</b> <i>'+b.t+'</i></p>';
@@ -378,12 +390,12 @@ function block(b){
 }
 function shareRow(top){return '<div class="share'+(top?'':' share-end')+'"><button class="circ press" type="button" aria-label="Comments"><svg width="16" height="15" viewBox="0 0 16 15" aria-hidden="true"><path d="M8 0C3.6 0 0 2.8 0 6.3c0 2 1.2 3.8 3 5L2.3 15l4-2.5c.6.1 1.1.1 1.7.1 4.4 0 8-2.8 8-6.3S12.4 0 8 0z" fill="#1d1d1f"/></svg></button><button class="circ press" type="button" data-copy aria-label="Copy link to share by email"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1.2C0 .5.5 0 1.2 0h13.6c.7 0 1.2.5 1.2 1.2v.3L8 6.6 0 1.5z" fill="#1d1d1f"/><path d="M0 3.2v7.6c0 .7.5 1.2 1.2 1.2h13.6c.7 0 1.2-.5 1.2-1.2V3.2L8 8.4z" fill="#1d1d1f"/></svg></button><div class="pill"><a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="width:32px;height:32px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M3.4 6.2h2v6.4h-2zM4.4 3.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM6.7 6.2h1.9v.9c.3-.5.9-1 1.9-1 2 0 2.4 1.3 2.4 3v3.5h-2V9.5c0-.7 0-1.6-1-1.6s-1.2.8-1.2 1.6v3.1h-2z" fill="#fbf7f6"/></svg></a><a href="https://x.com/" target="_blank" rel="noopener" aria-label="Share on X" style="width:32px;height:32px;display:grid;place-items:center;opacity:.5"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M4 4h2.3l2 2.8L10.6 4h1.2L8.9 7.5 12.2 12H9.9L7.7 9 5.2 12H4l3.1-3.7z" fill="#fbf7f6"/></svg></a><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Share on Facebook" style="width:32px;height:32px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#6e6e6e"/><path d="M10 18v-6.5h2.1l.3-2.5H10V7.5c0-.7.2-1.2 1.2-1.2h1.3V4.1c-.2 0-1-.1-1.9-.1-1.9 0-3.1 1.1-3.1 3.2V9H5.4v2.5h2.1V18z" fill="#fbf7f6"/></svg></a></div>'+(top?'<span id="copied" ':'<span ')+'class="d14" style="font-size:12px" hidden>Link copied</span></div>';}
 /* Article body: newsletter CTA after the key takeaways box (or after 3 paragraphs), then an ad every 3 paragraphs. */
-var UNIT={lead:1,p:1,s:1,q:1,ans:1,pm:1,mv:1,job:1,tl:1,fig:1};
+var UNIT={ul:1,lead:1,p:1,s:1,q:1,ans:1,pm:1,mv:1,job:1,tl:1,fig:1};
 function adIn(){return '<div class="ad-in" role="complementary" aria-label="Advertisement"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'}
 function withAds(list,render,startCount){
-  var out='',n=startCount||0;
+  var out='',n=startCount||0,ads=0;
   list.forEach(function(x,i){out+=render(x);if(UNIT[x.k]){n++;var nx=list[i+1];
-    if(n>=3&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();n=0}}});
+    if(n>=3&&ads<6&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();ads++;n=0}}});
   return out;
 }
 function body(a){

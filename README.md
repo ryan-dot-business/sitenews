@@ -70,3 +70,9 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 
 - A 970×90 leaderboard sits above the header, between the bigger-story block and Trending, and above the footer. These are desktop only, and each one shows a different creative.
 - The newsletter CTA comes right after the Key Takeaways box when an article has one; otherwise it comes after the third paragraph. After that, a full-width 300×250 ad (`adIn()`) appears every 3 paragraphs, never after the last one and never between a Q&A question and its answer. This applies at all widths, and gated articles skip it.
+
+## Real SiteNews articles (js/feat.js)
+- `js/feat.js` holds 12 full articles pulled from the readsitenews.com WordPress API (Oct 22, 2026), with photos in `assets/img/feat/`. It also fills in the missing photo, byline and date for the existing Mactaquac and Procore pages. The other 5 stories in the pack already existed as prototype articles.
+- `site.js` merges them into `A`/`ORDER`, so they get article pages (`#a-<id>`), appear on topic pages and in search, and feed Latest Stories (newest first).
+- The home lead is picked at random on each page load from the 17-story pack (`FEAT_PACK`).
+- Subcopy is the pack's paraphrased deck; article body text is the publisher's.

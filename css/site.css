@@ -234,6 +234,7 @@ figcaption b{font-size:11px;font-weight:750}
 .ws-body{display:flex;flex-direction:column;gap:18px}
 .prose .h3{margin:4px 0 -10px;font-family:var(--display);font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-.38px;color:#000}
 .tl{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:12px}
+.ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:12px}
 .tl b{font-weight:600;color:#000}
 .prose .q,.prose .ans{color:#000}
 .prose .q i{font-style:italic}
