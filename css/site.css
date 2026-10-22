@@ -638,6 +638,14 @@ html,body{overflow-x:clip}
   .dpop-more a{display:flex;align-items:center;justify-content:flex-end;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}
   .dpop-more a:last-child{border-bottom:0;padding-bottom:17px}
   .dpop-more a:hover,.dpop-chips a:hover{opacity:.75}
+  /* other-publications dropdown: anchored under the logo, styled like the Topics / more popovers */
+  #brandsLayer .scrim{background:transparent;animation:none}
+  #brandsLayer>.col{max-width:1382px;padding:0 16px}
+  #brandsLayer .brands{top:-7px;left:6px;width:236px;padding:6px 10px 14px;gap:10px;border:0;border-radius:24px;border-bottom:2px solid #f2ecea;box-shadow:none;filter:drop-shadow(0 4px 7px rgba(0,0,0,.1));animation:fade .15s ease-out}
+  #brandsLayer .brands a{padding:14px 13px 14px 9px;font-size:18px;letter-spacing:-.36px;border-top:0}
+  #brandsLayer .brands a+a{border-top:2px solid #f2ecea}
+  #brandsLayer .brands a:hover{opacity:.75}
+  #brandsLayer .brands .sm{padding:0 9px}
 }
 
 /* ---------- desktop article ---------- */
