@@ -403,7 +403,16 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .lat2{padding-bottom:32px}
 .river .rd{display:none}
 
-.adband,.ad-mpu{display:none}
+.adband{display:none}
+/* mobile home: lead, trending, MPU ad, story cards, newsletter, video, podcast, 40 Under 40, latest (no leaderboards) */
+@media (max-width:799px){
+  .home .o5{order:2}.home .ad-mpu{order:3}.home .o3{order:4}.home .o4{order:5}.home .o7{order:6}.home .o2{order:7}.home .o6{order:8}
+  .home .o8{order:9}.home .o9{order:10}.home .o10{order:11}.home .o11{order:12}.home .o12{order:13}
+  .ad-mpu{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;padding:11px 0 12px;background:#ece9e8}
+  .ad-mpu .ad-lab{margin:0;font-family:var(--display);font-size:12px;line-height:1.4;font-weight:500;letter-spacing:.36px;color:rgba(0,0,0,.5)}
+  .ad-mpu .ad-slot{display:grid;place-items:center;width:300px;height:250px;background:#dcd7d5;color:rgba(0,0,0,.35)}
+  .ad-mpu .ad-slot img{display:block;width:100%;height:100%;object-fit:cover}
+}
 .ad-in{display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 0 25px;background:#ece9e8;width:100vw;margin-left:calc(50% - 50vw)}
 .ad-in .ad-lab{margin:0;font-family:var(--display);font-size:12px;line-height:1.4;font-weight:500;letter-spacing:.36px;color:rgba(0,0,0,.5)}
 .ad-in .ad-slot{display:grid;place-items:center;width:300px;height:250px;background:#dcd7d5}
