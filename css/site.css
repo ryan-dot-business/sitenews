@@ -167,6 +167,14 @@ body.inner .caret{display:none}
 .rc-cat .body{align-self:stretch;justify-content:space-between;gap:10px;min-height:110px}
 .rc .thumb{width:110px;height:110px;object-fit:cover;border-radius:5px;flex:none}
 .allbtn{display:flex;align-items:center;gap:5px;padding:8px 0;font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.26px;color:#080808}
+.ss{margin:0 16px;padding:18px 0 32px;border-top:3px solid #e2dedd}
+.ss-card{display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:10px;background:#ffede2}
+.ss-txt{display:flex;flex-direction:column;gap:4px}
+.ss-logo{font-family:var(--display);font-size:31px;line-height:.86;font-weight:850;letter-spacing:.02em;text-transform:uppercase;color:#ff6c0e;transform:scaleX(1.18);transform-origin:left}
+.ss-t{font-family:var(--display);font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
+.ss-d{font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
+.ss-vid{border-radius:5px;overflow:hidden;aspect-ratio:329/182;background:#ccc}
+.ss-vid video{display:block;width:100%;height:100%;object-fit:cover}
 .event{margin:24px 16px 32px;border-radius:20px;background:var(--orange);padding:28px 24px;color:var(--white);display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
 .event h2{margin:0;font-family:var(--display);font-size:42px;line-height:.95;font-weight:850;letter-spacing:-1.2px}
 .event p{margin:0;font-size:16px;line-height:1.4;max-width:300px;color:rgba(255,255,255,.92)}
@@ -505,6 +513,11 @@ html,body{overflow-x:clip}
   #podcast>.rule{order:0;height:3px;background:#e2dedd}
   #podcast .spp{order:1;margin:20px 16px 0}
   .h-main .event{margin:16px}
+  .h-main .ss{margin:0;padding:32px 8px}
+  .h-main .lat2{padding-bottom:0}
+  .ss-card{display:grid;grid-template-columns:minmax(0,1fr) 337px;align-items:center;gap:0;padding:8px 0}
+  .ss-txt{padding:0 16px 0 24px}
+  .ss-vid{margin-right:8px}
 
   /* sidebar */
   .h-side .hero{min-height:398px;padding:31px 26px 31px}
