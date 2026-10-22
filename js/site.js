@@ -201,7 +201,7 @@ for(var ff in (window.FEAT_FILL||{}))if(A[ff])for(var fv in FEAT_FILL[ff])A[ff][
 var PACK=(window.FEAT_PACK||['bcs']).filter(function(id){return A[id]&&A[id].img});
 var LEAD=PACK[Math.floor(Math.random()*PACK.length)]||'bcs';
 var TOPICS=['People','Projects','Technology','Sustainability','Recruitment','Economy'];
-var DESC={People:'Hires, promotions, profiles and the faces shaping the industry.',Projects:'The builds, bids and approvals moving Canadian infrastructure.',Technology:'Tools, software and machines changing how the job gets done.',Sustainability:'Lower-carbon building, energy transition and green infrastructure.',Recruitment:'Careers, pay, training and the skilled-trades talent race.',Economy:'Deals, policy and the money behind construction.',All:'Every story, newest first.'};
+var DESC={People:'Hires, promotions, profiles and the faces shaping the industry.',Projects:'The builds, bids and approvals moving Canadian infrastructure.',Technology:'Tools, software and machines changing how the job gets done.',Sustainability:'Lower-carbon building, energy transition and green infrastructure.',Recruitment:'Careers, pay, training and the skilled-trades talent race.',Economy:'Deals, policy and the money behind construction.',All:'The projects, the players, the price tags. Skimmable by lunch.'};
 var TREND=['mactaquac','procore','people','steiman'];
 
 var subscribed=false, email='';
