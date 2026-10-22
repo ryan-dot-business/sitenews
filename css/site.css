@@ -48,8 +48,6 @@ body.inner .caret{display:none}
 .brands a+a{border-top:1px solid #d9d9d9}
 .brands .ej{font-family:'Museo Slab Rounded','Zilla Slab',Georgia,serif;font-weight:700;color:#2c8c06}
 .brands-ft{display:flex;align-items:center;justify-content:space-between;font-family:var(--display);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:#000}
-.brands .st-logo{flex:none;display:block;width:27px;height:24px}
-.brands .st-word{display:block;flex:none;width:44px;height:15px}
 .sm2{font-weight:700}.sm2 b{font-weight:700;color:#2433ff}
 .sm{font-family:var(--display);font-size:16px;font-weight:700;color:rgba(0,0,0,.3)}
 .menu{position:absolute;inset:0;background:var(--white);overflow-y:auto;animation:fade .18s ease-out;overscroll-behavior:contain}
@@ -646,12 +644,10 @@ html,body{overflow-x:clip}
   #brandsLayer .brands{pointer-events:auto}
   #brandsLayer .scrim{background:transparent;animation:none}
   #brandsLayer>.col{position:static}
-  #brandsLayer .brands{top:-7px;left:6px;width:229px;padding:12px 12px 20px;gap:18px;border:0;border-radius:24px;border-bottom:2px solid #f2ecea;box-shadow:none;filter:drop-shadow(0 4px 7px rgba(0,0,0,.1));animation:fade .15s ease-out}
-  #brandsLayer .brands a{gap:7px;padding:14px 13px 14px 8px;font-size:16px;letter-spacing:-.32px;border-top:0}
+  #brandsLayer .brands{top:-7px;left:6px;width:229px;padding:12px 20px 20px;gap:18px;border:0;border-radius:24px;border-bottom:2px solid #f2ecea;box-shadow:none;filter:drop-shadow(0 4px 7px rgba(0,0,0,.1));animation:fade .15s ease-out}
+  #brandsLayer .brands a{gap:7px;padding:14px 13px 14px 0;font-size:16px;letter-spacing:-.32px;border-top:0}
   #brandsLayer .brands a+a{border-top:1px solid #d9d9d9}
   #brandsLayer .brands a:hover{opacity:.75}
-  #brandsLayer .brands a:has(.st-logo){gap:8px;padding:9px 13px 11px 8px}
-  #brandsLayer .brands-ft{padding:0 8px}
 }
 
 /* ---------- desktop article ---------- */
