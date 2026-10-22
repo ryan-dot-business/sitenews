@@ -473,11 +473,11 @@ html,body{overflow-x:clip}
   .h-main .card .tag{order:-1;margin-bottom:3px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px}
 
   /* 40 Under 40 feature: green panel, text left, image right */
-  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin:35px 8px 0 16px;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
-  #forty:before{content:'';position:absolute;left:-16px;right:-8px;top:-35px;height:3px;background:#e2dedd}
+  #forty{display:grid;grid-template-columns:minmax(0,1fr) 281px;align-items:center;margin:35px 8px 0;padding:8px 0;border-radius:10px;background:#dde9dd;position:relative}
+  #forty:before{content:'';position:absolute;left:-8px;right:-8px;top:-35px;height:3px;background:#e2dedd}
   #forty>.px:first-child{padding:0 16px 0 0;gap:0;align-items:flex-start}
   #forty>.px:first-child>.rule{display:none}
-  #forty .stack{gap:4px;min-width:0;margin:0 0 0 32px}
+  #forty .stack{gap:4px;min-width:0;margin:0 0 0 24px}
   #forty .tag{font-family:var(--ui);font-size:14px;font-weight:700;letter-spacing:-.28px;color:#154115}
   #forty .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
   #forty .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
@@ -507,7 +507,6 @@ html,body{overflow-x:clip}
   .h-main .event{margin:16px}
 
   /* sidebar */
-  .h-side .nl-card{padding:18px 24px 27px 16px}
   .h-side .hero{min-height:398px;padding:31px 26px 31px}
   .h-side .vcard{padding-top:18px}
   .h-side .vcard .px,.h-side .vcard .pic{padding-left:0;padding-right:0}
@@ -517,7 +516,15 @@ html,body{overflow-x:clip}
   .h-side .vcard{padding-bottom:18px}
   .h-side .vcard .t20{font-size:20px;line-height:1.2;letter-spacing:-.4px}
   .h-side .vcard .d14{font-size:14px;line-height:1.4;letter-spacing:-.28px}
-  .h-side .vcard .tag{font-size:12px;letter-spacing:-.24px}
+  .h-side .vcard .tag{display:none}
+  .h-side .vcard .vtag{display:block;order:-1;margin:0 0 2px;font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px;text-transform:uppercase;color:var(--orange-text)}
+  .h-side .vcard .t20{font-size:23px;letter-spacing:-.46px}
+  .h-side .vcard .d14{font-size:16px;letter-spacing:-.32px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .h-side .nl-card{padding:18px 24px 27px}
+  .h-side .nl-title{font-size:20px;letter-spacing:-.4px}
+  .h-side .nl-title .date{font-weight:590}
+  .h-side .nl-dek{margin-top:6px!important;font-size:16px!important;line-height:1.6!important;letter-spacing:-.32px!important}
+  .h-side .hero .btn-or svg{width:20px;height:20px}
   .h-side .vwrap{aspect-ratio:auto;height:462px}
   /* newsletter promo + latest issue, sized to the Figma sidebar */
   .h-side .hero h1{font-size:46px;line-height:37.4px;letter-spacing:-1.84px}
@@ -682,6 +689,7 @@ html,body{overflow-x:clip}
 .epi{padding-top:28px}
 .epi-hd{padding:0 16px 18px;display:flex;flex-direction:column;gap:8px}
 .epi-hd .pod-tag{margin:0}
+.vtag{display:none}
 .pod-rule2{display:none}
 @media (max-width:799px){.pod .pod-ad{display:none}}
 .epi-by{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-top:8px}
