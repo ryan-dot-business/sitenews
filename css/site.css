@@ -173,6 +173,8 @@ body.inner .caret{display:none}
 .ss-logo{font-family:var(--display);font-size:31px;line-height:.86;font-weight:850;letter-spacing:.02em;text-transform:uppercase;color:#ff6c0e;transform:scaleX(1.18);transform-origin:left}
 .ss-t{font-family:var(--display);font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ink)}
 .ss-d{font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
+.ss-btn{align-self:flex-start;margin-top:6px;padding:8px 12px;border-radius:10px;background:#fff;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:#151515}
+.ss-d{text-wrap:pretty}
 .ss-vid{border-radius:5px;overflow:hidden;aspect-ratio:329/182;background:#ccc}
 .ss-vid video{display:block;width:100%;height:100%;object-fit:cover}
 .event{margin:24px 16px 32px;border-radius:20px;background:var(--orange);padding:28px 24px;color:var(--white);display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
@@ -515,9 +517,9 @@ html,body{overflow-x:clip}
   .h-main .event{margin:16px}
   .h-main .ss{margin:0;padding:32px 8px}
   .h-main .lat2{padding-bottom:0}
-  .ss-card{display:grid;grid-template-columns:minmax(0,1fr) 337px;align-items:center;gap:0;padding:8px 0}
-  .ss-txt{padding:0 16px 0 24px}
-  .ss-vid{margin-right:8px}
+  .ss-card{display:grid;grid-template-columns:minmax(0,1fr) 397px;align-items:center;gap:0;padding:24px 0}
+  .ss-txt{padding:0 16px 0 32px}
+  .ss-vid{margin-right:24px;aspect-ratio:373/209}
 
   /* sidebar */
   .h-side .hero{min-height:398px;padding:31px 26px 31px}
