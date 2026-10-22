@@ -4,6 +4,9 @@
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:700;font-display:swap;src:url('../assets/fonts/Aspekta-700.woff2') format('woff2')}
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:750;font-display:swap;src:url('../assets/fonts/Aspekta-750.woff2') format('woff2')}
 @font-face{font-family:'Druk Wide';font-style:normal;font-weight:700;font-display:swap;src:url('../assets/fonts/DrukWide-Bold.woff') format('woff')}
+@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:400 600;font-display:swap;src:url('../assets/fonts/SourceSerif4-Roman.woff') format('woff')}
+@font-face{font-family:'Source Serif 4';font-style:italic;font-weight:400;font-display:swap;src:url('../assets/fonts/SourceSerif4-Italic.woff') format('woff')}
+@font-face{font-family:'Zilla Slab';font-style:normal;font-weight:700;font-display:swap;src:url('../assets/fonts/ZillaSlab-Bold.woff') format('woff')}
 @font-face{font-family:'Aspekta';font-style:normal;font-weight:850;font-display:swap;src:url('../assets/fonts/Aspekta-850.woff2') format('woff2')}
 /* Layout: one 480px mobile column (designed at 402), sticky header, overlays pinned under it. Single light brand look. */
 :root{
@@ -71,8 +74,11 @@ body.inner .caret{display:none}
 .mlinks>a:last-child{border-bottom:0}
 .mlinks>a .ext{flex:none;display:block}
 .msub{display:flex;align-items:center;gap:7px;padding:16px 13px 16px 16px;border-radius:15px;background:var(--orange);font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:var(--white)}
-.mfoot{display:flex;justify-content:space-between;gap:8px;padding:32px 12px 0;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:rgba(0,0,0,.3)}
+.mfoot{display:flex;justify-content:space-between;gap:8px;padding:32px 12px 0;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:#707070}
+.mfoot .mlegal a{color:inherit;text-decoration:none}
+.mfoot .mlegal a:hover{text-decoration:underline;text-underline-offset:2px}
 .mfoot b{font-family:var(--display);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.search svg{color:var(--muted)}
 .search{display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:10px;background:var(--white);border:1px solid var(--hair)}
 .search input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:17px;letter-spacing:-.3px;color:var(--ink-strong)}
 .search input::placeholder{color:var(--muted)}

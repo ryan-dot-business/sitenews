@@ -28,9 +28,9 @@ Pages are hash routes: `#a-<article-id>`, `#t-<Topic>`, `#newsletter`.
 
 ```
 index.html          page shell, header, overlays, footer
-css/site.css        all styles; Aspekta @font-face at the top
+css/site.css        all styles; @font-face rules at the top
 js/site.js          article data, templates and routing
-assets/fonts/       Aspekta webfonts (500, 600, 650, 700, 750, 850)
+assets/fonts/       self-hosted webfonts: Aspekta, Druk Wide, Source Serif 4, Zilla Slab (+ OFL licences)
 assets/img/         photos and graphics
 assets/video/       Digging In clip (H.264, no audio track)
 assets/og.jpg       1200×630 social preview image (Open Graph / X card)
@@ -42,7 +42,7 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 
 ## Notes
 
-- Fonts: Aspekta is self-hosted; Source Serif 4 and Zilla Slab load from Google Fonts.
+- Fonts: all self-hosted. Source Serif 4 (wght 400–600, opsz 8–60, plus italic 400) and Zilla Slab Bold are Latin subsets built from the google/fonts repo.
 - Article body text is paraphrased from the live stories, except the merger story and the Building Canada Act story, which use the copy from the Figma designs. The Carly Steiman Q&A is placeholder text.
 - Signup forms, "Save on Spotify" and share buttons are front-end only; nothing is sent anywhere.
 
