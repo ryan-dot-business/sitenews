@@ -523,17 +523,19 @@ function spPlayer(e,big){
    '<span class="spp-time" data-left></span><span class="spp-more" aria-hidden="true">•••</span>'+
    '<button class="spp-play" type="button" data-play aria-label="Play episode"></button></div></div>';
 }
-function epRow(e){
-  return '<a class="eprow" href="#ep-'+e.id+'"><div class="ep-txt"><span class="ep-t">'+e.title+'</span><span class="ep-d">'+e.d+'</span><span class="ep-dt">'+e.date+'<span class="ep-len"> · '+epMin(e)+'</span></span></div><img class="ep-art" src="'+IMG.podart+'" alt=""></a>';
+function epRow(e,hidden){
+  return '<a class="eprow" href="#ep-'+e.id+'"'+(hidden===true?' hidden data-extra':'')+'><div class="ep-txt"><span class="ep-t">'+e.title+'</span><span class="ep-d">'+e.d+'</span><span class="ep-dt">'+e.date+'<span class="ep-len"> · '+epMin(e)+'</span></span></div><img class="ep-art" src="'+IMG.podart+'" alt=""></a>';
 }
 function podShowHead(){return '<div class="pod-hd"><span class="pod-tag">Podcast</span><h1>Digging In</h1><p class="pod-host">with Russell Hixson</p></div>'}
+var EP_PAGE=4; /* episodes shown before See More */
 function podcastPage(){
   var latest=EPS[0];
   return '<div class="pod">'+podShowHead()+
    '<div class="pod-grid"><div class="pod-main">'+
      '<div class="pod-hero"><img src="'+IMG.podhero+'" alt="Digging In with Russell Hixson, a SiteNews podcast"></div>'+
      '<h2 class="pod-sh pod-eph">Episodes</h2>'+
-     '<div class="eplist">'+EPS.map(epRow).join('')+'</div>'+
+     '<div class="eplist">'+EPS.map(function(e,i){return epRow(e,i>=EP_PAGE)}).join('')+
+       (EPS.length>EP_PAGE?'<div class="tp-more ep-more"><button class="tp-morebtn press" type="button" data-more>See More</button></div>':'')+'</div>'+
    '</div><aside class="pod-side">'+
      '<div class="ad-mpu pod-ad"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#podcast" aria-label="Advertisement"><span>300 × 250</span></a></div>'+
      listenOn()+'<div class="pod-rule pod-rule2"></div>'+
