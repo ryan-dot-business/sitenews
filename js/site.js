@@ -581,11 +581,15 @@ var ADS={
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 var AD_PICK={lb:shuffle(ADS.lb),mpu:shuffle(ADS.mpu)};
 function adImg(x){return '<img src="'+x.src+'" alt="'+x.alt+'">'}
+/* new ad mix on every page (route) change; the top leaderboard never repeats the one just shown */
 function fillAds(){
+  var prev=AD_PICK.lb[0];AD_PICK={lb:shuffle(ADS.lb),mpu:shuffle(ADS.mpu)};
+  if(ADS.lb.length>1&&AD_PICK.lb[0]===prev)AD_PICK.lb.push(AD_PICK.lb.shift());
   var lb=[].slice.call(document.querySelectorAll('#adTop .ad-slot, main .ad-970, #adBot .ad-slot'));
-  lb.forEach(function(sl,i){if(!sl.querySelector('img'))sl.innerHTML=adImg(AD_PICK.lb[i%AD_PICK.lb.length])});
-  [].slice.call(document.querySelectorAll('.ad-300')).forEach(function(sl,i){if(!sl.querySelector('img'))sl.innerHTML=adImg(AD_PICK.mpu[i%AD_PICK.mpu.length])});
+  lb.forEach(function(sl,i){sl.innerHTML=adImg(AD_PICK.lb[i%AD_PICK.lb.length])});
+  [].slice.call(document.querySelectorAll('.ad-300')).forEach(function(sl,i){sl.innerHTML=adImg(AD_PICK.mpu[i%AD_PICK.mpu.length])});
 }
+
 /* ---------- routing ---------- */
 var app=document.getElementById('app');
 function route(){
