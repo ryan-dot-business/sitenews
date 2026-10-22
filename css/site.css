@@ -643,7 +643,7 @@ html,body{overflow-x:clip}
   .ds-btn{padding:13px 16px;color:rgba(0,0,0,.8)}
   .ds-btn svg{display:block}
   /* opens with a short grow; closing is instant (no transition on the closed state) */
-  .dsearch.open input{width:var(--dsw,284px);padding:0 48px 0 16px;opacity:1;transition:width .25s ease,opacity .2s ease,padding .25s ease}
+  .dsearch.open input{width:284px;padding:0 48px 0 16px;opacity:1;transition:width .25s ease,opacity .2s ease,padding .25s ease}
   .dsearch.open .ds-btn{position:absolute;right:0;top:0;background:none}
   .dsearch.open input:focus-visible{box-shadow:inset 0 0 0 2px var(--keyline)}
   #searchPop{width:420px;padding:8px 10px}
