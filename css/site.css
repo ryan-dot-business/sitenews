@@ -12,7 +12,7 @@
 :root{
   color-scheme: light;
   --paper:#fbf7f6; --ink:#414142; --ink-strong:#1d1d1f; --muted:#848484; --faint:#bababa;
-  --keyline:#e2dedd; --placeholder:rgba(0,0,0,.3); --line-soft:#f2ecea; --hover-soft:#f7f3f2; --caret:#c4c0be;
+  --keyline:#e2dedd; --nl-dark:#110905; --placeholder:rgba(0,0,0,.3); --line-soft:#f2ecea; --hover-soft:#f7f3f2; --caret:#c4c0be;
   --orange:#ff6a29; --orange-text:#fa6322; --wash:#fff0ea; --wash-line:rgba(255,106,41,.29);
   --rule:rgba(0,0,0,.9); --hair:rgba(0,0,0,.08); --night:#1b1816; --white:#fff;
   --display:'Aspekta',system-ui,sans-serif;
@@ -585,6 +585,20 @@ html,body{overflow-x:clip}
   .h-side .nl-title{margin-top:14px;font-size:16px;letter-spacing:-.32px}
   .h-side .nl-title .date{font-size:14px}
   .h-side .nl-dek{margin:4px 0 0;font-size:14px;line-height:1.4;letter-spacing:-.28px}
+  /* newsletter CTA (Oct 22 overhaul): rounded block above the MPU, dark latest-issue footer */
+  .h-side .nl-wrap{order:-1;border-radius:20px;overflow:hidden}
+  .h-side .hero{height:398px;min-height:0;padding:32px 16px;align-items:center}
+  .h-side .hero>*{width:100%;max-width:360px}
+  .h-side .hero h1{padding-left:1px}
+  .h-side .hero .for{margin-top:15px}
+  .h-side .hero .pitch{margin-top:15px;max-width:360px;color:rgba(255,255,255,.7)}
+  .h-side .hero .signup{margin-top:auto;padding-top:0;max-width:360px}
+  .h-side .nl-card{padding:24px 31px 35px;background:var(--nl-dark);border-bottom:3px solid rgba(0,0,0,.07)}
+  .h-side .nl-pill{background:none}
+  .h-side .nl-title{margin-top:14px;font-size:20px;letter-spacing:-.4px}
+  .h-side .nl-title b{color:var(--white)}
+  .h-side .nl-title .date{font-size:14px;font-weight:590;color:rgba(255,255,255,.42)}
+  .h-side .nl-dek{margin:6px 0 0!important;font-size:16px!important;line-height:1.6!important;letter-spacing:-.32px!important;color:rgba(255,255,255,.5)}
   /* section labels: 13px like Figma */
   .home .h-trend .sechead h2,.home .lat1 .sechead h2,.home #podcast .sechead h2{font-size:13px}
   .home .lat1 .allbtn{padding:0;font-size:13px}
