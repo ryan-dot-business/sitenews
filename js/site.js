@@ -616,7 +616,7 @@ window.addEventListener('hashchange',route);
 var logoBtn=document.getElementById('logoBtn'), menuBtn=document.getElementById('menuBtn');
 var brandsL=document.getElementById('brandsLayer'), menuL=document.getElementById('menuLayer');
 function placeLayers(){var b=document.querySelector('.hdr').getBoundingClientRect().bottom;document.querySelectorAll('.layer').forEach(function(l){l.style.top=Math.max(0,b)+'px'})}
-function setBrands(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();brandsL.hidden=!on;if(onHome)logoBtn.setAttribute('aria-expanded',on);if(on)setMenu(false);}
+function setBrands(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();if(on&&innerWidth>=800){var lb=logoBtn.getBoundingClientRect(),br=brandsL.querySelector('.brands'),lt=parseFloat(brandsL.style.top)||0;br.style.top=(lb.bottom+3-lt)+'px';br.style.left=Math.max(16,lb.left-10)+'px'}brandsL.hidden=!on;if(onHome)logoBtn.setAttribute('aria-expanded',on);if(on)setMenu(false);}
 function setMenu(on){if(on&&window.scrollY)window.scrollTo(0,0);if(on)placeLayers();menuL.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.setAttribute('aria-label',on?'Close menu':'Menu');document.body.style.overflow=on?'hidden':'';if(on){setBrands(false);}else{q.value='';search('');}}
 function closeAll(){setBrands(false);setMenu(false);if(typeof tPop!=='undefined'&&tPop){setTopicsPop(false);setMorePop(false)}}
 var onHome=true;
@@ -655,7 +655,9 @@ function placePop(pop,btn,alignRight){var r=btn.getBoundingClientRect();pop.styl
   else{var w=pop.offsetWidth||313;pop.style.right='auto';pop.style.left=Math.max(16,Math.min(r.left-10,document.documentElement.clientWidth-w-16))+'px'}}
 function setTopicsPop(on){tPop.hidden=!on;dnT.setAttribute('aria-expanded',on);if(on){setMorePop(false);placePop(tPop,dnT,false)}}
 function setMorePop(on){mPop.hidden=!on;menuBtn.setAttribute('aria-expanded',on);menuBtn.classList.toggle('dopen',on);if(on){setTopicsPop(false);placePop(mPop,menuBtn,true)}}
-dnT.addEventListener('click',function(e){e.stopPropagation();setTopicsPop(tPop.hidden)});
+dnT.addEventListener('click',function(e){e.stopPropagation();setBrands(false);setTopicsPop(tPop.hidden)});
+/* desktop: publications popover closes on any click outside it (its layer lets clicks through) */
+document.addEventListener('click',function(e){if(innerWidth>=800&&!brandsL.hidden&&!brandsL.querySelector('.brands').contains(e.target)&&!logoBtn.contains(e.target))setBrands(false)});
 document.addEventListener('click',function(e){if(!tPop.hidden&&!tPop.contains(e.target))setTopicsPop(false);if(!mPop.hidden&&!mPop.contains(e.target)&&!menuBtn.contains(e.target))setMorePop(false)});
 [tPop,mPop].forEach(function(p){p.addEventListener('click',function(e){if(e.target.closest('a')){setTopicsPop(false);setMorePop(false)}})});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){setTopicsPop(false);setMorePop(false)}});
