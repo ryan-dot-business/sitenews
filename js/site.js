@@ -351,7 +351,7 @@ function home(){
      '<div class="h-c o4">'+card('ant')+'</div>'+
      '<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
      '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+homeRiver().slice(0,4).map(riverItem).join('')+'</section>'+
-     '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg><h2>PODCAST</h2></div>'+
+     '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px">'+SPEAKER+'<h2>PODCAST</h2></div>'+
    spPlayer(EPS[0])+'</div></section>'+
      '<section class="px river lat2 o11">'+homeRiver().slice(4,8).map(riverItem).join('')+'</section>'+
      '<section class="event o12" id="summit"><svg width="230" height="197" viewBox="0 0 28 24" aria-hidden="true"><path d="M26.5322 10.8633L23.6641 8.85156L15.6172 20.3193L10.3193 14.7441L3.2666 23.1943L0 20.623L0.308594 20.2363L9.87109 8.68066L15.1689 14.2559L20.5127 6.63965L17.6426 4.62793L27.6396 0L26.5322 10.8633Z" fill="#fff"/></svg><span style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.88)">Upcoming event · Toronto</span><h2>SITESUMMIT<br>YEAR 2</h2><p>Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</p><a class="go press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Get tickets</a></section>'+
@@ -509,7 +509,7 @@ var EP={}; EPS.forEach(function(e){EP[e.id]=e});
 var EP_LINKS=[[/Pacific Link pipeline/,'#a-pacific'],[/LNG Canada moves to Phase 2/,'#a-lng'],[/EllisDon/,'#a-ellisdon'],[/Build(ing)? Canada Strong (A|a)ct/,'#a-bcs'],[/40 Under 40 Industrial Leaders/,'#forty']];
 function linkify(s){for(var i=0;i<EP_LINKS.length;i++){var m=s.match(EP_LINKS[i][0]);if(m)return s.replace(m[0],'<a href="'+EP_LINKS[i][1]+'">'+m[0]+'</a>')}return s}
 function epMin(e){return Math.round(e.len/60)+' min'}
-var SPEAKER='<svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 5h4l6-5v16l-6-5H0z" fill="#ff6a29"/><path d="M13.5 4.5a5 5 0 0 1 0 7" fill="none" stroke="#ff6a29" stroke-width="1.8" stroke-linecap="round"/></svg>';
+var SPEAKER='<svg class="spk" width="26" height="25" viewBox="0 0 26 25" fill="none" aria-hidden="true"><path d="M14.8052 24.1655C14.4097 24.1655 14.0405 24.0864 13.6978 23.9282C13.3638 23.77 13.0078 23.5107 12.6299 23.1504L7.29053 18.1406C7.22021 18.0791 7.13232 18.0483 7.02686 18.0483H3.36182C2.28076 18.0483 1.4502 17.7495 0.870117 17.1519C0.290039 16.5454 0 15.6709 0 14.5283V9.65039C0 8.5166 0.290039 7.65088 0.870117 7.05322C1.4502 6.44678 2.28076 6.14355 3.36182 6.14355H7.04004C7.12793 6.14355 7.21582 6.1084 7.30371 6.03809L12.6299 1.06787C13.0342 0.681152 13.3989 0.408691 13.7241 0.250488C14.0493 0.0834961 14.4009 0 14.7788 0C15.3853 0 15.8862 0.206543 16.2817 0.619629C16.6772 1.02393 16.875 1.52051 16.875 2.10938V22.1089C16.875 22.689 16.6772 23.1768 16.2817 23.5723C15.8862 23.9678 15.394 24.1655 14.8052 24.1655ZM21.5288 18.3384C21.1245 18.0747 20.8872 17.7144 20.8169 17.2573C20.7466 16.8003 20.8784 16.2993 21.2124 15.7544C21.5376 15.2446 21.7881 14.6733 21.9639 14.0405C22.1484 13.4077 22.2407 12.7529 22.2407 12.0762C22.2407 11.3906 22.1528 10.7314 21.9771 10.0986C21.8013 9.46582 21.5464 8.89893 21.2124 8.39795C20.8696 7.85303 20.7334 7.35205 20.8037 6.89502C20.8828 6.4292 21.1245 6.06885 21.5288 5.81396C21.9067 5.57666 22.3022 5.49756 22.7153 5.57666C23.1284 5.65576 23.458 5.8623 23.7041 6.19629C24.2754 6.9873 24.7192 7.88818 25.0356 8.89893C25.3608 9.90967 25.5234 10.9688 25.5234 12.0762C25.5234 13.1748 25.3608 14.2295 25.0356 15.2402C24.7192 16.251 24.2754 17.1475 23.7041 17.9297C23.458 18.2812 23.1284 18.4966 22.7153 18.5757C22.3022 18.646 21.9067 18.5669 21.5288 18.3384Z" fill="#FF6A29"/></svg>';
 var APPLE_SVG='<img src="assets/img/ic-apple.png" width="29" height="30" alt="">';
 var SPOT_SVG='<img src="assets/img/ic-spotify.png" width="30" height="30" alt="">';
 function listenOn(){return '<div class="lsn"><div class="lsn-h">'+SPEAKER+'<span>LISTEN ON</span></div><div class="lsn-b"><a class="lsn-btn press" href="'+POD_LINKS.apple+'" target="_blank" rel="noopener">'+APPLE_SVG+'Apple Podcasts</a><a class="lsn-btn press" href="'+POD_LINKS.spotify+'" target="_blank" rel="noopener">'+SPOT_SVG+'Spotify</a></div></div>'}
@@ -526,7 +526,7 @@ function spPlayer(e,big){
 function epRow(e){
   return '<a class="eprow" href="#ep-'+e.id+'"><div class="ep-txt"><span class="ep-t">'+e.title+'</span><span class="ep-d">'+e.d+'</span><span class="ep-dt">'+e.date+'<span class="ep-len"> · '+epMin(e)+'</span></span></div><img class="ep-art" src="'+IMG.podart+'" alt=""></a>';
 }
-function podShowHead(){return '<div class="pod-hd"><h1>Digging In</h1><p class="pod-host">with Russell Hixson</p><span class="pod-tag">Podcast</span></div>'}
+function podShowHead(){return '<div class="pod-hd"><span class="pod-tag">Podcast</span><h1>Digging In</h1><p class="pod-host">with Russell Hixson</p></div>'}
 function podcastPage(){
   var latest=EPS[0];
   return '<div class="pod">'+podShowHead()+
@@ -535,7 +535,9 @@ function podcastPage(){
      '<h2 class="pod-sh pod-eph">Episodes</h2>'+
      '<div class="eplist">'+EPS.map(epRow).join('')+'</div>'+
    '</div><aside class="pod-side">'+
-     '<div class="pod-latest"><h2 class="pod-sh">Latest</h2>'+spPlayer(latest)+'</div>'+listenOn()+
+     '<div class="ad-mpu pod-ad"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#podcast" aria-label="Advertisement"><span>300 × 250</span></a></div>'+
+     listenOn()+'<div class="pod-rule pod-rule2"></div>'+
+     '<div class="pod-latest"><h2 class="pod-sh">Latest</h2>'+spPlayer(latest)+'</div>'+
      '<div class="pod-rule"></div>'+
      '<div class="pod-ov"><h2 class="pod-sh">Overview</h2><p>'+POD_OVERVIEW+'</p></div>'+
    '</aside></div></div>';
