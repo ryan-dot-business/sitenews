@@ -428,7 +428,7 @@ function topic(t){
   var all=topicPool(t), list=all;
   if(sub&&sub[1]){var f=all.filter(function(x){return sub[1].test(x.title+' '+(x.dek||''))});if(f.length)list=f}
   var name=t==='All'?'News':t, PAGE=8;
-  var head='<header class="tp-hd">'+(sub?'<a class="tp-crumb" href="#t-'+t+'">'+name+'</a>':'')+'<h1>'+(sub?sub[0]:name)+'</h1>'+(sub?'':'<p>'+(TDESC[t]||DESC[t])+'</p>')+'</header>';
+  var head='<header class="tp-hd">'+(sub?'<a class="tp-crumb" href="#t-'+t+'">'+name+'</a>':'')+'<div class="tp-ttl">'+(NAV_ICONS[t==='All'?'News':t]?'<svg class="tp-ic" width="52" height="52" viewBox="0 0 25 25" aria-hidden="true">'+NAV_ICONS[t==='All'?'News':t]+'</svg>':'')+'<h1>'+(sub?sub[0]:name)+'</h1></div>'+(sub?'':'<p>'+(TDESC[t]||DESC[t])+'</p>')+'</header>';
   var nav='<nav class="tp-subs tp-pills'+(t==='All'?' tp-icons':'')+'" aria-label="'+name+' sections">'+(t==='All'
      ?['Technology','Projects','Recruitment','Economy','Sustainability','People','Forty'].map(function(x){
         var f=x==='Forty';return '<a class="chip-nav press" href="'+(f?'#forty':'#t-'+x)+'"><svg width="25" height="'+(f?24:25)+'" viewBox="'+(f?'0 0 26 24':'0 0 25 25')+'" aria-hidden="true">'+NAV_ICONS[x]+'</svg>'+(f?'40 Under 40':x)+'</a>'})
