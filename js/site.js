@@ -679,7 +679,7 @@ document.addEventListener('click',function(e){if(!tPop.hidden&&!tPop.contains(e.
 [tPop,mPop].forEach(function(p){p.addEventListener('click',function(e){if(e.target.closest('a')){setTopicsPop(false);setMorePop(false)}})});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){setTopicsPop(false);setMorePop(false)}});
 /* ---------- desktop search ---------- */
-var SEARCH_EG=['Ontario Line','LNG Canada','modular housing','skilled trades','Gordie Howe','critical minerals','carbon capture','Pacific Link','uranium mine','EV factory','nickel mine','Nunavut port','offshore wind','data centre','gas pipeline']; /* every phrase returns at least one story */
+var SEARCH_EG=['Ontario Line', 'LNG Canada', 'modular housing', 'skilled trades', 'critical minerals', 'carbon capture', 'Pacific Link', 'uranium mine', 'EV factory', 'nickel mine', 'Nunavut port', 'offshore wind', 'data centres', 'gas pipeline', 'pipelines', 'modular construction', 'housing starts', 'nuclear energy', 'First Nations', 'major projects', 'contract awards', 'project approvals', 'infrastructure funding', 'construction AI', 'labour shortages', 'trades training', 'people moves', 'acquisitions', 'construction costs', 'red tape', 'transit projects', 'port expansions', 'bridge construction', 'water infrastructure', 'transmission lines', 'clean energy', 'northern infrastructure', 'mass timber', 'heavy equipment', 'site safety', 'workforce retention', 'tariffs'];
 var dS=document.getElementById('dSearch'), dq=document.getElementById('dq'), dsBtn=document.getElementById('dsBtn'), sPop=document.getElementById('searchPop'), spHead=document.getElementById('spHead'), spList=document.getElementById('spList'), spSel=-1;
 function egPhrase(){var a=SEARCH_EG.slice().sort(function(){return Math.random()-.5});return 'eg. '+a[0]+', '+a[1]}
 /* the open box is always 284px (the design width): show two example phrases if they fit, otherwise one */
@@ -703,8 +703,13 @@ function runSearch(){var v=dq.value.trim(), s=v.toLowerCase();spSel=-1;
   if(!s){sPop.hidden=true;dq.setAttribute('aria-expanded','false');dq.removeAttribute('aria-activedescendant');return}
   /* match headline/dek/tag first, then anything in the story text */
   var ids=ORDER.filter(function(id){return A[id]&&A[id].topic!=='Newsletter'});
-  var top=ids.filter(function(id){var a=A[id];return (a.title+' '+a.dek+' '+a.tag+' '+(a.author||'')).toLowerCase().indexOf(s)>-1});
-  var hits=top.concat(ids.filter(function(id){return top.indexOf(id)<0&&storyText(id).indexOf(s)>-1}));
+  /* every word must appear (any order); plurals match singulars ("data centres" finds "data centre") */
+  var words=s.split(/\s+/).filter(Boolean).map(function(w){return w.length>3?w.replace(/ies$/,'y').replace(/([^s])s$/,'$1'):w});
+  var res=words.map(function(w){return w.length<=3?new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b'):null}); /* short words (AI, EV, LNG) match whole words only */
+  var has=function(txt){return words.every(function(w,i){return res[i]?res[i].test(txt):txt.indexOf(w)>-1})};
+  var head=function(id){var a=A[id];return (a.title+' '+a.dek+' '+a.tag+' '+(a.author||'')).toLowerCase()};
+  var top=ids.filter(function(id){return has(head(id))});
+  var hits=top.concat(ids.filter(function(id){return top.indexOf(id)<0&&has(storyText(id))}));
   spHead.innerHTML=hits.length?'<div class="sp-head">'+hits.length+(hits.length===1?' story':' stories')+'</div>'
     :'<p class="sp-none">No stories match “'+v.replace(/</g,'&lt;')+'”. Try '+egPhrase().slice(4)+'.</p>';
   spList.innerHTML=hits.slice(0,6).map(function(id,i){var a=A[id];return '<a class="sp-item" id="sp-'+i+'" role="option" aria-selected="false" href="#a-'+id+'"><span class="k">'+a.tag+'</span><span class="h">'+a.title+'</span></a>'}).join('');
