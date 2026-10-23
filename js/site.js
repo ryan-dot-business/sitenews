@@ -262,7 +262,7 @@ function moreCategory(id,shown){var a=A[id],tag=a.tag;
   pool.sort(function(x,y){return (inStory(x)-inStory(y))||(rcTime(rcGet(y))-rcTime(rcGet(x)))});
   return rcSection(tag,pool.slice(0,3),true)}
 function signup(id,dark,label){
-  if(subscribed) return '<div class="done"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></div>';
+  if(subscribed) return '<button class="done" type="button" data-reset title="Demo: tap to reset sign-up"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="11" fill="#ff6a29"/><path d="m6.5 11.3 3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2"/></svg><div><strong>You’re in.</strong><br>Your first issue lands Monday morning.</div></button>';
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">'+(label||'Join free')+' '+PLANE+'</button></form>';
 }
 /* Latest Stories: newest first, skipping whatever already has a slot on the home page */
@@ -892,6 +892,13 @@ document.addEventListener('submit',function(e){
   subscribed=true; try{localStorage.setItem('sn-sub','1')}catch(err){}
   email=inp.value.trim();SUB.n=4;SUB.ret=location.hash&&location.hash.indexOf('#subscribe')!==0?location.hash:'#home';SUB.retY=window.scrollY;
   location.hash='subscribe/level';
+});
+/* demo only: tapping "You're in." resets the sign-up so the flow can be shown again */
+document.addEventListener('click',function(e){
+  if(!e.target.closest||!e.target.closest('[data-reset]'))return;
+  subscribed=false;email='';SUB.ans={};SUB.n=4;
+  try{localStorage.removeItem('sn-sub');localStorage.removeItem('sn-sub-ans')}catch(err){}
+  var y=window.scrollY;route();window.scrollTo(0,y);
 });
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-copy]'); if(!b) return;
