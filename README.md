@@ -86,3 +86,11 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - `wireVideo()` manages every `video.mvid` (Digging In, Brookfield, SiteSummit). The most visible one (≥60% on screen) plays muted; the others pause and show a centred play button.
 - Tapping play makes that video the one that plays (others pause) until it scrolls mostly out of view; tapping a playing video pauses it while it stays on screen. Reduced-motion users get no autoplay.
 - The SiteSummit card is no longer one big link: "Buy now" is the link, so the play button can sit on the video.
+
+## Subscribe flow (`#subscribe`)
+
+- **Two ways in.** A plain button CTA (the mobile menu's Subscribe) opens `#subscribe`, which asks for a work email first, so it's 5 steps. An inline email form (hero, article CTA, gate) sends the reader straight to `#subscribe/level` with their email already taken, so it's 4 steps.
+- **Steps.** Job level, function, industry and location. Every question can be skipped. Personal addresses (gmail, outlook and so on) are refused.
+- **Success slide.** `#subscribe/done` offers two sister publications picked from the answers (Storeys for developers and architects, ReNew for engineering, government and GCs, EnvironmentJournal for HSE), each with a one-click Subscribe plus "Subscribe to both". It returns the reader to the page they came from, at the same scroll position.
+- **Mobile.** Matches the Figma: a card on paper, with a fixed Skip/Next bar where Next appears once something is chosen.
+- **Desktop.** The same card, centred: Skip and Next sit in the card footer, long lists go to two columns, options get hover states, arrow keys choose, Enter continues, and a keyboard hint is shown.

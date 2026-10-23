@@ -625,14 +625,133 @@ function fillAds(){
   [].slice.call(document.querySelectorAll('.ad-300')).forEach(function(sl,i){sl.innerHTML=adImg(AD_PICK.mpu[i%AD_PICK.mpu.length])});
 }
 
+/* ---------- subscribe flow ----------
+   Two ways in: a plain CTA button goes to #subscribe (work email first, 5 steps);
+   an inline email form skips straight to #subscribe/level (4 steps). Ends on #subscribe/done
+   with one-click adds for two recommended sister publications. */
+var SUBQ={
+ level:{t:'Job level',o:['C-Level','VP','Director','Senior Manager / Supervisor','Entry to Mid-Level','Student or Intern','Other']},
+ fn:{t:'Function',o:['Operations / Project mgmt','Leadership','Engineering / Design','Business development / Sales','Accounting / Finance','Health, Safety, Environment','Legal','Marketing','Procurement / Purchasing','Human Resources','Site Supervision / Field management','Estimating / Quantity surveying','Administration / Shared services','Trades','Other']},
+ ind:{t:'Industry',o:['General contractor','Trade contractor','Material supplier','Engineering','Architecture','Developer','Legal','Consulting services','Technology','Government / Crown corp.','Recruitment','Association / Advocacy','Other']},
+ loc:{t:'Where are you based?',o:['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland and Labrador','Northwest Territories','Nova Scotia','Nunavut','Ontario','Prince Edward Island','Quebec','Saskatchewan','Yukon','USA','Europe','Other']}
+};
+var SUB_ORDER=['email','level','fn','ind','loc'];
+var SUB={n:4,ret:'#home',retY:0,ans:{}};
+try{SUB.ans=JSON.parse(localStorage.getItem('sn-sub-ans')||'{}')||{}}catch(e){}
+var PERSONAL=/@(gmail|googlemail|yahoo|ymail|rocketmail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|yandex|zoho|shaw|telus|rogers|sympatico|bell)\.[a-z.]+$/i;
+var SUB_INTRO='<p class="sub-intro">Take 20 seconds to help us tailor the best content to you.</p>';
+var PUBS={
+ renew:{i:1,n:'ReNew',u:'https://www.renewcanada.net/',d:'Infrastructure news: the projects, policy and money behind Canada’s biggest builds.'},
+ storeys:{i:2,n:'Storeys',u:'https://storeys.com/',d:'Real estate and development news: who’s building what, and where.'},
+ ej:{i:4,n:'EnvironmentJournal',u:'https://environmentjournal.ca/',d:'Environment and sustainability news for the people doing the work.'},
+ water:{i:3,n:'WaterNews',u:'#home',d:'Water and wastewater: the utilities, the treatment plants and the pipes underneath.'}
+};
+function escH(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function emailProblem(v){v=v.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return 'Enter a work email like name@company.com';if(PERSONAL.test(v))return 'Personal accounts like ‘gmail’ are not eligible.';return ''}
+function subLogo(){var s=document.querySelector('.flogo svg');return s?s.outerHTML.replace(/lgF/g,'lgSub').replace(/width="151" height="28"/,'width="168" height="31"'):'SiteNews'}
+function pubIcon(p,n){var a=document.querySelectorAll('.brands a')[p.i],s=a&&a.querySelector('svg');return s?s.outerHTML.replace(/bm(\d)/g,'sbm$1x'+n).replace(/width="\d+" height="\d+"/,'width="36" height="36"'):''}
+function subRecs(){
+  var sc={renew:3,storeys:2,ej:1,water:0},a=SUB.ans,bump=function(k,v){sc[k]+=v};
+  var IND={'General contractor':['renew',2],'Engineering':['renew',3],'Government / Crown corp.':['renew',3],'Consulting services':['renew',2],'Association / Advocacy':['renew',2],
+    'Developer':['storeys',5],'Architecture':['storeys',4],'Legal':['storeys',2],'Trade contractor':['storeys',1],'Material supplier':['storeys',1]};
+  if(IND[a.ind])bump(IND[a.ind][0],IND[a.ind][1]);
+  if(a.fn==='Health, Safety, Environment')bump('ej',4);
+  if(a.fn==='Engineering / Design')bump('water',2);
+  if(a.fn==='Estimating / Quantity surveying'||a.fn==='Business development / Sales')bump('storeys',1);
+  return Object.keys(sc).sort(function(x,y){return sc[y]-sc[x]}).slice(0,2);
+}
+function subPage(step){
+  if(step==='email')SUB.n=5;
+  var head='<div class="sub"><a class="sub-logo" href="#home" aria-label="SiteNews home">'+subLogo()+'</a><div class="sub-main">';
+  if(step==='done'){
+    var recs=subRecs(),answered=Object.keys(SUB.ans).length>0;
+    return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
+      '<span class="sub-ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22"><path d="m5.5 11.3 3.5 3.5 7.5-7.6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
+      '<h1 class="sub-h" id="subDoneH">You’re in.</h1>'+
+      '<p class="sub-intro">Your first SiteNews lands Monday morning'+(email?' at <b>'+escH(email.trim())+'</b>':'')+'.</p>'+
+      '<p class="sub-step">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p>'+
+      '<h2 class="sub-q">Add these in one click</h2>'+
+      '<div class="sub-recs">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec">'+pubIcon(p,n)+'<div class="sub-rec-t"><b>'+p.n+'</b><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+'"><span>Subscribe</span></button></div>'}).join('')+'</div>'+
+      '<div class="sub-bar"><a class="sub-skip" href="'+SUB.ret+'" data-subret>No thanks</a><span class="sub-right"><button class="sub-next" type="button" data-both>Subscribe to both</button></span></div>'+
+    '</section></div></div>';
+  }
+  var i=SUB_ORDER.indexOf(step),num=i+1-(5-SUB.n),nextH='#subscribe/'+(SUB_ORDER[i+1]||'done');
+  var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
+  if(step==='email'){
+    var v=email||'',ok=v&&!emailProblem(v);
+    return head+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+SUB_INTRO+stepTxt+
+      '<label class="sub-q" for="subEmail">Work Email</label>'+
+      '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
+      '<p class="sub-err" id="subErr" aria-live="polite"></p>'+
+      '<div class="sub-act"><span class="sub-hint" aria-hidden="true">press <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(ok?'':' aria-disabled="true"')+'>Next</button></div>'+
+    '</form></div></div>';
+  }
+  var q=SUBQ[step],cur=SUB.ans[step];
+  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+SUB_INTRO+
+    stepTxt.replace('<p ','<p id="subStep" ')+'<fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
+    '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o){return '<label class="sub-opt"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
+    '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><span class="sub-hint" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> to choose, <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
+  '</form></div></div>';
+}
+function subFocus(){
+  if(innerWidth<800)return;
+  var f=app.querySelector('[data-subflow]');if(!f)return;
+  var el=f.querySelector('#subEmail')||f.querySelector('input:checked');
+  el&&el.focus({preventScroll:true});
+}
+document.addEventListener('input',function(e){
+  if(e.target.id!=='subEmail')return;
+  var f=e.target.form,v=e.target.value,p=emailProblem(v),err=document.getElementById('subErr');
+  f.classList.toggle('ok',!p);f.querySelector('.sub-next').setAttribute('aria-disabled',p?'true':'false');
+  err.textContent=PERSONAL.test(v.trim())||/@(gmail|yahoo|hotmail|outlook|icloud)\b/i.test(v)?'Personal accounts like ‘gmail’ are not eligible.':'';
+  e.target.removeAttribute('aria-invalid');
+});
+document.addEventListener('change',function(e){
+  var f=e.target.closest&&e.target.closest('[data-subflow]');if(!f||e.target.type!=='radio')return;
+  f.classList.add('ok');f.querySelector('.sub-next').setAttribute('aria-disabled','false');
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'||e.target.type!=='radio')return;var f=e.target.closest('[data-subflow]');if(!f)return;
+  e.preventDefault();e.target.checked=true;f.classList.add('ok');f.requestSubmit();
+});
+document.addEventListener('submit',function(e){
+  var f=e.target.closest('[data-subflow]');if(!f)return;e.preventDefault();
+  var step=f.dataset.subflow;
+  if(step==='email'){
+    var inp=f.querySelector('#subEmail'),p=emailProblem(inp.value);
+    if(p){document.getElementById('subErr').textContent=p;inp.setAttribute('aria-invalid','true');inp.focus();return}
+    email=inp.value.trim();subscribed=true;try{localStorage.setItem('sn-sub','1')}catch(err){}
+    location.hash='subscribe/level';return;
+  }
+  var c=f.querySelector('input:checked');
+  if(!c){var o=f.querySelector('input[type=radio]');o&&o.focus();return}
+  SUB.ans[step]=c.value;try{localStorage.setItem('sn-sub-ans',JSON.stringify(SUB.ans))}catch(err){}
+  location.hash=f.dataset.next;
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.sub-add,[data-both]');if(!b)return;
+  var set=function(x){x.setAttribute('aria-pressed','true');x.querySelector('span').innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 6.3 2.6 2.6L10 3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Subscribed'};
+  var adds=[].slice.call(document.querySelectorAll('.sub-add'));
+  if(b.matches('.sub-add')){if(b.getAttribute('aria-pressed')==='true'){b.setAttribute('aria-pressed','false');b.querySelector('span').textContent='Subscribe'}else set(b)}
+  else adds.forEach(set);
+  var all=adds.every(function(x){return x.getAttribute('aria-pressed')==='true'}),any=adds.some(function(x){return x.getAttribute('aria-pressed')==='true'});
+  var right=document.querySelector('.sub-done .sub-right'),skip=document.querySelector('.sub-done .sub-skip');
+  if(right)right.innerHTML=all?'<a class="sub-next" href="'+SUB.ret+'" data-subret>Start reading</a>':(any?'<a class="sub-next" href="'+SUB.ret+'" data-subret>Start reading</a>':'<button class="sub-next" type="button" data-both>Subscribe to both</button>');
+  if(skip)skip.hidden=any;
+  if(b.matches('[data-both]')){var n=right&&right.querySelector('a');n&&n.focus()}
+});
+
 /* ---------- routing ---------- */
-var app=document.getElementById('app');
+var app=document.getElementById('app'), prevHash='#home';
 function route(){
   var h=(location.hash||'').slice(1);
+  if((h==='subscribe'||h.indexOf('subscribe/')===0)&&prevHash.indexOf('#subscribe')!==0&&!SUB.retY)SUB.ret=prevHash;
+  prevHash='#'+(h||'home');
   closeAll();
   var scrollTo=null, t='Site News — for construction';
   if(h.indexOf('a-')===0&&A[h.slice(2)]){app.innerHTML=article(h.slice(2)); t=A[h.slice(2)].title+' | SiteNews';}
   else if(h==='newsletter'){app.innerHTML=nlIssue(); t='Great pipes | SiteNews newsletter';}
+  else if(h==='subscribe'||h.indexOf('subscribe/')===0){var st=h.split('/')[1]||'email';if(st!=='done'&&!SUBQ[st])st='email';app.innerHTML=subPage(st);t=(st==='done'?'You’re in':'Subscribe')+' | SiteNews';}
   else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In — Site News';}
   else if(h.indexOf('ep-')===0&&EP[h.slice(3)]){var ep=EP[h.slice(3)];app.innerHTML=episodePage(ep.id); t=ep.title+' | Digging In | SiteNews';}
   else if(h.indexOf('t-')===0){var tn=decodeURIComponent(h.slice(2)); app.innerHTML=topic(tn); t=app.querySelector('.tp-hd h1').textContent+' — Site News';}
@@ -643,8 +762,11 @@ function route(){
   setLogoMode(!(h.indexOf('a-')===0&&A[h.slice(2)])&&h.indexOf('t-')!==0&&h!=='newsletter'&&!isPod);
   document.body.classList.toggle('pod-pg',isPod);
   document.body.classList.toggle('tp-pg',h.indexOf('t-')===0);
+  var isSub=h==='subscribe'||h.indexOf('subscribe/')===0;document.body.classList.toggle('sub-pg',isSub);
   if(scrollTo){var el=document.getElementById(scrollTo); if(el){var y=el.getBoundingClientRect().top+window.scrollY-12; window.scrollTo(0,Math.max(0,y)); if(scrollTo==='signup'){var i=document.getElementById('heroEmail'); i&&i.focus({preventScroll:true});}}}
+  else if(SUB.retY&&('#'+h)===SUB.ret){window.scrollTo(0,SUB.retY);SUB.retY=0}
   else window.scrollTo(0,0);
+  if(isSub)subFocus();
   wirePlayer();
   wireVideo();
   fillAds();
@@ -765,10 +887,10 @@ document.addEventListener('input',function(e){if(e.target.matches('[data-signup]
 document.addEventListener('submit',function(e){
   var f=e.target.closest('[data-signup]'); if(!f) return; e.preventDefault();
   var inp=f.querySelector('input');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim())){inp.setCustomValidity('Enter a work email like name@company.com');inp.reportValidity();inp.addEventListener('input',function c(){inp.setCustomValidity('');inp.removeEventListener('input',c)});return}
+  var prob=emailProblem(inp.value);if(prob){inp.setCustomValidity(prob);inp.reportValidity();inp.addEventListener('input',function c(){inp.setCustomValidity('');inp.removeEventListener('input',c)});return}
   subscribed=true; try{localStorage.setItem('sn-sub','1')}catch(err){}
-  if(document.querySelector('.gate')&&current){var y=window.scrollY;app.innerHTML=article(current);window.scrollTo(0,y);wirePlayer();return}
-  document.querySelectorAll('.signup').forEach(function(w){w.innerHTML=signup('x')});
+  email=inp.value.trim();SUB.n=4;SUB.ret=location.hash&&location.hash.indexOf('#subscribe')!==0?location.hash:'#home';SUB.retY=window.scrollY;
+  location.hash='subscribe/level';
 });
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-copy]'); if(!b) return;
