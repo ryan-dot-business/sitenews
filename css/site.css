@@ -461,6 +461,15 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .home .o10{order:9}.home .ad-m2{order:10}.home .o6{order:11}.home .o8{order:12}.home .o11{order:13}.home .o12{order:14}
   .home .h-lead .stack,.home .h-c .stack{display:flex;flex-direction:column}
   .home .h-lead .tag,.home .h-c .tag{order:-1;margin-bottom:3px}
+  /* trending (mobile design, Oct 23): 5 stories, plain numerals, 18px headlines */
+  .home .h-trend .tr5{display:list-item}
+  .home .h-trend .sec{padding:18px 16px 20px;gap:16px!important}
+  .home .h-trend .sechead{gap:12px}
+  .home .h-trend .trend li+li{border-top:2px solid rgba(0,0,0,.2)}
+  .home .h-trend .trend a{align-items:flex-start;gap:8px;padding:16px 16px 16px 0;font-size:18px;line-height:1.3;letter-spacing:-.36px}
+  .home .h-trend .trend li:nth-last-child(-n+2) a{padding-bottom:8px}
+  .home .h-trend .trend .n{width:34px;text-align:center;font-size:23px;letter-spacing:-.46px}
+  .home .h-trend .nd{display:none}
   /* 40 Under 40: green panel, inset 8px under a rule */
   .home #forty{position:relative;margin:27px 8px 16px;padding:16px;gap:14px;border-radius:10px;background:#dde9dd}
   .home #forty:before{content:'';position:absolute;left:0;right:0;top:-27px;height:3px;background:rgba(0,0,0,.1)}
