@@ -423,14 +423,15 @@ function block(b){
   return '';
 }
 function shareRow(top){return '<div class="share'+(top?'':' share-end')+'"><button class="circ press" type="button" aria-label="Comments"><svg width="16" height="15" viewBox="0 0 16 15" aria-hidden="true"><path d="M8 0C3.6 0 0 2.8 0 6.3c0 2 1.2 3.8 3 5L2.3 15l4-2.5c.6.1 1.1.1 1.7.1 4.4 0 8-2.8 8-6.3S12.4 0 8 0z" fill="#1d1d1f"/></svg></button><button class="circ press" type="button" data-copy aria-label="Copy link to share by email"><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M0 1.2C0 .5.5 0 1.2 0h13.6c.7 0 1.2.5 1.2 1.2v.3L8 6.6 0 1.5z" fill="#1d1d1f"/><path d="M0 3.2v7.6c0 .7.5 1.2 1.2 1.2h13.6c.7 0 1.2-.5 1.2-1.2V3.2L8 8.4z" fill="#1d1d1f"/></svg></button><div class="pill"><a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="width:32px;height:32px;display:grid;place-items:center"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M3.4 6.2h2v6.4h-2zM4.4 3.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM6.7 6.2h1.9v.9c.3-.5.9-1 1.9-1 2 0 2.4 1.3 2.4 3v3.5h-2V9.5c0-.7 0-1.6-1-1.6s-1.2.8-1.2 1.6v3.1h-2z" fill="#fbf7f6"/></svg></a><a href="https://x.com/" target="_blank" rel="noopener" aria-label="Share on X" style="width:32px;height:32px;display:grid;place-items:center;opacity:.5"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="2" fill="#6e6e6e"/><path d="M4 4h2.3l2 2.8L10.6 4h1.2L8.9 7.5 12.2 12H9.9L7.7 9 5.2 12H4l3.1-3.7z" fill="#fbf7f6"/></svg></a><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Share on Facebook" style="width:32px;height:32px;display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#6e6e6e"/><path d="M10 18v-6.5h2.1l.3-2.5H10V7.5c0-.7.2-1.2 1.2-1.2h1.3V4.1c-.2 0-1-.1-1.9-.1-1.9 0-3.1 1.1-3.1 3.2V9H5.4v2.5h2.1V18z" fill="#fbf7f6"/></svg></a></div>'+(top?'<span id="copied" ':'<span ')+'class="d14" style="font-size:12px" hidden>Link copied</span></div>';}
-/* Article body: newsletter CTA after the key takeaways box (or after 3 paragraphs), then an ad every 3 paragraphs. */
+/* Article body: newsletter CTA after the key takeaways box (or after 3 paragraphs), then an ad every AD_EVERY paragraphs (max 6). */
+var AD_EVERY=5;
 var UNIT={ul:1,lead:1,p:1,s:1,q:1,ans:1,pm:1,mv:1,job:1,tl:1,fig:1};
 function adIn(){return '<div class="ad-in" role="complementary" aria-label="Advertisement"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'}
 function withAds(list,render,startCount){
   if(A[current]&&A[current].sp)return list.map(render).join(''); /* sponsored content: no in-article ads (leaderboards stay) */
   var out='',n=startCount||0,ads=0;
   list.forEach(function(x,i){out+=render(x);if(UNIT[x.k]){n++;var nx=list[i+1];
-    if(n>=3&&ads<6&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();ads++;n=0}}});
+    if(n>=AD_EVERY&&ads<6&&nx&&nx.k!=='ans'&&list.slice(i+1).some(function(y){return UNIT[y.k]})){out+=adIn();ads++;n=0}}});
   return out;
 }
 function body(a){
