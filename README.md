@@ -81,3 +81,8 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - `partnerUnit()` in `js/site.js` renders the sponsored Brookfield card (looping `assets/video/brookfield.mp4`).
 - It shares the 40 Under 40 slot on the home page and alternates with it on every home view (counter in `localStorage` key `sn_ppc`, random fallback). Links to `#forty` always show 40 Under 40.
 - On mobile the slot sits right after the first story card.
+
+## Home videos: one at a time
+- `wireVideo()` manages every `video.mvid` (Digging In, Brookfield, SiteSummit). The most visible one (≥60% on screen) plays muted; the others pause and show a centred play button.
+- Tapping play makes that video the one that plays (others pause) until it scrolls mostly out of view; tapping a playing video pauses it while it stays on screen. Reduced-motion users get no autoplay.
+- The SiteSummit card is no longer one big link: "Buy now" is the link, so the play button can sit on the video.

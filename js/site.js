@@ -277,7 +277,7 @@ function partnerUnit(){return '<section id="partner" class="ppc o9" aria-label="
   '<p class="ppc-d">Experience gives you the conviction to invest ahead of the curve. For more than 125 years, Brookfield has owned and operated the critical businesses fuelling the global economy. <br>Discover how they look beyond trends to help create enduring value.</p>'+
   '<a class="ppc-cta" href="https://www.brookfield.com/" target="_blank" rel="sponsored noopener">Own what’s next</a></div>'+
   '<p class="ppc-by">Sponsored by <b>Brookfield</b></p></div>'+
-  '<div class="ppc-vid"><video src="assets/video/brookfield.mp4" poster="assets/img/brookfield-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></div></div></section>'}
+  '<div class="ppc-vid mvwrap"><video class="mvid" src="assets/video/brookfield.mp4" poster="assets/img/brookfield-poster.jpg" muted loop playsinline preload="metadata" aria-label="Brookfield video"></video>'+VPLAY+'</div></div></section>'}
 function homeRiver(){var skip={nickel:1,fortis:1,ant:1,newsletter:1};skip[LEAD]=1;TREND.forEach(function(t){skip[t]=1});
   return ORDER.filter(function(id){var a=A[id];return a&&!skip[id]&&a.date&&a.img&&!a.sp&&a.topic!=='Newsletter'})
     .sort(function(x,y){return pdate(A[y].date)-pdate(A[x].date)})}
@@ -330,22 +330,43 @@ function nlIssue(){
 var REPLAY_ICON='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="currentColor"/></svg>';
 function videoCard(){
   return '<div class="card vcard"><div class="txt px"><div class="rule"></div><div class="stack"><span class="tag vtag">Video</span><span class="t20">Great pipes</span><span class="d14">A pipeline stretching from Alberta to B.C.’s coast will be the first test of Ottawa’s ambitious framework to get projects started faster.</span><span class="tag">Digging In</span></div></div>'+
-   '<div class="pic"><div class="vwrap"><video id="dgVid" src="assets/video/digging-in.mp4" poster="assets/img/digging-in-poster.jpg" muted playsinline preload="metadata" aria-label="Digging In: Great pipes"></video>'+
-   '<div class="vend" hidden><button class="replay press" type="button">'+REPLAY_ICON+'Replay?</button></div></div></div></div>';
+   '<div class="pic"><div class="vwrap mvwrap"><video id="dgVid" class="mvid" src="assets/video/digging-in.mp4" poster="assets/img/digging-in-poster.jpg" muted playsinline preload="metadata" aria-label="Digging In: Great pipes"></video>'+
+   '<div class="vend" hidden><button class="replay press" type="button">'+REPLAY_ICON+'Replay?</button></div>'+VPLAY+'</div></div></div>';
 }
+/* ---------- one video at a time ----------
+   Home videos (Digging In, Brookfield, SiteSummit) never play together. The most visible one (>=60% on screen)
+   plays muted; the rest pause and show a play button. Tapping play on any video makes it the one that plays
+   (others pause) until it scrolls mostly out of view. Tapping a playing video pauses it, and it stays paused
+   while it's on screen. With reduced motion nothing autoplays. */
+var VPLAY='<button class="vplay" type="button" aria-label="Play video"><svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><path d="M2 1.8v18.4c0 .9 1 1.4 1.7.9L18 12a1.1 1.1 0 0 0 0-1.9L3.7.9C3 .4 2 .9 2 1.8z" fill="currentColor"/></svg></button>';
 var vidObs=null;
 function wireVideo(){
   if(vidObs){vidObs.disconnect();vidObs=null}
-  var v=document.getElementById('dgVid'); if(!v) return;
-  var end=v.parentNode.querySelector('.vend'), done=false;
-  v.muted=true; v.defaultMuted=true;
-  v.addEventListener('ended',function(){done=true; end.hidden=false});
-  end.querySelector('button').addEventListener('click',function(){done=false; end.hidden=true; v.currentTime=0; v.play().catch(function(){})});
-  if(!('IntersectionObserver' in window)){v.play().catch(function(){});return}
-  vidObs=new IntersectionObserver(function(es){es.forEach(function(e){
-    if(e.isIntersecting&&!done) v.play().catch(function(){}); else if(!e.isIntersecting) v.pause();
-  })},{threshold:.5});
-  vidObs.observe(v);
+  var vids=[].slice.call(document.querySelectorAll('video.mvid')); if(!vids.length)return;
+  var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ratio=new Map(), chosen=null, held=new Set(), ended=new Set();
+  function sync(){vids.forEach(function(v){var w=v.closest('.mvwrap'),b=w&&w.querySelector('.vplay');if(b)b.hidden=!v.paused||ended.has(v)})}
+  function playOnly(v){vids.forEach(function(o){if(o!==v&&!o.paused)o.pause()});if(v&&v.paused)v.play().catch(function(){});sync()}
+  function decide(){
+    if(chosen&&(ratio.get(chosen)||0)<.25)chosen=null;          /* chosen one left the screen */
+    var pick=chosen;
+    if(!pick&&!calm){var best=0;vids.forEach(function(v){var r=ratio.get(v)||0;if(r>=.6&&r>best&&!held.has(v)&&!ended.has(v)){best=r;pick=v}})}
+    if(pick)playOnly(pick);else{vids.forEach(function(o){if(!o.paused)o.pause()});sync()}
+  }
+  vids.forEach(function(v){
+    v.muted=true;v.defaultMuted=true;
+    var w=v.closest('.mvwrap'), b=w&&w.querySelector('.vplay');
+    v.addEventListener('play',sync);v.addEventListener('pause',sync);
+    if(b)b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();held.delete(v);ended.delete(v);chosen=v;playOnly(v)});
+    v.addEventListener('click',function(){if(!v.paused){v.pause();held.add(v);if(chosen===v)chosen=null}});
+    if(v.id==='dgVid'){var end=w.querySelector('.vend');
+      v.addEventListener('ended',function(){ended.add(v);end.hidden=false;if(chosen===v)chosen=null;sync();decide()});
+      end.querySelector('button').addEventListener('click',function(){ended.delete(v);end.hidden=true;v.currentTime=0;chosen=v;playOnly(v)})}
+  });
+  sync();
+  if(!('IntersectionObserver' in window)){if(!calm)playOnly(vids[0]);return}
+  vidObs=new IntersectionObserver(function(es){es.forEach(function(e){ratio.set(e.target,e.isIntersecting?e.intersectionRatio:0);if(!e.isIntersecting)held.delete(e.target)});decide()},{threshold:[0,.25,.5,.6,.75,1]});
+  vids.forEach(function(v){vidObs.observe(v)});
 }
 function home(){
   // One DOM for every width. Below 1024px the wrappers flatten (display:contents) and each block's
@@ -367,7 +388,7 @@ function home(){
      '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px">'+SPEAKER+'<h2>PODCAST</h2></div>'+
    spPlayer(EPS[0])+'</div></section>'+
      '<section class="px river lat2 o11">'+homeRiver().slice(4,8).map(riverItem).join('')+'</section>'+
-     '<section class="ss o12" id="summit"><a class="ss-card press" href="https://www.readsitenews.com/" target="_blank" rel="noopener" aria-label="SiteSummit 2026: tickets available"><div class="ss-txt"><span class="ss-logo">Site<br>Summit</span><span class="ss-t">Tickets Available</span><span class="ss-d">Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</span><span class="ss-btn">Buy now</span></div><div class="ss-vid"><video src="assets/video/sitesummit.mp4" poster="assets/img/sitesummit-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></div></a></section>'+
+     '<section class="ss o12" id="summit" aria-label="SiteSummit 2026: tickets available"><div class="ss-card"><div class="ss-txt"><span class="ss-logo">Site<br>Summit</span><span class="ss-t">Tickets Available</span><span class="ss-d">Join 600+ of construction’s heaviest hitters on the Toronto waterfront.</span><a class="ss-btn press" href="https://www.readsitenews.com/" target="_blank" rel="noopener">Buy now</a></div><div class="ss-vid mvwrap"><video class="mvid" src="assets/video/sitesummit.mp4" poster="assets/img/sitesummit-poster.jpg" muted loop playsinline preload="metadata" aria-label="SiteSummit preview video"></video>'+VPLAY+'</div></div></section>'+
     '</div>'+
     '<aside class="h-side">'+
      '<div class="ad-mpu"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'+
