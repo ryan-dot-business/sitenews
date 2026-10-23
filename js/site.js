@@ -679,7 +679,7 @@ function subPage(step){
   var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
-    return head+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+SUB_INTRO+stepTxt+
+    return head+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+stepTxt+
       '<label class="sub-q" for="subEmail">Work Email</label>'+
       '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
       '<p class="sub-err" id="subErr" aria-live="polite"></p>'+
@@ -687,7 +687,7 @@ function subPage(step){
     '</form></div></div>';
   }
   var q=SUBQ[step],cur=SUB.ans[step];
-  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+SUB_INTRO+
+  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate><div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+SUB_INTRO+'</div>'+
     stepTxt.replace('<p ','<p id="subStep" ')+'<fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
     '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o){return '<label class="sub-opt"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
     '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><span class="sub-hint" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> to choose, <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
@@ -704,6 +704,7 @@ document.addEventListener('input',function(e){
   var f=e.target.form,v=e.target.value,p=emailProblem(v),err=document.getElementById('subErr');
   f.classList.toggle('ok',!p);f.querySelector('.sub-next').setAttribute('aria-disabled',p?'true':'false');
   err.textContent=PERSONAL.test(v.trim())||/@(gmail|yahoo|hotmail|outlook|icloud)\b/i.test(v)?'Personal accounts like ‘gmail’ are not eligible.':'';
+  f.classList.toggle('bad',!!err.textContent);
   e.target.removeAttribute('aria-invalid');
 });
 document.addEventListener('change',function(e){
