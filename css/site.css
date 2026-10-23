@@ -12,7 +12,7 @@
 :root{
   color-scheme: light;
   --paper:#fbf7f6; --ink:#414142; --ink-strong:#1d1d1f; --muted:#848484; --faint:#bababa;
-  --keyline:#e2dedd; --nl-dark:#110905; --placeholder:rgba(0,0,0,.3); --line-soft:#f2ecea; --hover-soft:#f7f3f2; --caret:#c4c0be;
+  --keyline:#e2dedd; --ppc-bg:#dbe3e8; --ppc-ink:#002540; --ppc-muted:rgba(39,95,137,.8); --nl-dark:#110905; --placeholder:rgba(0,0,0,.3); --line-soft:#f2ecea; --hover-soft:#f7f3f2; --caret:#c4c0be;
   --orange:#ff6a29; --orange-text:#fa6322; --wash:#fff0ea; --wash-line:rgba(255,106,41,.29);
   --rule:rgba(0,0,0,.9); --hair:rgba(0,0,0,.08); --night:#1b1816; --white:#fff;
   --display:'Aspekta',system-ui,sans-serif;
@@ -417,6 +417,19 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .h-c.o3>.card{padding-bottom:18px}
 #podcast{gap:8px;padding-bottom:44px}
 #forty{padding-bottom:34px;display:flex;flex-direction:column;gap:14px}
+/* premium partner unit (Brookfield) */
+.ppc{margin:0 8px;padding:32px 0}
+.ppc-card{display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:10px;background:var(--ppc-bg)}
+.ppc-txt{display:flex;flex-direction:column;gap:16px;padding-top:16px}
+.ppc-copy{display:flex;flex-direction:column;gap:4px}
+.ppc-t{margin:0;font-family:var(--display);font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.4px;color:var(--ppc-ink)}
+.ppc-d{margin:7px 0 0;font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--ppc-muted)}
+.ppc-cta{align-self:flex-start;margin-top:7px;font-size:14px;line-height:1.4;font-weight:700;letter-spacing:-.28px;color:var(--ppc-ink);text-decoration:underline;text-underline-offset:2px}
+.ppc-by{margin:0;font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:var(--ppc-muted)}
+.ppc-by b{font-weight:500;color:var(--ppc-ink)}
+.ppc-d br{display:none}
+.ppc-vid{border-radius:5px;overflow:hidden;aspect-ratio:354/226;background:#0b1620}
+.ppc-vid video{display:block;width:100%;height:100%;object-fit:cover}
 .lat1{padding-top:22px}
 .lat1>a:last-child{border-bottom:1px solid rgba(0,0,0,.2)}
 .lat2{padding-bottom:32px}
@@ -444,7 +457,7 @@ figure.tall img{height:auto;aspect-ratio:4/5}
   .home .nl-title b{color:var(--white)}
   .home .nl-title .date{font-size:14px;font-weight:590;color:rgba(255,255,255,.42)}
   .home .nl-dek{margin:6px 0 0;font-size:16px;line-height:1.6;letter-spacing:-.32px;color:rgba(255,255,255,.5)}
-  .home .o5{order:2}.home .ad-mpu{order:3}.home .o2{order:4}.home .o3{order:5}.home .o4{order:6}.home .o7{order:7}.home .o9{order:8}
+  .home .o5{order:2}.home .ad-mpu{order:3}.home .o2{order:4}.home .o3{order:5}.home .o9{order:6}.home .o7{order:7}.home .o4{order:8}
   .home .o10{order:9}.home .ad-m2{order:10}.home .o6{order:11}.home .o8{order:12}.home .o11{order:13}.home .o12{order:14}
   .home .h-lead .stack,.home .h-c .stack{display:flex;flex-direction:column}
   .home .h-lead .tag,.home .h-c .tag{order:-1;margin-bottom:3px}
@@ -543,6 +556,13 @@ html,body{overflow-x:clip}
   #forty .d14{font-family:var(--ui);font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.45)}
   #forty>.px:last-child{padding:0 8px 0 0}
   #forty img{border-radius:5px!important}
+  .h-main .ppc{margin:0;padding:32px 8px;border-top:3px solid var(--keyline)}
+  .ppc-card{display:grid;grid-template-columns:minmax(0,1fr) 342px;gap:0;height:247px;padding:8px 0}
+  .ppc-txt{justify-content:space-between;padding:32px 24px 16px 42px}
+  .ppc-d{margin-top:0}
+  .ppc-d br{display:inline}
+  .ppc-cta{margin-top:0}
+  .ppc-vid{aspect-ratio:auto;height:100%;margin-right:8px}
 
   /* latest stories: image right */
   .lat1{padding-top:32px}

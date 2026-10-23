@@ -76,3 +76,8 @@ All article content lives in the `A` object at the top of `js/site.js`. Each art
 - `site.js` merges them into `A`/`ORDER`, so they get article pages (`#a-<id>`), appear on topic pages and in search, and feed Latest Stories (newest first).
 - The home lead is picked at random on each page load from the 17-story pack (`FEAT_PACK`).
 - Subcopy is the pack's paraphrased deck; article body text is the publisher's.
+
+## Premium partner unit (Brookfield)
+- `partnerUnit()` in `js/site.js` renders the sponsored Brookfield card (looping `assets/video/brookfield.mp4`).
+- It shares the 40 Under 40 slot on the home page and alternates with it on every home view (counter in `localStorage` key `sn_ppc`, random fallback). Links to `#forty` always show 40 Under 40.
+- On mobile the slot sits right after the first story card.

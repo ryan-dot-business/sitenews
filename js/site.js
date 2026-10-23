@@ -266,6 +266,18 @@ function signup(id,dark,label){
   return '<form data-signup novalidate><label class="sr" for="'+id+'">Work email</label><input id="'+id+'" type="email" placeholder="Work email" autocomplete="email" value="'+email.replace(/"/g,'&quot;')+'" required><button class="btn-or press" type="submit">'+(label||'Join free')+' '+PLANE+'</button></form>';
 }
 /* Latest Stories: newest first, skipping whatever already has a slot on the home page */
+/* Premium partner unit: alternates with 40 Under 40 in the same slot */
+function slotPartner(){ /* flips on every home view in this browser; #forty links always get 40 Under 40 */
+  if(location.hash==='#forty')return false;
+  var n=0;try{n=+(localStorage.getItem('sn_ppc')||0)}catch(e){n=Math.floor(Math.random()*2)}
+  try{localStorage.setItem('sn_ppc',String(n+1))}catch(e){}
+  return n%2===1}
+function partnerUnit(){return '<section id="partner" class="ppc o9" aria-label="Sponsored by Brookfield"><div class="ppc-card">'+
+  '<div class="ppc-txt"><div class="ppc-copy"><h2 class="ppc-t">Over a century of seeing around corners.</h2>'+
+  '<p class="ppc-d">Experience gives you the conviction to invest ahead of the curve. <br>For more than 125 years, Brookfield has owned and operated the critical businesses fuelling the global economy. <br>Discover how they look beyond trends to help create enduring value.</p>'+
+  '<a class="ppc-cta" href="https://www.brookfield.com/" target="_blank" rel="sponsored noopener">Own what’s next</a></div>'+
+  '<p class="ppc-by">Sponsored by <b>Brookfield</b></p></div>'+
+  '<div class="ppc-vid"><video src="assets/video/brookfield.mp4" poster="assets/img/brookfield-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></div></div></section>'}
 function homeRiver(){var skip={nickel:1,fortis:1,ant:1,newsletter:1};skip[LEAD]=1;TREND.forEach(function(t){skip[t]=1});
   return ORDER.filter(function(id){var a=A[id];return a&&!skip[id]&&a.date&&a.img&&!a.sp&&a.topic!=='Newsletter'})
     .sort(function(x,y){return pdate(A[y].date)-pdate(A[x].date)})}
@@ -349,7 +361,7 @@ function home(){
      '<div class="h-c o3">'+card('nickel',true)+'</div>'+
      '<div class="h-c o7">'+card('fortis',false,true)+'</div>'+
      '<div class="h-c o4">'+card('ant')+'</div>'+
-     '<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>'+
+     (slotPartner()?partnerUnit():'<section id="forty" class="o9"><div class="px" style="display:flex;flex-direction:column;gap:12px"><div class="rule"></div><div class="stack"><span class="tag or">40 Under 40</span><h2 class="t20" style="margin:0">2026 Finalists Announced</h2><span class="d14">Stars shaping the future of Canadian Construction</span></div></div><div class="px"><img src="'+IMG.forty+'" alt="Four of the 2026 Top 40 Under 40 finalists" style="width:100%;aspect-ratio:370/247;object-fit:cover;border-radius:10px" loading="lazy"></div></section>')+
      '<div class="ad-mpu ad-m2"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'+
      '<section class="px river lat1 o10"><div class="rule"></div><div class="sechead" style="justify-content:space-between;padding:15px 0 0"><h2>LATEST STORIES</h2><a class="allbtn press" href="#t-All" aria-label="All stories">All <svg width="13" height="11" viewBox="0 0 13 11" aria-hidden="true"><path d="M0.5 5.5h10.5M6.8 1.2l4.3 4.3-4.3 4.3" fill="none" stroke="#080808" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>'+homeRiver().slice(0,4).map(riverItem).join('')+'</section>'+
      '<section class="sec o8" id="podcast"><div class="rule"></div><div style="display:flex;flex-direction:column;gap:16px;padding-top:14px"><div class="sechead" style="gap:6px">'+SPEAKER+'<h2>PODCAST</h2></div>'+
