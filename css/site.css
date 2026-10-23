@@ -557,12 +557,22 @@ html,body{overflow-x:clip}
   #forty>.px:last-child{padding:0 8px 0 0}
   #forty img{border-radius:5px!important}
   .h-main .ppc{margin:0;padding:32px 8px;border-top:3px solid var(--keyline)}
-  .ppc-card{display:grid;grid-template-columns:minmax(0,1fr) 342px;gap:0;height:247px;padding:8px 0}
-  .ppc-txt{justify-content:space-between;padding:32px 24px 16px 42px}
-  .ppc-d{margin-top:0}
+  /* text and video share the width equally; the video stretches to the text's height (min 200px) so nothing breaks at narrower widths */
+  .ppc-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:0;padding:24px 24px 24px 0}
+  .ppc-txt{justify-content:center;gap:16px;padding:0 50px 0 42px}
+  .ppc-d{margin-top:0;text-wrap:pretty}
   .ppc-d br{display:inline}
   .ppc-cta{margin-top:0}
-  .ppc-vid{aspect-ratio:auto;height:100%;margin-right:8px}
+  .ppc-vid{aspect-ratio:auto;align-self:stretch;height:auto;min-height:200px}
+  .h-main .ppc{container-type:inline-size}
+}
+/* when the main column is too narrow for side-by-side, stack like the mobile card */
+@container (max-width:680px){
+  .ppc-card{display:flex;flex-direction:column;gap:14px;padding:16px}
+  .ppc-txt{padding:16px 0 0}
+  .ppc-vid{align-self:auto;aspect-ratio:354/226;min-height:0}
+}
+@media (min-width:800px){
 
   /* latest stories: image right */
   .lat1{padding-top:32px}

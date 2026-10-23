@@ -274,7 +274,7 @@ function slotPartner(){ /* flips on every home view in this browser; #forty link
   return n%2===1}
 function partnerUnit(){return '<section id="partner" class="ppc o9" aria-label="Sponsored by Brookfield"><div class="ppc-card">'+
   '<div class="ppc-txt"><div class="ppc-copy"><h2 class="ppc-t">Over a century of seeing around corners.</h2>'+
-  '<p class="ppc-d">Experience gives you the conviction to invest ahead of the curve. <br>For more than 125 years, Brookfield has owned and operated the critical businesses fuelling the global economy. <br>Discover how they look beyond trends to help create enduring value.</p>'+
+  '<p class="ppc-d">Experience gives you the conviction to invest ahead of the curve. For more than 125 years, Brookfield has owned and operated the critical businesses fuelling the global economy. <br>Discover how they look beyond trends to help create enduring value.</p>'+
   '<a class="ppc-cta" href="https://www.brookfield.com/" target="_blank" rel="sponsored noopener">Own what’s next</a></div>'+
   '<p class="ppc-by">Sponsored by <b>Brookfield</b></p></div>'+
   '<div class="ppc-vid"><video src="assets/video/brookfield.mp4" poster="assets/img/brookfield-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></div></div></section>'}
