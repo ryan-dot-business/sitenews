@@ -679,7 +679,7 @@ function subPage(step){
   var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
-    return head+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+stepTxt+
+    return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="20" height="16" viewBox="0 0 20 16"><rect x="0" y="0" width="20" height="16" rx="3" fill="#fff"/><path d="m2.5 3.2 7.5 5.6 7.5-5.6" fill="none" stroke="#ff844e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Get smarter in just 5 minutes. Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+stepTxt+
       '<label class="sub-q" for="subEmail">Work Email</label>'+
       '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
       '<p class="sub-err" id="subErr" aria-live="polite"></p>'+
