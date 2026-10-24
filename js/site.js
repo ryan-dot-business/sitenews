@@ -690,18 +690,19 @@ function subPage(step){
   }
   var i=SUB_ORDER.indexOf(step),num=i+1-(5-SUB.n),nextH='#subscribe/'+(SUB_ORDER[i+1]||'done');
   var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
+  var prog='<div class="sub-prog" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="'+SUB.n+'" aria-valuenow="'+num+'"><span style="width:'+((num-.3)/SUB.n*100).toFixed(1)+'%"></span></div>';
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
-    return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="20" height="16" viewBox="0 0 20 16"><rect x="0" y="0" width="20" height="16" rx="3" fill="#fff"/><path d="m2.5 3.2 7.5 5.6 7.5-5.6" fill="none" stroke="#ff844e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Get smarter in just 5 minutes. Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+stepTxt+
-      '<label class="sub-q" for="subEmail">Work Email</label>'+
+    return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="20" height="16" viewBox="0 0 20 16"><rect x="0" y="0" width="20" height="16" rx="3" fill="#fff"/><path d="m2.5 3.2 7.5 5.6 7.5-5.6" fill="none" stroke="#ff844e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
+      '<label class="sub-q" for="subEmail">Work Email</label></div>'+
       '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
-      '<p class="sub-err" id="subErr" aria-live="polite"></p>'+
-      '<div class="sub-act"><span class="sub-hint" aria-hidden="true">press <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(ok?'':' aria-disabled="true"')+'>Next</button></div>'+
+      '<div class="sub-slot"><p class="sub-err" id="subErr" aria-live="polite"></p>'+
+      '<div class="sub-act"><span class="sub-hint" aria-hidden="true">press <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(ok?'':' aria-disabled="true"')+'>Next</button></div></div>'+
     '</form></div></div>';
   }
   var q=SUBQ[step],cur=SUB.ans[step];
-  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate><div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+SUB_INTRO+'</div>'+
-    stepTxt.replace('<p ','<p id="subStep" ')+'<fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
+  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+'<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+SUB_INTRO+'</div>'+
+    '<div class="sub-hd q">'+stepTxt.replace('<p ','<p id="subStep" ')+'</div><fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
     '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o){return '<label class="sub-opt"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
     '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><span class="sub-hint" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> to choose, <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
   '</form></div></div>';
