@@ -1067,31 +1067,33 @@ body.sub-pg #app{max-width:none}
   .sub-add[aria-pressed=true]:hover{background:#2a2a2a}
 }
 
-/* subscribe flow: micro-interactions (all off under reduced motion) */
+/* subscribe flow: micro-interactions (all off under reduced motion).
+   fill-mode is 'backwards', never 'both': a transform left filling on .sub-card would turn it into the
+   containing block for the fixed mobile Skip/Next bar and pin the bar inside the card. */
 @keyframes subRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes subFade{from{opacity:0}to{opacity:1}}
 @keyframes subPop{0%{transform:scale(.4)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
 @keyframes subDraw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
 @keyframes subTab{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.sub.enter .sub-logo{animation:subFade .4s ease both}
-.sub.enter .sub-card{animation:subRise .45s cubic-bezier(.2,.8,.2,1) both}
-.sub-pitch{animation:subTab .5s .08s cubic-bezier(.2,.8,.2,1) both}
+.sub.enter .sub-logo{animation:subFade .4s ease backwards}
+.sub.enter .sub-card{animation:subRise .45s cubic-bezier(.2,.8,.2,1) backwards}
+.sub-pitch{animation:subTab .5s .08s cubic-bezier(.2,.8,.2,1) backwards}
 .sub-email{animation-delay:.02s}
-.sub-who,.sub-hd{animation:subRise .4s .06s cubic-bezier(.2,.8,.2,1) both}
-.sub-opt{animation:subRise .38s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.1s + var(--i,0) * 28ms);transition:background-color .18s ease,border-color .18s ease,transform .12s ease}
+.sub-who,.sub-hd{animation:subRise .4s .06s cubic-bezier(.2,.8,.2,1) backwards}
+.sub-opt{animation:subRise .38s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(.1s + var(--i,0) * 28ms);transition:background-color .18s ease,border-color .18s ease,transform .12s ease}
 .sub-opt:active{transform:scale(.985)}
 .sub-dot{transition:border-color .18s ease,background-color .18s ease}
 .sub-opt:has(input:checked) .sub-dot{animation:subPop .32s cubic-bezier(.3,1.4,.5,1)}
 .sub-next{transition:background-color .15s ease,opacity .2s ease,transform .12s ease}
 .sub-next:active{transform:scale(.97)}
-.sub-email.ok .sub-act{animation:subRise .3s cubic-bezier(.2,.8,.2,1) both}
-.sub-err:not(:empty){animation:subFade .25s ease both}
+.sub-email.ok .sub-act{animation:subRise .3s cubic-bezier(.2,.8,.2,1) backwards}
+.sub-err:not(:empty){animation:subFade .25s ease backwards}
 .sub-in{transition:border-color .18s ease,background-color .18s ease,box-shadow .2s ease}
 .sub-prog span{transition:width .6s cubic-bezier(.3,.8,.3,1)}
-.sub-ok{animation:subPop .45s .15s cubic-bezier(.3,1.4,.5,1) both}
-.sub-ok path{stroke-dasharray:24;animation:subDraw .35s .45s ease-out both}
-.sub-h,.sub-done .sub-intro,.sub-done .sub-step,.sub-done .sub-q{animation:subRise .4s .2s cubic-bezier(.2,.8,.2,1) both}
-.sub-rec{animation:subRise .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+.sub-ok{animation:subPop .45s .15s cubic-bezier(.3,1.4,.5,1) backwards}
+.sub-ok path{stroke-dasharray:24;animation:subDraw .35s .45s ease-out backwards}
+.sub-h,.sub-done .sub-intro,.sub-done .sub-step,.sub-done .sub-q{animation:subRise .4s .2s cubic-bezier(.2,.8,.2,1) backwards}
+.sub-rec{animation:subRise .4s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 70ms)}
 .sub-add{transition:background-color .2s ease,color .2s ease,transform .12s ease}
 .sub-add:active{transform:scale(.95)}
 .sub-add[aria-pressed=true] svg{animation:subPop .3s cubic-bezier(.3,1.4,.5,1)}

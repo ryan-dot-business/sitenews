@@ -919,6 +919,7 @@ document.addEventListener('submit',function(e){
   var prob=emailProblem(inp.value);if(prob){inp.setCustomValidity(prob);inp.reportValidity();inp.addEventListener('input',function c(){inp.setCustomValidity('');inp.removeEventListener('input',c)});return}
   subscribed=true; try{localStorage.setItem('sn-sub','1')}catch(err){}
   email=inp.value.trim();SUB.n=4;SUB.ret=location.hash&&location.hash.indexOf('#subscribe')!==0?location.hash:'#home';SUB.retY=window.scrollY;
+  inp.blur();
   location.hash='subscribe/level';
 });
 /* demo only: tapping "You're in." resets the sign-up so the flow can be shown again */
