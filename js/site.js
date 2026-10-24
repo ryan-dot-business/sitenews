@@ -673,24 +673,28 @@ function subRecs(){
   if(a.fn==='Estimating / Quantity surveying'||a.fn==='Business development / Sales')bump('storeys',1);
   return Object.keys(sc).sort(function(x,y){return sc[y]-sc[x]}).slice(0,2);
 }
+function subProg(pct,now,max){
+  var from=SUB.pct==null?pct:SUB.pct;SUB.pct=pct;
+  return '<div class="sub-prog" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="'+max+'" aria-valuenow="'+now+'"><span style="width:'+from.toFixed(1)+'%" data-to="'+pct.toFixed(1)+'"></span></div>';
+}
 function subPage(step){
   if(step==='email')SUB.n=5;
-  var head='<div class="sub"><a class="sub-logo" href="#home" aria-label="SiteNews home">'+subLogo()+'</a><div class="sub-main">';
+  var head='<div class="sub'+(SUB.enter?' enter':'')+'"><a class="sub-logo" href="#home" aria-label="SiteNews home">'+subLogo()+'</a><div class="sub-main">';
   if(step==='done'){
     var recs=subRecs(),answered=Object.keys(SUB.ans).length>0;
-    return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
+    return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+subProg(100,SUB.n,SUB.n)+
       '<span class="sub-ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22"><path d="m5.5 11.3 3.5 3.5 7.5-7.6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
       '<h1 class="sub-h" id="subDoneH">You’re in.</h1>'+
       '<p class="sub-intro">Your first SiteNews lands Monday morning'+(email?' at <b>'+escH(email.trim())+'</b>':'')+'.</p>'+
       '<p class="sub-step">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p>'+
       '<h2 class="sub-q">Add these in one click</h2>'+
-      '<div class="sub-recs">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec">'+pubIcon(p,n)+'<div class="sub-rec-t"><b>'+p.n+'</b><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+'"><span>Subscribe</span></button></div>'}).join('')+'</div>'+
+      '<div class="sub-recs">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec" style="--i:'+(n+4)+'">'+pubIcon(p,n)+'<div class="sub-rec-t"><b>'+p.n+'</b><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+'"><span>Subscribe</span></button></div>'}).join('')+'</div>'+
       '<div class="sub-bar"><a class="sub-skip" href="'+SUB.ret+'" data-subret>No thanks</a><span class="sub-right"><button class="sub-next" type="button" data-both>Subscribe to both</button></span></div>'+
     '</section></div></div>';
   }
   var i=SUB_ORDER.indexOf(step),num=i+1-(5-SUB.n),nextH='#subscribe/'+(SUB_ORDER[i+1]||'done');
   var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
-  var prog='<div class="sub-prog" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="'+SUB.n+'" aria-valuenow="'+num+'"><span style="width:'+((num-.3)/SUB.n*100).toFixed(1)+'%"></span></div>';
+  var prog=subProg((num-.3)/SUB.n*100,num,SUB.n);
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
     return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="20" height="16" viewBox="0 0 20 16"><rect x="0" y="0" width="20" height="16" rx="3" fill="#fff"/><path d="m2.5 3.2 7.5 5.6 7.5-5.6" fill="none" stroke="#ff844e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
@@ -701,13 +705,15 @@ function subPage(step){
     '</form></div></div>';
   }
   var q=SUBQ[step],cur=SUB.ans[step];
-  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+'<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+SUB_INTRO+'</div>'+
+  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+'<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+(step==='level'?SUB_INTRO:'')+'</div>'+
     '<div class="sub-hd q">'+stepTxt.replace('<p ','<p id="subStep" ')+'</div><fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
-    '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o){return '<label class="sub-opt"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
+    '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o,n){return '<label class="sub-opt" style="--i:'+Math.min(n,12)+'"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
     '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><span class="sub-hint" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> to choose, <kbd>Enter ↵</kbd></span><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
   '</form></div></div>';
 }
 function subFocus(){
+  var bar=app.querySelector('.sub-prog span');
+  if(bar)requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=bar.dataset.to+'%'})});
   if(innerWidth<800)return;
   var f=app.querySelector('[data-subflow]');if(!f)return;
   var el=f.querySelector('#subEmail')||f.querySelector('input:checked');
@@ -724,6 +730,13 @@ document.addEventListener('input',function(e){
 document.addEventListener('change',function(e){
   var f=e.target.closest&&e.target.closest('[data-subflow]');if(!f||e.target.type!=='radio')return;
   f.classList.add('ok');f.querySelector('.sub-next').setAttribute('aria-disabled','false');
+});
+/* desktop: arrows work straight away on a question step, even before an option has focus */
+document.addEventListener('keydown',function(e){
+  if((e.key!=='ArrowDown'&&e.key!=='ArrowUp')||/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName))return;
+  var f=app.querySelector('form[data-subflow]:not([data-subflow=email])');if(!f)return;
+  var r=f.querySelector('input:checked')||f.querySelector('input[type=radio]');if(!r)return;
+  e.preventDefault();r.focus();if(!r.checked){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}))}
 });
 document.addEventListener('keydown',function(e){
   if(e.key!=='Enter'||e.target.type!=='radio')return;var f=e.target.closest('[data-subflow]');if(!f)return;
@@ -761,6 +774,7 @@ var app=document.getElementById('app'), prevHash='#home';
 function route(){
   var h=(location.hash||'').slice(1);
   if((h==='subscribe'||h.indexOf('subscribe/')===0)&&prevHash.indexOf('#subscribe')!==0&&!SUB.retY)SUB.ret=prevHash;
+  SUB.enter=prevHash.indexOf('#subscribe')!==0;
   prevHash='#'+(h||'home');
   closeAll();
   var scrollTo=null, t='Site News — for construction';
