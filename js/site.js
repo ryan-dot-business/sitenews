@@ -638,7 +638,20 @@ var SUBQ={
 var SUB_ORDER=['email','level','fn','ind','loc'];
 var SUB={n:4,ret:'#home',retY:0,ans:{}};
 try{SUB.ans=JSON.parse(localStorage.getItem('sn-sub-ans')||'{}')||{}}catch(e){}
-var PERSONAL=/@(gmail|googlemail|yahoo|ymail|rocketmail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|yandex|zoho|shaw|telus|rogers|sympatico|bell)\.[a-z.]+$/i;
+/* personal (non-work) email providers: exact domains, plus a few brands blocked on any country domain (yahoo.co.uk etc.) */
+var PERSONAL_DOMAINS=['gmail.com','googlemail.com','yahoo.com','yahoo.ca','ymail.com','rocketmail.com','hotmail.com','hotmail.ca','outlook.com','live.com','live.ca','msn.com','icloud.com','me.com','mac.com','aol.com','proton.me','protonmail.com','pm.me','gmx.com','gmx.net','mail.com','yandex.com','zoho.com','shaw.ca','telus.net','rogers.com','sympatico.ca','bell.net'];
+var PERSONAL_BRANDS=['gmail','googlemail','yahoo','ymail','rocketmail','hotmail','outlook','icloud','aol','protonmail'];
+var PERSONAL_LABELS={};PERSONAL_DOMAINS.forEach(function(d){PERSONAL_LABELS[d.split('.')[0]]=1});
+/* returns the provider exactly as typed (e.g. "Hotmail") if the address is personal, else ''.
+   live=true also catches it mid-typing, as soon as "@gmail." is in */
+function personalOf(v,live){
+  var m=/@([^@\s]+)$/.exec(v.trim());if(!m)return '';
+  var dom=m[1],lc=dom.toLowerCase(),lab=dom.split('.')[0],llab=lab.toLowerCase();
+  if(PERSONAL_DOMAINS.indexOf(lc)>-1||(PERSONAL_BRANDS.indexOf(llab)>-1&&lc.indexOf('.')>-1))return lab;
+  if(live&&PERSONAL_LABELS[llab]&&lc.indexOf('.')>-1&&PERSONAL_DOMAINS.some(function(d){return d.indexOf(lc)===0}))return lab;
+  return '';
+}
+function personalMsg(p){return 'Personal accounts like ‘'+p+'’ are not eligible.'}
 var SUB_INTRO='<p class="sub-intro">Take 20 seconds to help us tailor the best content to you.</p>';
 var PUBS={
  renew:{i:1,n:'ReNew',u:'https://www.renewcanada.net/',d:'Infrastructure news: the projects, policy and money behind Canada’s biggest builds.'},
@@ -647,7 +660,7 @@ var PUBS={
  water:{i:3,n:'WaterNews',u:'#home',d:'Water and wastewater: the utilities, the treatment plants and the pipes underneath.'}
 };
 function escH(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function emailProblem(v){v=v.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return 'Enter a work email like name@company.com';if(PERSONAL.test(v))return 'Personal accounts like ‘gmail’ are not eligible.';return ''}
+function emailProblem(v){v=v.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return 'Enter a work email like name@company.com';var pp=personalOf(v);if(pp)return personalMsg(pp);return ''}
 function subLogo(){var s=document.querySelector('.flogo svg');return s?s.outerHTML.replace(/lgF/g,'lgSub').replace(/width="151" height="28"/,'width="168" height="31"'):'SiteNews'}
 function pubIcon(p,n){var a=document.querySelectorAll('.brands a')[p.i],s=a&&a.querySelector('svg');return s?s.outerHTML.replace(/bm(\d)/g,'sbm$1x'+n).replace(/width="\d+" height="\d+"/,'width="36" height="36"'):''}
 function subRecs(){
@@ -703,7 +716,7 @@ document.addEventListener('input',function(e){
   if(e.target.id!=='subEmail')return;
   var f=e.target.form,v=e.target.value,p=emailProblem(v),err=document.getElementById('subErr');
   f.classList.toggle('ok',!p);f.querySelector('.sub-next').setAttribute('aria-disabled',p?'true':'false');
-  err.textContent=PERSONAL.test(v.trim())||/@(gmail|yahoo|hotmail|outlook|icloud)\b/i.test(v)?'Personal accounts like ‘gmail’ are not eligible.':'';
+  var pl=personalOf(v,true);err.textContent=pl?personalMsg(pl):'';
   f.classList.toggle('bad',!!err.textContent);
   e.target.removeAttribute('aria-invalid');
 });
