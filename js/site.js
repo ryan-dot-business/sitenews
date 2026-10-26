@@ -691,10 +691,9 @@ function subPage(step){
     return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
       '<div class="sub-welcome"><div class="sub-wshot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div>'+
         '<div class="sub-wbar"><span class="sub-wic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg></span><div><h1 class="sub-h" id="subDoneH">You’re in, Weekly</h1>'+
-        (email?'<p class="sub-v">'+escH(email.trim())+'</p>':'')+'<p class="sub-k">First briefing: Monday morning, 7am</p></div></div></div>'+
+        (email?'<p class="sub-v">'+escH(email.trim())+'</p>':'')+'<p class="sub-k">First briefing: Monday, 7am</p></div></div></div>'+
       '<div class="sub-picks" data-loading>'+
-        '<div class="sub-pair"><h2 class="sub-v2">'+(touch?'Tap':'Click')+' to add insight</h2><p class="sub-k">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p></div>'+
-        '<div class="sub-load" role="status" aria-live="polite"><span class="sub-spin" aria-hidden="true"></span><span class="sub-load-t">Reading your answers…</span></div>'+
+        '<div class="sub-pair"><h2 class="sub-v2">'+(touch?'Tap':'Click')+' for more insight</h2><div class="sub-kswap"><p class="sub-k sub-kload" role="status" aria-live="polite"><svg class="sub-spin" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="1.00" transform="rotate(0 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.89" transform="rotate(45 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.78" transform="rotate(90 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.67" transform="rotate(135 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.56" transform="rotate(180 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.45" transform="rotate(225 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.34" transform="rotate(270 7 7)"/><rect x="6.25" y="0.5" width="1.5" height="4" rx=".75" fill="#ff6a29" opacity="0.23" transform="rotate(315 7 7)"/></svg><span class="sub-load-t">Reading your answers…</span></p><p class="sub-k sub-kdone">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p></div></div>'+
         '<div class="sub-recs" aria-busy="true">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec" style="--i:'+n+'"><div class="sub-rec-t"><div class="sub-mark">'+pubMark(p,n)+'</div><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+' weekly"><span>Subscribe weekly</span></button><i class="sub-skel" aria-hidden="true"><b></b><b></b><b></b></i></div>'}).join('')+'</div>'+
       '</div>'+
       '<div class="sub-bar"><a class="sub-skip" href="'+SUB.ret+'" data-subret>No thanks</a><span class="sub-right"><button class="sub-next" type="button" data-both disabled>Subscribe to both</button></span></div>'+
@@ -731,7 +730,6 @@ function subPicks(){
     box.removeAttribute('data-loading');box.classList.add('ready');
     var r=box.querySelector('.sub-recs');r&&r.removeAttribute('aria-busy');
     var bt=app.querySelector('.sub-done [data-both]');bt&&(bt.disabled=false);
-    if(t)t.textContent='Recommendations ready';
   },rm?600:2400);
 }
 function subFocus(){

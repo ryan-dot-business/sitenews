@@ -1062,8 +1062,8 @@ body.sub-pg #app{max-width:none}
 /* success */
 .sub-done{display:flex;flex-direction:column;gap:12px;padding:16px 16px 46px;border-radius:30px;box-shadow:0 4px 24px rgba(0,0,0,.03)}
 .sub-welcome{border-radius:20px;overflow:hidden}
-.sub-wshot{height:137px;padding-top:14px;background:#ff6a29;overflow:hidden;display:flex;justify-content:center}
-.sub-wshot img{display:block;width:100%;max-width:382px;height:auto;margin-top:-14px}
+.sub-wshot{height:137px;padding-top:14px;background:#ff6a29;overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+.sub-wshot img{flex:none;display:block;width:360px;max-width:none;height:auto;aspect-ratio:382/192}
 .sub-wbar{display:flex;gap:16px;padding:16px;background:#3c3c3c;color:var(--white)}
 .sub-wic{flex:none;display:flex;align-items:center;justify-content:center;width:39px;height:39px;border-radius:7px;background:#ff6a29}
 .sub-wbar .sub-h{margin:0 0 6px;font-family:var(--display);font-size:20px;line-height:1;font-weight:750;letter-spacing:-.2px;text-transform:uppercase;color:var(--white)}
@@ -1074,10 +1074,13 @@ body.sub-pg #app{max-width:none}
 .sub-k{margin:0;font-size:14px;line-height:1.2;color:rgba(0,0,0,.3)}
 .sub-v2{margin:0;font-size:14px;line-height:1.2;font-weight:600;color:#000}
 .sub-recs{display:flex;flex-direction:column;gap:18px}
-/* loader */
-.sub-load{display:flex;align-items:center;gap:10px;height:0;margin:-8px 0;overflow:hidden;opacity:0;font-size:13px;color:rgba(0,0,0,.45);transition:height .3s ease,margin .3s ease,opacity .25s ease}
-.sub-picks[data-loading] .sub-load{height:20px;margin:0;opacity:1}
-.sub-spin{flex:none;width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,106,41,.25);border-top-color:#ff6a29;animation:subSpin .8s linear infinite}
+/* loader: lives in the subline under "Tap for more insight", then swaps to "Picked for you…" */
+.sub-kswap{display:grid}
+.sub-kswap>.sub-k{grid-area:1/1;transition:opacity .3s ease,transform .3s ease}
+.sub-kload{display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(-4px);pointer-events:none}
+.sub-picks[data-loading] .sub-kload{opacity:1;transform:none}
+.sub-picks[data-loading] .sub-kdone{opacity:0;transform:translateY(4px)}
+.sub-spin{flex:none;display:block;animation:subSpin .9s steps(8) infinite}
 @keyframes subSpin{to{transform:rotate(360deg)}}
 .sub-load-t.in{animation:subFade .3s ease}
 .sub-skel{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:inherit;background:#f2f2f2;opacity:0;pointer-events:none;transition:opacity .35s ease}
@@ -1126,7 +1129,8 @@ body.sub-pg #app{max-width:none}
   .sub-done{padding-bottom:0}
   .sub-done{padding:16px 16px 0;border-radius:30px}
   .sub-done .sub-bar{margin:20px -16px 0;padding:20px 40px}
-  .sub-wshot{height:170px}
+  .sub-wshot{height:190px;padding-top:16px}
+  .sub-wshot img{width:460px}
   .sub-recs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .sub-rec{justify-content:space-between}
   .sub-rec:hover:not(:has(.sub-add[aria-pressed=true])){background:rgba(0,0,0,.07)}
