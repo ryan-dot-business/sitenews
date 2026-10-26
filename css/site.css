@@ -1010,7 +1010,6 @@ body.sub-pg #app{max-width:none}
 .sub-email:not(.ok) .sub-act{display:none}
 .sub-next{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 25px;border:0;border-radius:10px;background:#000;color:var(--white);font:inherit;font-size:16px;font-weight:400;cursor:pointer;text-decoration:none}
 .sub-next[aria-disabled=true]{cursor:default}
-.sub-hint{display:none}
 .sub-opts{display:flex;flex-direction:column;gap:7px}
 .sub-opt{position:relative;display:flex;align-items:center;gap:10px;min-height:50px;padding:12px;border:2px solid rgba(0,0,0,.1);border-radius:35px;background:var(--white);font-size:14px;line-height:1.2;color:rgba(0,0,0,.7);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sub-opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
@@ -1063,9 +1062,6 @@ body.sub-pg #app{max-width:none}
   .sub-next:hover{background:#2a2a2a}
   .sub-next[aria-disabled=true]{opacity:.25}
   .sub-next[aria-disabled=true]:hover{background:#000}
-  .sub-hint{display:inline;font-size:12px;color:var(--muted)}
-  .sub-card:not(.ok) .sub-hint{visibility:hidden}
-  .sub-hint kbd{display:inline-block;margin:0 1px;padding:1px 6px;border:1px solid var(--keyline);border-bottom-width:2px;border-radius:5px;background:var(--paper);font:inherit;font-size:11px;color:var(--ink)}
   .sub-done{padding-bottom:0}
   .sub-done .sub-bar{margin-top:7px}
   .sub-h{font-size:24px}
