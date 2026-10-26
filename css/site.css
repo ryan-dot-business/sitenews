@@ -987,11 +987,21 @@ body.sub-pg{background:var(--paper)}
 body.sub-pg .hdr,body.sub-pg .adband,body.sub-pg .foot{display:none}
 body.sub-pg #app{max-width:none}
 .sub{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:24px 10px calc(112px + env(safe-area-inset-bottom))}
-.sub-logo{display:block;flex:none}
+.sub-logo{display:flex;align-items:center;gap:5px;flex:none}
 .sub-logo svg{display:block;width:130px;height:auto}
 .sub-main{width:100%;max-width:480px;margin-top:34px;display:flex;flex-direction:column}
 .sub-main:has(.sub-email){flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:0;padding-bottom:40px}
-.sub-pitch{display:flex;align-items:center;gap:10px;margin:0 0 -30px;padding:20px 20px 47px;border-radius:20px 20px 0 0;background:rgba(255,106,41,.15)}
+.sub-pitch{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin:0 0 -30px;padding:20px 20px 47px;border-radius:20px 20px 0 0;background:#fce2d7;overflow:hidden;max-height:160px}
+.sub-hero{position:relative;display:flex;align-items:flex-end;justify-content:center;height:147px;margin-bottom:-23px;border-radius:20px 20px 0 0;background:rgba(236,72,0,.76);overflow:hidden}
+.sub-hero img{display:block;width:346px;max-width:calc(100% - 20px);height:auto}
+.sub-email{z-index:2}
+.sub-wk{font-family:var(--display);font-size:22px;line-height:1;font-weight:500;color:#000;padding-top:3px}
+/* keyboard room: hero and pitch slide down behind the card */
+.sub-hero,.sub-pitch{transition:height .45s cubic-bezier(.3,.8,.3,1),max-height .45s cubic-bezier(.3,.8,.3,1),margin .45s cubic-bezier(.3,.8,.3,1),padding .45s cubic-bezier(.3,.8,.3,1),opacity .3s ease}
+.sub-main.kb .sub-hero{height:0;margin-bottom:0;opacity:0}
+.sub-main.kb .sub-pitch{max-height:0;padding-top:0;padding-bottom:0;margin-bottom:0;opacity:0}
+.sub-main:has(.sub-email){transition:padding-bottom .45s cubic-bezier(.3,.8,.3,1)}
+@media (max-width:799px){.sub-main.kb:has(.sub-email){padding-bottom:max(40px,calc(100vh - 485px));padding-bottom:max(40px,calc(100dvh - 485px))}}
 .sub-pitch-ic{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:7px;background:#ff844e}
 .sub-pitch p{margin:0;font-family:var(--display);font-size:15px;line-height:1.4;font-weight:500;letter-spacing:-.45px;color:#af9082}
 .sub-pitch b{font-weight:500;color:rgba(0,0,0,.9)}
