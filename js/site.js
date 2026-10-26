@@ -725,8 +725,23 @@ function subFocus(){
 }
 /* email step: the hero + pitch tuck behind the card while typing, leaving room for the keyboard */
 function subTuck(on){var m=app.querySelector('.sub-main');if(m)m.classList.toggle('kb',on)}
+/* iOS keyboard: size the page to the visible area above the keyboard so the whole step re-centres there,
+   then scroll only as far as needed to keep the field + Next in view (instead of Safari pinning the field to the keyboard) */
+var VV=window.visualViewport,vvT=null;
+function subFit(){
+  if(!VV)return;var de=document.documentElement;
+  if(!document.body.classList.contains('sub-pg')){de.style.removeProperty('--vvh');return}
+  de.style.setProperty('--vvh',Math.round(VV.height)+'px');
+  clearTimeout(vvT);vvT=setTimeout(function(){
+    var inp=document.getElementById('subEmail');if(!inp||document.activeElement!==inp)return;
+    var slot=inp.closest('form').querySelector('.sub-slot')||inp,b=slot.getBoundingClientRect().bottom+window.scrollY;
+    var y=Math.max(0,Math.round(b+12-VV.height));
+    if(Math.abs(window.scrollY-y)>2)window.scrollTo({top:y,behavior:'smooth'});
+  },480);
+}
+if(VV){VV.addEventListener('resize',subFit)}
 /* tuck only once the field actually has focus, so the layout never moves under the tap (that cancelled the keyboard) */
-document.addEventListener('focusin',function(e){if(e.target.id==='subEmail'&&!SUB.autoFocus)subTuck(true)});
+document.addEventListener('focusin',function(e){if(e.target.id==='subEmail'&&!SUB.autoFocus){subTuck(true);subFit()}});
 document.addEventListener('click',function(e){if(e.target.id==='subEmail')subTuck(true)});
 document.addEventListener('focusout',function(e){if(e.target.id==='subEmail'&&!e.target.value.trim())setTimeout(function(){if(document.activeElement!==e.target)subTuck(false)},120)});
 document.addEventListener('input',function(e){
@@ -809,6 +824,7 @@ function route(){
   else if(SUB.retY&&('#'+h)===SUB.ret){window.scrollTo(0,SUB.retY);SUB.retY=0}
   else window.scrollTo(0,0);
   if(isSub)subFocus();
+  if(typeof subFit==='function')subFit();
   wirePlayer();
   wireVideo();
   fillAds();
