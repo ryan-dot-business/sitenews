@@ -689,7 +689,7 @@ function subPage(step){
   if(step==='done'){
     var recs=subRecs(),answered=Object.keys(SUB.ans).length>0,touch=innerWidth<800;
     return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
-      '<div class="sub-welcome"><div class="sub-wshot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div>'+
+      '<div class="sub-welcome"><div class="sub-wshot" aria-hidden="true"><img src="assets/img/sub-welcome.jpg" width="700" height="318" alt=""></div>'+
         '<div class="sub-wbar"><span class="sub-wic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg></span><div><h1 class="sub-h" id="subDoneH">You’re in, Weekly</h1>'+
         (email?'<p class="sub-v">'+escH(email.trim())+'</p>':'')+'<p class="sub-k">First briefing: Monday, 7am</p></div></div></div>'+
       '<div class="sub-picks" data-loading>'+
