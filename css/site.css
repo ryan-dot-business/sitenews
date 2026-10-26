@@ -732,10 +732,13 @@ html,body{overflow-x:clip}
   .dpop:not([hidden]){display:block}
   #topicsPop{width:313px;padding:10px}
   .dpop-chips{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:7px}
-  .dpop-more{width:162px;padding:0 10px 4px}
+  .dpop-more{width:162px;padding:0 10px 11px}
   .dpop-more:not([hidden]){display:flex;flex-direction:column;gap:4px}
   .dpop-more a{display:flex;align-items:center;justify-content:flex-end;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}
-  .dpop-more a:last-child{border-bottom:0;padding-bottom:17px}
+  .dpop-more a:nth-last-child(2){border-bottom:0}
+  .dpop-more a.mp-sub{padding:10px 13px 10px 9px;border:0;border-radius:12px;background:var(--orange);color:var(--white)}
+  .dpop-more a.mp-sub svg{flex:none;display:block}
+  .dpop-more a.mp-sub:hover{opacity:1;background:#f25c1b}
   .dpop-more a:hover,.dpop-chips a:hover{opacity:.75}
   /* other-publications dropdown: anchored under the logo, styled like the Topics / more popovers */
   #brandsLayer{z-index:46;pointer-events:none}
