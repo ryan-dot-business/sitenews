@@ -761,7 +761,9 @@ document.addEventListener('submit',function(e){
   location.hash=f.dataset.next;
 });
 document.addEventListener('click',function(e){
-  var b=e.target.closest&&e.target.closest('.sub-add,[data-both]');if(!b)return;
+  var b=e.target.closest&&e.target.closest('.sub-add,[data-both]');
+  if(!b){var card=e.target.closest&&e.target.closest('.sub-rec');b=card&&card.querySelector('.sub-add')}  /* whole card toggles */
+  if(!b)return;
   var set=function(x){x.setAttribute('aria-pressed','true');x.querySelector('span').innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 6.3 2.6 2.6L10 3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Subscribed'};
   var adds=[].slice.call(document.querySelectorAll('.sub-add'));
   if(b.matches('.sub-add')){if(b.getAttribute('aria-pressed')==='true'){b.setAttribute('aria-pressed','false');b.querySelector('span').textContent='Subscribe'}else set(b)}

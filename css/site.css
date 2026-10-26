@@ -1036,7 +1036,10 @@ body.sub-pg #app{max-width:none}
 .sub-v{margin:0;font-size:17px;line-height:1.2;font-weight:600;color:#000;overflow-wrap:anywhere}
 .sub-v2{margin:0;font-size:18px;line-height:1.2;font-weight:600;color:#000}
 .sub-recs{display:flex;flex-direction:column;gap:7px}
-.sub-rec{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:12px;border:2px solid rgba(0,0,0,.2);border-radius:15px;background:var(--white);transition:background-color .2s ease,border-color .2s ease}
+.sub-rec{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:12px;border:2px solid rgba(0,0,0,.2);border-radius:15px;background:var(--white);transition:background-color .2s ease,border-color .2s ease,transform .12s ease}
+.sub-rec{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.sub-rec:active{transform:scale(.99)}
+.sub-rec:hover .sub-add:not([aria-pressed=true]){background:rgba(0,0,0,.16)}
 .sub-rec:has(.sub-add[aria-pressed=true]){background:var(--paper);border-color:rgba(249,97,32,.3)}
 .sub-rec-t{display:flex;flex-direction:column;gap:4px;padding:0 8px}
 .sub-mark{display:flex;align-items:center;gap:8px;min-height:24px}
@@ -1070,7 +1073,7 @@ body.sub-pg #app{max-width:none}
   .sub-h{font-size:24px}
   .sub-recs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .sub-rec{justify-content:space-between}
-  .sub-add:hover{background:rgba(0,0,0,.16)}
+  .sub-rec:hover:not(:has(.sub-add[aria-pressed=true])){border-color:rgba(0,0,0,.3)}
   .sub-add[aria-pressed=true]:hover{background:#2a2a2a}
 }
 
