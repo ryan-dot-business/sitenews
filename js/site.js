@@ -679,9 +679,9 @@ function subRecs(){
   if(a.fn==='Estimating / Quantity surveying'||a.fn==='Business development / Sales')bump('storeys',1);
   return Object.keys(sc).sort(function(x,y){return sc[y]-sc[x]}).slice(0,2);
 }
-function subProg(pct,now,max){
-  var from=SUB.pct==null?pct:SUB.pct;SUB.pct=pct;
-  return '<div class="sub-prog" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="'+max+'" aria-valuenow="'+now+'"><span style="width:'+from.toFixed(1)+'%" data-to="'+pct.toFixed(1)+'"></span></div>';
+function subProg(w,now,max){ /* w: a CSS width, e.g. '34.0%' or '6px' (just a dot on the email step) */
+  var from=SUB.pct==null?w:SUB.pct;SUB.pct=w;
+  return '<div class="sub-prog" role="progressbar" aria-label="Sign-up progress" aria-valuemin="0" aria-valuemax="'+max+'" aria-valuenow="'+now+'"><span style="width:'+from+'" data-to="'+w+'"></span></div>';
 }
 function subPage(step){
   if(step==='email')SUB.n=5;
@@ -702,7 +702,7 @@ function subPage(step){
   }
   var i=SUB_ORDER.indexOf(step),num=i+1-(5-SUB.n),nextH='#subscribe/'+(SUB_ORDER[i+1]||'done');
   var stepTxt='<p class="sub-step">'+num+' of '+SUB.n+'</p>';
-  var prog=subProg((num-.3)/SUB.n*100,num,SUB.n);
+  var prog=subProg(step==='email'?'6px':((num-.3)/SUB.n*100).toFixed(1)+'%',num,SUB.n);
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
     return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="23" height="17" viewBox="0 0 23 17"><path d="M11.3555 9.04541C11.0679 9.04541 10.7896 8.9248 10.4927 8.66504L1.20605 0.445312C1.70703 0.13916 2.28223 0 3.04297 0H19.668C20.438 0 21.0039 0.13916 21.5049 0.445312L12.2183 8.66504C11.9214 8.9248 11.6431 9.04541 11.3555 9.04541ZM0.231934 14.6396C0.0927734 14.2778 0 13.8418 0 13.2573V3.00586C0 2.375 0.111328 1.89258 0.222656 1.66064L7.11572 7.76514L0.231934 14.6396ZM22.479 14.6396L15.5952 7.76514L22.4883 1.66064C22.5996 1.89258 22.7109 2.375 22.7109 3.00586V13.2573C22.7109 13.8418 22.6182 14.2778 22.479 14.6396ZM2.81104 16.2725C2.12451 16.2725 1.58643 16.1147 1.21533 15.8828L8.30322 8.79492L9.57422 9.92676C10.1494 10.4277 10.7339 10.6782 11.3555 10.6782C11.9771 10.6782 12.5615 10.4277 13.1367 9.92676L14.4077 8.79492L21.4956 15.8828C21.1245 16.1147 20.5864 16.2725 19.8999 16.2725H2.81104Z" fill="white"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
@@ -736,7 +736,7 @@ function subPicks(){
 }
 function subFocus(){
   var bar=app.querySelector('.sub-prog span');
-  if(bar)requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=bar.dataset.to+'%'})});
+  if(bar)requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=bar.dataset.to})});
   if(innerWidth<800)return;
   var f=app.querySelector('[data-subflow]');if(!f)return;
   var el=f.querySelector('#subEmail')||f.querySelector('input:checked');
