@@ -631,8 +631,8 @@ function fillAds(){
    with one-click adds for two recommended sister publications. */
 var SUBQ={
  level:{t:'Job level',o:['C-Level','VP','Director','Senior Manager / Supervisor','Entry to Mid-Level','Student or Intern','Other']},
- fn:{t:'Function',o:['Operations / Project mgmt','Leadership','Engineering / Design','Business development / Sales','Accounting / Finance','Health, Safety, Environment','Legal','Marketing','Procurement / Purchasing','Human Resources','Site Supervision / Field management','Estimating / Quantity surveying','Administration / Shared services','Trades','Other']},
- ind:{t:'Industry',o:['General contractor','Trade contractor','Material supplier','Engineering','Architecture','Developer','Legal','Consulting services','Technology','Government / Crown corp.','Recruitment','Association / Advocacy','Other']},
+ fn:{t:'Job Function',o:['Operations / Project mgmt','Leadership','Engineering / Design','Business development / Sales','Accounting / Finance','Health, Safety, Environment','Legal','Marketing','Procurement / Purchasing','Human Resources','Site Supervision / Field management','Estimating / Quantity surveying','Administration / Shared services','Trades','Other']},
+ ind:{t:'Industry Sector',o:['General contractor','Trade contractor','Material supplier','Engineering','Architecture','Developer','Legal','Consulting services','Technology','Government / Crown corp.','Recruitment','Association / Advocacy','Other']},
  loc:{t:'Where are you based?',o:['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland and Labrador','Northwest Territories','Nova Scotia','Nunavut','Ontario','Prince Edward Island','Quebec','Saskatchewan','Yukon','USA','Europe','Other']}
 };
 var SUB_ORDER=['email','level','fn','ind','loc'];
