@@ -1022,6 +1022,12 @@ body.sub-pg #app{max-width:none}
 .sub-q{display:block;float:none;width:100%;padding:0;margin:0 0 20px;font-size:22px;line-height:1.1;font-weight:600;letter-spacing:-.2px;color:#000}
 .sub-fs{border:0;margin:0;padding:0;min-width:0}
 .sub-in{width:100%;padding:11px 12px;border:2px solid rgba(0,0,0,.1);border-radius:10px;background:var(--white);font:inherit;font-size:16px;line-height:1.2;color:rgba(0,0,0,.8);outline:0}
+.sub-inwrap{position:relative}
+.sub-inwrap .sub-in{padding-right:42px}
+.sub-clr{position:absolute;top:50%;right:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;margin-top:-16px;padding:0;border:0;background:none;color:rgba(0,0,0,.25);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s ease,transform .15s ease}
+.sub-clr:hover{color:rgba(0,0,0,.4)}
+.sub-clr:active{transform:scale(.9)}
+.sub-inwrap:has(.sub-in:placeholder-shown) .sub-clr,.sub-in:focus+.sub-clr{opacity:0;visibility:hidden;transform:scale(.8);transition:opacity .15s ease,transform .15s ease,visibility 0s .15s}
 .sub-in::placeholder{color:rgba(0,0,0,.4)}
 .sub-in:focus,.sub-in:not(:placeholder-shown){border-color:rgba(0,0,0,.2);background:#fcfcfc}
 .sub-in[aria-invalid=true],.sub-email.bad .sub-in{border-color:rgba(0,0,0,.2);box-shadow:0 0 0 4px rgba(0,0,0,.06)}

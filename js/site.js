@@ -707,7 +707,8 @@ function subPage(step){
     var v=email||'',ok=v&&!emailProblem(v);
     return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="23" height="17" viewBox="0 0 23 17"><path d="M11.3555 9.04541C11.0679 9.04541 10.7896 8.9248 10.4927 8.66504L1.20605 0.445312C1.70703 0.13916 2.28223 0 3.04297 0H19.668C20.438 0 21.0039 0.13916 21.5049 0.445312L12.2183 8.66504C11.9214 8.9248 11.6431 9.04541 11.3555 9.04541ZM0.231934 14.6396C0.0927734 14.2778 0 13.8418 0 13.2573V3.00586C0 2.375 0.111328 1.89258 0.222656 1.66064L7.11572 7.76514L0.231934 14.6396ZM22.479 14.6396L15.5952 7.76514L22.4883 1.66064C22.5996 1.89258 22.7109 2.375 22.7109 3.00586V13.2573C22.7109 13.8418 22.6182 14.2778 22.479 14.6396ZM2.81104 16.2725C2.12451 16.2725 1.58643 16.1147 1.21533 15.8828L8.30322 8.79492L9.57422 9.92676C10.1494 10.4277 10.7339 10.6782 11.3555 10.6782C11.9771 10.6782 12.5615 10.4277 13.1367 9.92676L14.4077 8.79492L21.4956 15.8828C21.1245 16.1147 20.5864 16.2725 19.8999 16.2725H2.81104Z" fill="white"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
       '<label class="sub-q" for="subEmail">Work Email</label></div>'+
-      '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
+      '<div class="sub-inwrap"><input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
+      '<button class="sub-clr" type="button" aria-label="Clear email"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="currentColor"/><path d="m6.2 6.2 5.6 5.6m0-5.6-5.6 5.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>'+
       '<div class="sub-slot"><p class="sub-err" id="subErr" aria-live="polite"></p>'+
       '<div class="sub-act"><button class="sub-next" type="submit"'+(ok?'':' aria-disabled="true"')+'>Next</button></div></div>'+
     '</form><div class="sub-shot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div></div></div>';
@@ -753,6 +754,12 @@ document.addEventListener('touchend',function(e){
   e.preventDefault();inp.focus({preventScroll:true});
   var y=window.scrollY;setTimeout(function(){if(window.scrollY!==y)window.scrollTo(0,y)},60);
 },{passive:false});
+/* clear button: shown on a filled, unfocused email field; tapping it empties the field and puts you back in */
+document.addEventListener('click',function(e){
+  var c=e.target.closest&&e.target.closest('.sub-clr');if(!c)return;
+  var inp=document.getElementById('subEmail');if(!inp)return;
+  inp.value='';inp.dispatchEvent(new Event('input',{bubbles:true}));inp.focus();
+});
 document.addEventListener('input',function(e){
   if(e.target.id!=='subEmail')return;
   var f=e.target.form,v=e.target.value,p=emailProblem(v),err=document.getElementById('subErr');
