@@ -826,7 +826,10 @@ function route(){
   var scrollTo=null, t='Site News — for construction';
   if(h.indexOf('a-')===0&&A[h.slice(2)]){app.innerHTML=article(h.slice(2)); t=A[h.slice(2)].title+' | SiteNews';}
   else if(h==='newsletter'){app.innerHTML=nlIssue(); t='Great pipes | SiteNews newsletter';}
-  else if(h==='subscribe'||h.indexOf('subscribe/')===0){var st=h.split('/')[1]||'email';if(st!=='done'&&!SUBQ[st])st='email';app.innerHTML=subPage(st);t=(st==='done'?'You’re in':'Subscribe')+' | SiteNews Weekly';}
+  else if(h==='subscribe'||h.indexOf('subscribe/')===0){var st=h.split('/')[1]||'email';if(st!=='done'&&!SUBQ[st])st='email';
+    /* a fresh start (arriving at the first step from outside the flow) clears the previous answers */
+    if(SUB.enter&&(st==='email'||st==='level')){SUB.ans={};SUB.pct=null;try{localStorage.removeItem('sn-sub-ans')}catch(err){}}
+    app.innerHTML=subPage(st);t=(st==='done'?'You’re in':'Subscribe')+' | SiteNews Weekly';}
   else if(h==='podcast'){app.innerHTML=podcastPage(); t='Digging In — Site News';}
   else if(h.indexOf('ep-')===0&&EP[h.slice(3)]){var ep=EP[h.slice(3)];app.innerHTML=episodePage(ep.id); t=ep.title+' | Digging In | SiteNews';}
   else if(h.indexOf('t-')===0){var tn=decodeURIComponent(h.slice(2)); app.innerHTML=topic(tn); t=app.querySelector('.tp-hd h1').textContent+' — Site News';}
