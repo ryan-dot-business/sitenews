@@ -721,11 +721,13 @@ function subFocus(){
   if(innerWidth<800)return;
   var f=app.querySelector('[data-subflow]');if(!f)return;
   var el=f.querySelector('#subEmail')||f.querySelector('input:checked');
-  el&&el.focus({preventScroll:true});
+  SUB.autoFocus=true;el&&el.focus({preventScroll:true});SUB.autoFocus=false;
 }
 /* email step: the hero + pitch tuck behind the card while typing, leaving room for the keyboard */
 function subTuck(on){var m=app.querySelector('.sub-main');if(m)m.classList.toggle('kb',on)}
-document.addEventListener('pointerdown',function(e){if(e.target.id==='subEmail')subTuck(true)});
+/* tuck only once the field actually has focus, so the layout never moves under the tap (that cancelled the keyboard) */
+document.addEventListener('focusin',function(e){if(e.target.id==='subEmail'&&!SUB.autoFocus)subTuck(true)});
+document.addEventListener('click',function(e){if(e.target.id==='subEmail')subTuck(true)});
 document.addEventListener('focusout',function(e){if(e.target.id==='subEmail'&&!e.target.value.trim())setTimeout(function(){if(document.activeElement!==e.target)subTuck(false)},120)});
 document.addEventListener('input',function(e){
   if(e.target.id!=='subEmail')return;
