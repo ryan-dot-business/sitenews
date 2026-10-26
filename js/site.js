@@ -701,7 +701,7 @@ function subPage(step){
   var prog=subProg((num-.3)/SUB.n*100,num,SUB.n);
   if(step==='email'){
     var v=email||'',ok=v&&!emailProblem(v);
-    return head+'<div class="sub-hero" aria-hidden="true"><img src="assets/img/sub-hero.png" alt="" width="346" height="129"></div><div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="23" height="17" viewBox="0 0 23 17"><path d="M11.3555 9.04541C11.0679 9.04541 10.7896 8.9248 10.4927 8.66504L1.20605 0.445312C1.70703 0.13916 2.28223 0 3.04297 0H19.668C20.438 0 21.0039 0.13916 21.5049 0.445312L12.2183 8.66504C11.9214 8.9248 11.6431 9.04541 11.3555 9.04541ZM0.231934 14.6396C0.0927734 14.2778 0 13.8418 0 13.2573V3.00586C0 2.375 0.111328 1.89258 0.222656 1.66064L7.11572 7.76514L0.231934 14.6396ZM22.479 14.6396L15.5952 7.76514L22.4883 1.66064C22.5996 1.89258 22.7109 2.375 22.7109 3.00586V13.2573C22.7109 13.8418 22.6182 14.2778 22.479 14.6396ZM2.81104 16.2725C2.12451 16.2725 1.58643 16.1147 1.21533 15.8828L8.30322 8.79492L9.57422 9.92676C10.1494 10.4277 10.7339 10.6782 11.3555 10.6782C11.9771 10.6782 12.5615 10.4277 13.1367 9.92676L14.4077 8.79492L21.4956 15.8828C21.1245 16.1147 20.5864 16.2725 19.8999 16.2725H2.81104Z" fill="white"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
+    return head+'<div class="sub-pitch"><span class="sub-pitch-ic" aria-hidden="true"><svg width="23" height="17" viewBox="0 0 23 17"><path d="M11.3555 9.04541C11.0679 9.04541 10.7896 8.9248 10.4927 8.66504L1.20605 0.445312C1.70703 0.13916 2.28223 0 3.04297 0H19.668C20.438 0 21.0039 0.13916 21.5049 0.445312L12.2183 8.66504C11.9214 8.9248 11.6431 9.04541 11.3555 9.04541ZM0.231934 14.6396C0.0927734 14.2778 0 13.8418 0 13.2573V3.00586C0 2.375 0.111328 1.89258 0.222656 1.66064L7.11572 7.76514L0.231934 14.6396ZM22.479 14.6396L15.5952 7.76514L22.4883 1.66064C22.5996 1.89258 22.7109 2.375 22.7109 3.00586V13.2573C22.7109 13.8418 22.6182 14.2778 22.479 14.6396ZM2.81104 16.2725C2.12451 16.2725 1.58643 16.1147 1.21533 15.8828L8.30322 8.79492L9.57422 9.92676C10.1494 10.4277 10.7339 10.6782 11.3555 10.6782C11.9771 10.6782 12.5615 10.4277 13.1367 9.92676L14.4077 8.79492L21.4956 15.8828C21.1245 16.1147 20.5864 16.2725 19.8999 16.2725H2.81104Z" fill="white"/></svg></span><p><b>Get smarter in just 5 minutes.</b> Our free weekly newsletter will keep you up to speed.</p></div>'+'<form class="sub-card sub-email'+(ok?' ok':'')+'" data-subflow="email" novalidate>'+prog+'<div class="sub-hd">'+stepTxt+
       '<label class="sub-q" for="subEmail">Work Email</label></div>'+
       '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
       '<div class="sub-slot"><p class="sub-err" id="subErr" aria-live="polite"></p>'+
@@ -723,12 +723,13 @@ function subFocus(){
   var el=f.querySelector('#subEmail')||f.querySelector('input:checked');
   SUB.autoFocus=true;el&&el.focus({preventScroll:true});SUB.autoFocus=false;
 }
-/* email step: the hero + pitch tuck behind the card while typing, leaving room for the keyboard */
-var TOUCH=window.matchMedia&&matchMedia('(pointer:coarse)');
-function subTuck(on){if(on&&!(TOUCH&&TOUCH.matches))return;var m=app.querySelector('.sub-main');if(m)m.classList.toggle('kb',on)}
-/* tuck only once the field actually has focus, so the layout never moves under the tap (that cancelled the keyboard) */
-document.addEventListener('focusin',function(e){if(e.target.id==='subEmail'&&!SUB.autoFocus)subTuck(true)});
-document.addEventListener('focusout',function(e){if(e.target.id==='subEmail'&&!e.target.value.trim())setTimeout(function(){if(document.activeElement!==e.target)subTuck(false)},120)});
+/* email field on touch screens: focus without Safari's scroll-to-field jump, so the page stays still
+   and the keyboard simply slides up underneath (like a native sign-up screen) */
+document.addEventListener('touchend',function(e){
+  var inp=e.target.id==='subEmail'?e.target:null;if(!inp||document.activeElement===inp)return;
+  e.preventDefault();inp.focus({preventScroll:true});
+  var y=window.scrollY;setTimeout(function(){if(window.scrollY!==y)window.scrollTo(0,y)},60);
+},{passive:false});
 document.addEventListener('input',function(e){
   if(e.target.id!=='subEmail')return;
   var f=e.target.form,v=e.target.value,p=emailProblem(v),err=document.getElementById('subErr');

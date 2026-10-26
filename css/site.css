@@ -991,14 +991,9 @@ body.sub-pg #app{max-width:none}
 .sub-logo svg{display:block;width:130px;height:auto}
 .sub-main{width:100%;max-width:480px;margin-top:34px;display:flex;flex-direction:column}
 .sub-pitch{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin:0 0 -30px;padding:20px 20px 47px;border-radius:20px 20px 0 0;background:#3c3c3c}
-.sub-hero{position:relative;z-index:0;display:flex;align-items:flex-start;justify-content:center;height:166px;padding-top:25px;margin-bottom:-23px;border-radius:20px 20px 0 0;background:rgba(236,72,0,.5);overflow:hidden}
-.sub-hero img{display:block;width:356px;max-width:calc(100% - 26px);height:auto;filter:drop-shadow(0 4px 3.5px rgba(0,0,0,.25))}
 .sub-email{z-index:2}
+@media (max-width:799px){.sub-main:has(.sub-email){margin-top:48px}}
 .sub-wk{font-family:var(--display);font-size:22px;line-height:1;font-weight:500;color:#000;padding-top:3px}
-/* touch devices: once the email field has focus, the strip + card glide up over the hero image
-   (one movement: a negative margin pulls them up while the image fades back behind them) */
-.sub-hero{transition:margin-bottom .38s cubic-bezier(.2,.8,.2,1),opacity .28s ease,transform .38s cubic-bezier(.2,.8,.2,1)}
-.sub-main.kb .sub-hero{margin-bottom:-189px;opacity:0;transform:translateY(18px) scale(.97)}
 .sub-pitch-ic{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:7px;background:#ff621d}
 .sub-pitch p{margin:0;font-family:var(--display);font-size:15px;line-height:1.4;font-weight:500;letter-spacing:-.45px;color:rgba(255,255,255,.4)}
 .sub-pitch b{font-weight:500;color:var(--white)}
