@@ -392,7 +392,7 @@ function home(){
     '</div>'+
     '<aside class="h-side">'+
      '<div class="ad-mpu"><p class="ad-lab">ADVERTISEMENT</p><a class="ad-slot ad-300" href="#home" aria-label="Advertisement"><span>300 × 250</span></a></div>'+
-     '<div class="nl-wrap o2"><section class="hero" id="signup"><h1>NEWS<br>TRENDS<br><span class="hi">INSIGHTS</span></h1><p class="for">FOR CONSTRUCTION</p><p class="pitch">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup">'+signup('heroEmail')+'</div></section>'+
+     '<div class="nl-wrap o2"><section class="hero" id="signup"><p class="nlbrand"><b>SiteNews</b> Weekly</p><h1>NEWS<br>TRENDS<br><span class="hi">INSIGHTS</span></h1><p class="for">FOR CONSTRUCTION</p><p class="pitch">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup">'+signup('heroEmail')+'</div></section>'+
      '<a class="nl-card press" href="#newsletter"><div class="top"><span class="nl-pill">Latest Newsletter</span></div><div class="nl-title"><b><span aria-hidden="true">⚡️</span> Supernova Scotia</b><span class="date"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true"><rect x=".6" y="1.6" width="10.8" height="9.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.6 4.4h10.8M3.4 0v2.8M8.6 0v2.8" stroke="currentColor" stroke-width="1.2"/></svg>Oct 6</span></div><p class="nl-dek">EverWind has announced a $10-billion development at Point Tupper—the largest privately funded development in Nova Scotia’s history—combining a 420-megawatt AI data centre campus with a $2-billion, four-site onshore wind energy buildout.</p></a></div>'+
      '<div class="o6">'+videoCard()+'</div>'+
     '</aside>'+
@@ -418,7 +418,7 @@ function block(b){
     case 'job': return '<div class="job"><h3><span class="jn">'+b.n+'.</span> '+b.title+' <span class="sal">– '+b.sal+'</span></h3><p class="quip">'+b.quip+'</p><p>'+b.t+'</p></div>';
     case 'pm': return '<p class="pm"><a class="pmn" href="'+li(b.name)+'" target="_blank" rel="noopener">'+b.name+'</a> '+b.verb+' <a href="'+gs(b.org)+'" target="_blank" rel="noopener">'+b.org+'</a>'+b.tail+'</p>';
     case 'pmg': return '<p class="pm"><a href="'+gs(b.org)+'" target="_blank" rel="noopener">'+b.org+'</a>'+b.t+'</p>';
-    case 'nl': return '<section class="nlbox2" aria-label="Newsletter signup"><h2>News, trends, &amp; insights in Canadian construction</h2><p class="nl2-d">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup nl2">'+signup('nlIn','',"Subscribe")+'</div><p class="nl2-f">Be more valuable, weekly</p></section>';
+    case 'nl': return '<section class="nlbox2" aria-label="SiteNews Weekly newsletter signup"><p class="nlbrand"><b>SiteNews</b> Weekly</p><h2>News, trends, &amp; insights in Canadian construction</h2><p class="nl2-d">Get smarter in just 5 minutes. Sign up for the free weekly newsletter that will keep you up to speed.</p><div class="signup nl2">'+signup('nlIn','',"Subscribe")+'</div><p class="nl2-f">Be more valuable, weekly.</p></section>';
   }
   return '';
 }
