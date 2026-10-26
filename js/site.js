@@ -706,7 +706,7 @@ function subPage(step){
       '<input class="sub-in" id="subEmail" type="email" placeholder="example@company.com" autocomplete="email" spellcheck="false" value="'+escH(v)+'" aria-describedby="subErr">'+
       '<div class="sub-slot"><p class="sub-err" id="subErr" aria-live="polite"></p>'+
       '<div class="sub-act"><button class="sub-next" type="submit"'+(ok?'':' aria-disabled="true"')+'>Next</button></div></div>'+
-    '</form></div></div>';
+    '</form><div class="sub-shot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div></div></div>';
   }
   var q=SUBQ[step],cur=SUB.ans[step];
   return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+'<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+(step==='level'?SUB_INTRO:'')+'</div>'+
@@ -725,6 +725,11 @@ function subFocus(){
 }
 /* email field on touch screens: focus without Safari's scroll-to-field jump, so the page stays still
    and the keyboard simply slides up underneath (like a native sign-up screen) */
+/* the preview image under the card fades away while the on-screen keyboard is up (touch devices only) */
+var TOUCH=window.matchMedia&&matchMedia('(pointer:coarse)');
+function subKb(on){var m=app.querySelector('.sub-main');if(m)m.classList.toggle('kb',!!on&&!!(TOUCH&&TOUCH.matches))}
+document.addEventListener('focusin',function(e){if(e.target.id==='subEmail')subKb(true)});
+document.addEventListener('focusout',function(e){if(e.target.id==='subEmail')subKb(false)});
 document.addEventListener('touchend',function(e){
   var inp=e.target.id==='subEmail'?e.target:null;if(!inp||document.activeElement===inp)return;
   e.preventDefault();inp.focus({preventScroll:true});

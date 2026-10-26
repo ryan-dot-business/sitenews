@@ -992,6 +992,9 @@ body.sub-pg #app{max-width:none}
 .sub-main{width:100%;max-width:480px;margin-top:34px;display:flex;flex-direction:column}
 .sub-pitch{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin:0 0 -30px;padding:20px 20px 47px;border-radius:20px 20px 0 0;background:#3c3c3c}
 .sub-email{z-index:2}
+.sub-shot{margin-top:10px;border-radius:20px;overflow:hidden;background:#ff6a29;transition:opacity .3s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+.sub-shot img{display:block;width:100%;height:auto}
+.sub-main.kb .sub-shot{opacity:0;transform:translateY(10px)}
 @media (max-width:799px){.sub-main:has(.sub-email){margin-top:48px}}
 .sub-wk{font-family:var(--display);font-size:22px;line-height:1;font-weight:500;color:#000;padding-top:3px}
 .sub-pitch-ic{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:7px;background:#ff621d}
@@ -1077,6 +1080,7 @@ body.sub-pg #app{max-width:none}
   .sub-card{padding:36px 44px 0;border-radius:24px}
   .sub-email{padding:36px 44px 28px}
   .sub-pitch{border-radius:24px 24px 0 0;padding:20px 24px 50px}
+  .sub-shot{border-radius:24px}
   .sub-q{font-size:24px}
   .sub-opts.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .sub-opt:hover{border-color:rgba(0,0,0,.2);background:var(--hover-soft)}
