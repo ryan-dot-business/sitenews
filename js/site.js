@@ -724,13 +724,16 @@ function subPicks(){
   var box=app.querySelector('.sub-picks[data-loading]');if(!box)return;
   var t=box.querySelector('.sub-load-t'),msgs=['Reading your answers…','Matching across SiteMedia…','Optimizing recommendations…'],i=0;
   var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var tick=setInterval(function(){i++;if(i<msgs.length&&t){t.classList.remove('in');void t.offsetWidth;t.textContent=msgs[i];t.classList.add('in')}},800);
+  var tick=setInterval(function(){i++;if(i<msgs.length&&t){t.classList.remove('in');void t.offsetWidth;t.textContent=msgs[i];t.classList.add('in')}},1200);
+  var bar=app.querySelector('.sub-done .sub-bar'),n=box.querySelectorAll('.sub-rec').length;
   setTimeout(function(){
     clearInterval(tick);if(!box.isConnected)return;
     box.removeAttribute('data-loading');box.classList.add('ready');
     var r=box.querySelector('.sub-recs');r&&r.removeAttribute('aria-busy');
     var bt=app.querySelector('.sub-done [data-both]');bt&&(bt.disabled=false);
-  },rm?600:2400);
+    /* actions arrive once the last card has settled */
+    setTimeout(function(){bar&&bar.classList.add('shown')},rm?0:n*320+650);
+  },rm?600:3600);
 }
 function subFocus(){
   var bar=app.querySelector('.sub-prog span');
