@@ -74,8 +74,11 @@ body.inner .caret{display:none}
 .mlinks>a{display:flex;align-items:center;gap:7px;padding:14px 13px 14px 9px;border-bottom:2px solid #f2ecea;font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:rgba(0,0,0,.8)}
 .mlinks>a:last-child{border-bottom:0}
 .mlinks>a .ext{flex:none;display:block}
-.msub{display:flex;align-items:center;gap:7px;padding:16px 13px 16px 16px;border-radius:15px;background:var(--orange);font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:var(--white)}
+.msub{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:16px 13px 17px 16px;border-radius:15px;background:var(--orange);font-family:var(--display);font-size:18px;line-height:1;font-weight:750;letter-spacing:-.36px;color:var(--white)}
 .msub svg{flex:none;display:block}
+.msub-t{font-weight:500}
+.msub-t b{font-weight:750}
+.msub-r{display:flex;align-items:center;gap:12px}
 .mfoot{display:flex;justify-content:space-between;gap:8px;padding:32px 12px 0;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:#707070}
 .mfoot .mlegal a{color:inherit;text-decoration:none}
 .mfoot .mlegal a:hover{text-decoration:underline;text-underline-offset:2px}
