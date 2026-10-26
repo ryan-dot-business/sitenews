@@ -374,19 +374,31 @@ figure.tall img{height:auto;aspect-ratio:4/5}
 .fchips{display:flex;flex-wrap:wrap;gap:3px;width:100%;padding:8px 0 16px}
 .fchips a{padding:12px;border-radius:40px;background:rgba(255,255,255,.05);font-family:var(--display);font-size:14px;line-height:1;font-weight:750;letter-spacing:-.28px;color:var(--white)}
 .flink{display:block;padding:8px 0;font-family:var(--display);font-size:16px;line-height:1;font-weight:550;letter-spacing:-.32px;color:rgba(255,255,255,.7)}
-.flink.fab{padding-bottom:34px}
+.flink.fab{padding-bottom:8px}
+.fnl{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:24px 0}
+.fnl-t{margin:0;font-family:var(--display);font-size:16px;line-height:1;font-weight:500;letter-spacing:-.32px;color:var(--white)}
+.fnl-t b{font-weight:750}
+.fnl-d{margin:-4px 0 0;font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.42px;color:rgba(255,255,255,.7)}
+.fnl-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 13px 12px 12px;border-radius:10px;background:var(--orange);font-family:var(--display);font-size:14px;line-height:1;font-weight:750;letter-spacing:-.28px;color:var(--white)}
+.fnl-btn svg{display:block}
+.fnl-btn:hover{background:#f25c1b}
 .fsec{width:100%;border-bottom:2px solid #2b2b2b;padding-bottom:34px}
 .fsoc{display:flex;align-items:center;gap:16px;padding-top:8px}
 .fsoc img{display:block}
 .fsm{display:block;padding:34px 0 14px;font-family:var(--display);font-size:26px;line-height:1;font-weight:750;letter-spacing:-1px;color:var(--white)}
 .fsm b{color:#1c6fe0}
 .fpubs{padding-top:34px;display:flex;flex-direction:column;gap:10px}
+.fpubs .flab{padding-bottom:0}
 .flab{font-family:var(--display);font-size:11px;line-height:1;font-weight:650;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.7)}
-.fpubs>div{display:flex;flex-wrap:wrap;column-gap:12px}
-.fpubs a{display:flex;align-items:center;gap:7px;height:44px;padding-right:13px;font-family:var(--display);font-size:16px;line-height:1;font-weight:750;letter-spacing:-.32px;color:var(--white)}
-.fpubs a svg{flex:none;display:block}
-.fpubs a.ej{font-family:'Museo Slab Rounded','Zilla Slab',Georgia,serif;font-weight:700;letter-spacing:-.2px}
-.flegal{padding-top:34px;display:flex;flex-direction:column;gap:32px;font-size:12px;line-height:1.4;letter-spacing:-.24px}
+.fpubs>div{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;padding-top:14px}
+.fpubs a{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding-right:13px;color:var(--white)}
+.fp-n{display:flex;align-items:center;gap:7px;font-family:var(--display);font-size:16px;line-height:1;font-weight:750;letter-spacing:-.32px}
+.fp-n svg{flex:none;display:block}
+.fp-d{font-family:var(--display);font-size:12px;line-height:1;font-weight:400;letter-spacing:-.24px;color:rgba(255,255,255,.4)}
+.fpubs a:last-child{grid-column:span 2}
+.fpubs a:hover .fp-n{opacity:.75}
+.fpubs a.ej .fp-n{font-family:'Museo Slab Rounded','Zilla Slab',Georgia,serif;font-weight:700;letter-spacing:-.2px}
+.flegal{padding-top:34px;display:flex;flex-direction:column;gap:32px;font-size:12px;line-height:1.4;letter-spacing:-.24px;color:var(--white)}
 .flegal b{font-family:var(--display);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .fl2{display:flex;flex-direction:column;gap:8px;font-size:14px;letter-spacing:-.28px}
 .fl2 a{color:rgba(255,255,255,.7)}
@@ -686,7 +698,9 @@ html,body{overflow-x:clip}
   .ftop{display:flex;flex-direction:column;align-items:flex-start;width:100%}
   .fg1 .flink.fab{padding-bottom:8px}
   .fg1 .fchips{padding-right:13px}
-  .fg2{grid-column:span 5}
+  .fg2{grid-column:span 5;align-self:stretch}
+  .fg2 .fpubs{flex:1}
+  .fpubs>div{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 40px;padding-top:14px}
   .fg3{grid-column:span 2;align-self:stretch;justify-content:flex-end;padding-top:88px}
   .fg3 .flegal{padding-top:0}
   .flab{font-size:10px}
