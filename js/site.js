@@ -713,8 +713,9 @@ function subPage(step){
     '</form><div class="sub-shot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div></div></div>';
   }
   var q=SUBQ[step],cur=SUB.ans[step];
-  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+'<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+(step==='level'?SUB_INTRO:'')+'</div>'+
-    '<div class="sub-hd q">'+stepTxt.replace('<p ','<p id="subStep" ')+'</div><fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
+  return head+'<form class="sub-card'+(q.o.length>9?' wide':'')+(cur?' ok':'')+'" data-subflow="'+step+'" data-next="'+nextH+'" novalidate>'+prog+
+    '<div class="sub-hd q">'+stepTxt.replace('<p ','<p id="subStep" ')+'</div>'+(step==='level'?SUB_INTRO:'')+
+    '<div class="sub-who">'+(email?'<p class="sub-addr">'+escH(email.trim())+'</p>':'')+'</div><fieldset class="sub-fs" aria-describedby="subStep"><legend class="sub-q">'+q.t+'</legend>'+
     '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o,n){return '<label class="sub-opt" style="--i:'+Math.min(n,12)+'"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
     '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
   '</form></div></div>';

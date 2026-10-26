@@ -1002,16 +1002,17 @@ body.sub-pg #app{max-width:none}
 .sub-pitch b{font-weight:500;color:var(--white)}
 .sub-card{position:relative;width:100%;background:var(--white);border-radius:20px;padding:32px 32px 46px;box-shadow:0 4px 24px rgba(0,0,0,.03);font-family:var(--ui);color:#000}
 .sub-email{min-height:248px;padding:32px 32px 24px}
-.sub-prog{height:6px;border-radius:10px;background:rgba(0,0,0,.05);overflow:hidden;margin-bottom:25px}
+.sub-prog{height:6px;border-radius:10px;background:rgba(0,0,0,.05);overflow:hidden;margin-bottom:18px}
 .sub-prog span{display:block;height:100%;border-radius:10px;background:var(--orange);transition:width .4s ease}
 .sub-hd{margin-bottom:20px}
 .sub-hd .sub-q{margin:0}
 .sub-hd.q{margin:0}
 .sub-email .sub-hd{margin-bottom:16px}
 .sub-slot{min-height:46px;margin-top:16px}
-.sub-who{margin-bottom:16px}
-.sub-who:has(.sub-tip){margin-bottom:12px}
-.sub-who:has(.sub-tip) .sub-addr{margin-bottom:16px}
+.sub-hd.q .sub-step{margin:0 0 12px}
+.sub-tip{margin-bottom:20px}
+.sub-who{margin:0}
+.sub-who .sub-addr{margin:0 0 8px;font-size:14px;line-height:1;font-weight:600;color:rgba(0,0,0,.5)}
 .sub-tip{display:flex;align-items:center;gap:12px;padding:8px;border-radius:15px;background:rgba(0,0,0,.03)}
 .sub-tip svg{flex:none;display:block}
 .sub-tip p{margin:0;flex:1;font-size:14px;line-height:1.4;font-weight:500;letter-spacing:-.28px;color:rgba(0,0,0,.4)}
@@ -1019,7 +1020,7 @@ body.sub-pg #app{max-width:none}
 .sub-addr{margin:0 0 6px;font-size:17px;line-height:1.2;font-weight:600;color:#000;overflow-wrap:anywhere}
 .sub-intro{margin:0;font-size:16px;line-height:1.4;font-weight:500;letter-spacing:-.32px;color:rgba(0,0,0,.4)}
 .sub-intro b{color:#000;font-weight:600}
-.sub-step{margin:0 0 8px;font-size:14px;line-height:1;font-weight:700;color:rgba(0,0,0,.3)}
+.sub-step{margin:0 0 8px;font-size:14px;line-height:1;font-weight:600;color:rgba(0,0,0,.3)}
 .sub-q{display:block;float:none;width:100%;padding:0;margin:0 0 20px;font-size:22px;line-height:1.1;font-weight:600;letter-spacing:-.2px;color:#000}
 .sub-fs{border:0;margin:0;padding:0;min-width:0}
 .sub-in{width:100%;padding:11px 12px;border:2px solid rgba(0,0,0,.1);border-radius:10px;background:var(--white);font:inherit;font-size:16px;line-height:1.2;color:rgba(0,0,0,.8);outline:0}
