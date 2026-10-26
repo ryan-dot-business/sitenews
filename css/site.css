@@ -1052,20 +1052,41 @@ body.sub-pg #app{max-width:none}
 /* mobile: Next only appears once there's something to submit (as in the design) */
 @media (max-width:799px){.sub-card .sub-bar .sub-next{transition:opacity .22s ease,transform .3s cubic-bezier(.2,.8,.2,1)}.sub-card:not(.ok) .sub-bar .sub-next{opacity:0;transform:translateY(8px);pointer-events:none}}
 /* success */
-.sub-done{display:flex;flex-direction:column;gap:25px}
-.sub-done .sub-prog{margin:0}
-.sub-h{margin:0;font-family:var(--display);font-size:20px;line-height:1;font-weight:750;letter-spacing:-.2px;color:#000}
-.sub-pair{display:flex;flex-direction:column;gap:8px}
-.sub-pair+.sub-pair,.sub-pair+.sub-recs{margin-top:-5px}
+.sub-done{display:flex;flex-direction:column;gap:12px;padding:16px 16px 46px;border-radius:30px;box-shadow:0 4px 24px rgba(0,0,0,.03)}
+.sub-welcome{border-radius:20px;overflow:hidden}
+.sub-wshot{height:137px;padding-top:14px;background:#ff6a29;overflow:hidden;display:flex;justify-content:center}
+.sub-wshot img{display:block;width:100%;max-width:382px;height:auto;margin-top:-14px}
+.sub-wbar{display:flex;gap:16px;padding:16px;background:#3c3c3c;color:var(--white)}
+.sub-wic{flex:none;display:flex;align-items:center;justify-content:center;width:39px;height:39px;border-radius:7px;background:#ff6a29}
+.sub-wbar .sub-h{margin:0 0 6px;font-family:var(--display);font-size:20px;line-height:1;font-weight:750;letter-spacing:-.2px;text-transform:uppercase;color:var(--white)}
+.sub-wbar .sub-v{margin:0 0 4px;font-size:14px;line-height:1.15;font-weight:600;color:var(--white);overflow-wrap:anywhere}
+.sub-wbar .sub-k{margin:0;font-size:14px;line-height:1.15;color:rgba(255,255,255,.4)}
+.sub-picks{display:flex;flex-direction:column;gap:16px;padding:12px 24px 0}
+.sub-pair{display:flex;flex-direction:column;gap:4px}
 .sub-k{margin:0;font-size:14px;line-height:1.2;color:rgba(0,0,0,.3)}
-.sub-v{margin:0;font-size:17px;line-height:1.2;font-weight:600;color:#000;overflow-wrap:anywhere}
-.sub-v2{margin:0;font-size:18px;line-height:1.2;font-weight:600;color:#000}
-.sub-recs{display:flex;flex-direction:column;gap:7px}
-.sub-rec{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:12px;border:2px solid rgba(0,0,0,.2);border-radius:15px;background:var(--white);transition:background-color .2s ease,border-color .2s ease,transform .12s ease}
+.sub-v2{margin:0;font-size:14px;line-height:1.2;font-weight:600;color:#000}
+.sub-recs{display:flex;flex-direction:column;gap:18px}
+/* loader */
+.sub-load{display:flex;align-items:center;gap:10px;height:0;margin:-8px 0;overflow:hidden;opacity:0;font-size:13px;color:rgba(0,0,0,.45);transition:height .3s ease,margin .3s ease,opacity .25s ease}
+.sub-picks[data-loading] .sub-load{height:20px;margin:0;opacity:1}
+.sub-spin{flex:none;width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,106,41,.25);border-top-color:#ff6a29;animation:subSpin .8s linear infinite}
+@keyframes subSpin{to{transform:rotate(360deg)}}
+.sub-load-t.in{animation:subFade .3s ease}
+.sub-skel{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:inherit;background:#f2f2f2;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.sub-skel b{display:block;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.11) 50%,rgba(0,0,0,.06) 100%);background-size:200% 100%;animation:subShim 1.2s linear infinite}
+.sub-skel b:first-child{width:38%;height:18px}
+.sub-skel b:nth-child(2){width:90%}
+.sub-skel b:nth-child(3){width:46%;height:28px;border-radius:30px;margin-top:auto}
+@keyframes subShim{from{background-position:200% 0}to{background-position:-200% 0}}
+.sub-picks[data-loading] .sub-skel{opacity:1}
+.sub-picks[data-loading] .sub-rec{cursor:progress}
+.sub-picks.ready .sub-rec-t,.sub-picks.ready .sub-add{animation:subRise .4s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 90ms)}
+.sub-done [data-both]:disabled{opacity:.3;cursor:default}
+.sub-rec{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:12px;border:0;border-radius:10px;background:rgba(0,0,0,.05);transition:background-color .2s ease,border-color .2s ease,transform .12s ease}
 .sub-rec{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
 .sub-rec:active{transform:scale(.99)}
 .sub-rec:hover .sub-add:not([aria-pressed=true]){background:rgba(0,0,0,.16)}
-.sub-rec:has(.sub-add[aria-pressed=true]){background:var(--paper);border-color:rgba(249,97,32,.3)}
+.sub-rec:has(.sub-add[aria-pressed=true]){background:rgba(255,106,41,.1)}
 .sub-rec-t{display:flex;flex-direction:column;gap:4px;padding:0 8px}
 .sub-mark{display:flex;align-items:center;gap:8px;min-height:24px}
 .sub-mark img{display:block}
@@ -1095,11 +1116,12 @@ body.sub-pg #app{max-width:none}
   .sub-next[aria-disabled=true]{opacity:.25}
   .sub-next[aria-disabled=true]:hover{background:#000}
   .sub-done{padding-bottom:0}
-  .sub-done .sub-bar{margin-top:7px}
-  .sub-h{font-size:24px}
-  .sub-recs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .sub-done{padding:16px 16px 0;border-radius:30px}
+  .sub-done .sub-bar{margin:20px -16px 0;padding:20px 40px}
+  .sub-wshot{height:170px}
+  .sub-recs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .sub-rec{justify-content:space-between}
-  .sub-rec:hover:not(:has(.sub-add[aria-pressed=true])){border-color:rgba(0,0,0,.3)}
+  .sub-rec:hover:not(:has(.sub-add[aria-pressed=true])){background:rgba(0,0,0,.07)}
   .sub-add[aria-pressed=true]:hover{background:#2a2a2a}
 }
 
@@ -1126,9 +1148,8 @@ body.sub-pg #app{max-width:none}
 .sub-err:not(:empty){animation:subFade .25s ease backwards}
 .sub-in{transition:border-color .18s ease,background-color .18s ease,box-shadow .2s ease}
 .sub-prog span{transition:width .6s cubic-bezier(.3,.8,.3,1)}
-.sub-h,.sub-pair{animation:subRise .4s .12s cubic-bezier(.2,.8,.2,1) backwards}
-.sub-pair+.sub-pair{animation-delay:.18s}
-.sub-rec{animation:subRise .4s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 70ms)}
+.sub-welcome{animation:subRise .45s cubic-bezier(.2,.8,.2,1) backwards}
+.sub-picks{animation:subRise .45s .1s cubic-bezier(.2,.8,.2,1) backwards}
 .sub-add{transition:background-color .2s ease,color .2s ease,transform .12s ease}
 .sub-add[aria-pressed=true]{animation:subPress .3s cubic-bezier(.3,1.4,.5,1)}
 @keyframes subPress{0%{transform:scale(.92)}100%{transform:none}}

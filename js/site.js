@@ -688,12 +688,16 @@ function subPage(step){
   var head='<div class="sub'+(SUB.enter?' enter':'')+'"><a class="sub-logo" href="#home" aria-label="SiteNews Weekly home">'+subLogo()+'<span class="sub-wk">Weekly</span></a><div class="sub-main">';
   if(step==='done'){
     var recs=subRecs(),answered=Object.keys(SUB.ans).length>0,touch=innerWidth<800;
-    return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+subProg(100,SUB.n,SUB.n)+
-      '<h1 class="sub-h" id="subDoneH">You’re in. Welcome.</h1>'+
-      '<div class="sub-pair"><p class="sub-k">Your first Weekly lands Monday morning'+(email?' at':'.')+'</p>'+(email?'<p class="sub-v">'+escH(email.trim())+'</p>':'')+'</div>'+
-      '<div class="sub-pair"><p class="sub-k">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p><h2 class="sub-v2">Add in one '+(touch?'tap':'click')+'</h2></div>'+
-      '<div class="sub-recs">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec" style="--i:'+(n+3)+'"><div class="sub-rec-t"><div class="sub-mark">'+pubMark(p,n)+'</div><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+'"><span>Subscribe</span></button></div>'}).join('')+'</div>'+
-      '<div class="sub-bar"><a class="sub-skip" href="'+SUB.ret+'" data-subret>No thanks</a><span class="sub-right"><button class="sub-next" type="button" data-both>Subscribe to both</button></span></div>'+
+    return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
+      '<div class="sub-welcome"><div class="sub-wshot" aria-hidden="true"><img src="assets/img/sub-shot.jpg" width="382" height="192" alt=""></div>'+
+        '<div class="sub-wbar"><span class="sub-wic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 2 9.6l7.4 3.1L20 4l-8.7 10.6 3.1 7.4z" fill="#fff"/></svg></span><div><h1 class="sub-h" id="subDoneH">You’re in, Weekly</h1>'+
+        (email?'<p class="sub-v">'+escH(email.trim())+'</p>':'')+'<p class="sub-k">First briefing: Monday morning, 7am</p></div></div></div>'+
+      '<div class="sub-picks" data-loading>'+
+        '<div class="sub-pair"><h2 class="sub-v2">'+(touch?'Tap':'Click')+' to add insight</h2><p class="sub-k">'+(answered?'Picked for you from SiteMedia':'Popular with SiteNews readers')+'</p></div>'+
+        '<div class="sub-load" role="status" aria-live="polite"><span class="sub-spin" aria-hidden="true"></span><span class="sub-load-t">Reading your answers…</span></div>'+
+        '<div class="sub-recs" aria-busy="true">'+recs.map(function(k,n){var p=PUBS[k];return '<div class="sub-rec" style="--i:'+n+'"><div class="sub-rec-t"><div class="sub-mark">'+pubMark(p,n)+'</div><p>'+p.d+'</p></div><button class="sub-add" type="button" data-pub="'+k+'" aria-pressed="false" aria-label="Subscribe to '+p.n+' weekly"><span>Subscribe weekly</span></button><i class="sub-skel" aria-hidden="true"><b></b><b></b><b></b></i></div>'}).join('')+'</div>'+
+      '</div>'+
+      '<div class="sub-bar"><a class="sub-skip" href="'+SUB.ret+'" data-subret>No thanks</a><span class="sub-right"><button class="sub-next" type="button" data-both disabled>Subscribe to both</button></span></div>'+
     '</section></div></div>';
   }
   var i=SUB_ORDER.indexOf(step),num=i+1-(5-SUB.n),nextH='#subscribe/'+(SUB_ORDER[i+1]||'done');
@@ -714,6 +718,20 @@ function subPage(step){
     '<div class="sub-opts'+(q.o.length>9?' two':'')+'">'+q.o.map(function(o,n){return '<label class="sub-opt" style="--i:'+Math.min(n,12)+'"><input type="radio" name="'+step+'" value="'+escH(o)+'"'+(o===cur?' checked':'')+'><span class="sub-dot" aria-hidden="true"></span><span>'+escH(o)+'</span></label>'}).join('')+'</div></fieldset>'+
     '<div class="sub-bar"><a class="sub-skip" href="'+nextH+'">Skip</a><span class="sub-right"><button class="sub-next" type="submit"'+(cur?'':' aria-disabled="true"')+'>'+(step==='loc'?'Finish':'Next')+'</button></span></div>'+
   '</form></div></div>';
+}
+/* "optimizing" pause before revealing the sister-publication picks */
+function subPicks(){
+  var box=app.querySelector('.sub-picks[data-loading]');if(!box)return;
+  var t=box.querySelector('.sub-load-t'),msgs=['Reading your answers…','Matching across SiteMedia…','Optimizing recommendations…'],i=0;
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var tick=setInterval(function(){i++;if(i<msgs.length&&t){t.classList.remove('in');void t.offsetWidth;t.textContent=msgs[i];t.classList.add('in')}},800);
+  setTimeout(function(){
+    clearInterval(tick);if(!box.isConnected)return;
+    box.removeAttribute('data-loading');box.classList.add('ready');
+    var r=box.querySelector('.sub-recs');r&&r.removeAttribute('aria-busy');
+    var bt=app.querySelector('.sub-done [data-both]');bt&&(bt.disabled=false);
+    if(t)t.textContent='Recommendations ready';
+  },rm?600:2400);
 }
 function subFocus(){
   var bar=app.querySelector('.sub-prog span');
@@ -774,11 +792,12 @@ document.addEventListener('submit',function(e){
 });
 document.addEventListener('click',function(e){
   var b=e.target.closest&&e.target.closest('.sub-add,[data-both]');
+  if(e.target.closest&&e.target.closest('.sub-picks[data-loading]'))return;
   if(!b){var card=e.target.closest&&e.target.closest('.sub-rec');b=card&&card.querySelector('.sub-add')}  /* whole card toggles */
   if(!b)return;
   var set=function(x){x.setAttribute('aria-pressed','true');x.querySelector('span').innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m2 6.3 2.6 2.6L10 3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Subscribed'};
   var adds=[].slice.call(document.querySelectorAll('.sub-add'));
-  if(b.matches('.sub-add')){if(b.getAttribute('aria-pressed')==='true'){b.setAttribute('aria-pressed','false');b.querySelector('span').textContent='Subscribe'}else set(b)}
+  if(b.matches('.sub-add')){if(b.getAttribute('aria-pressed')==='true'){b.setAttribute('aria-pressed','false');b.querySelector('span').textContent='Subscribe weekly'}else set(b)}
   else adds.forEach(set);
   var all=adds.every(function(x){return x.getAttribute('aria-pressed')==='true'}),any=adds.some(function(x){return x.getAttribute('aria-pressed')==='true'});
   var right=document.querySelector('.sub-done .sub-right'),skip=document.querySelector('.sub-done .sub-skip');
@@ -814,6 +833,7 @@ function route(){
   else if(SUB.retY&&('#'+h)===SUB.ret){window.scrollTo(0,SUB.retY);SUB.retY=0}
   else window.scrollTo(0,0);
   if(isSub)subFocus();
+  if(isSub)subPicks();
   wirePlayer();
   wireVideo();
   fillAds();
