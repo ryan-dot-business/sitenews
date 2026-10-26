@@ -685,7 +685,7 @@ function subProg(w,now,max){ /* w: a CSS width, e.g. '34.0%' or '6px' (just a do
 }
 function subPage(step){
   if(step==='email')SUB.n=5;
-  var head='<div class="sub'+(SUB.enter?' enter':'')+'"><a class="sub-logo" href="#home" aria-label="SiteNews Weekly home">'+subLogo()+'<span class="sub-wk">Weekly</span></a><div class="sub-main">';
+  var head='<div class="sub'+(SUB.enter?' enter':'')+'"><div class="sub-brand"><a class="sub-logo" href="#home" aria-label="SiteNews Weekly home">'+subLogo()+'<span class="sub-wk">Weekly</span></a><p class="sub-for">FOR CONSTRUCTION</p></div><div class="sub-main">';
   if(step==='done'){
     var recs=subRecs(),answered=Object.keys(SUB.ans).length>0,touch=innerWidth<800;
     return head+'<section class="sub-card sub-done ok" aria-labelledby="subDoneH">'+
